@@ -1,0 +1,309 @@
+html {
+  height: 100%;
+}
+body {
+  background: #fff;
+  height: 100%;
+  margin: 0;
+}
+
+#applink {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+  text-align: center;
+}
+#applink h1 {
+  color: #900;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th.heading {
+  padding-top: 10px;
+}
+label {
+  display: block;
+  font-weight: bold;
+}
+
+textarea {
+  width: calc(100% - 60px);
+  line-height: 15px;
+}
+
+textarea.input {
+  height: 16px;
+  padding: 3px;
+}
+textarea.textarea {
+  height: 300px;
+  padding: 3px;
+}
+/*
+input[type=text] {
+  width: calc(100% - 45px);
+}
+*/
+.copybutton {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 19px;
+  height: 21px;
+  margin: 1px;
+  padding: 6px;
+  border: 0;
+  background: url('copy-icon.png') no-repeat;
+}
+.deletebutton {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  background: #f00;
+  width: 19px;
+  height: 21px;
+  background: url('delete-icon.png') no-repeat;
+}
+.deletebutton input[type=checkbox] {
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  padding: 0;
+  right: 0;
+}
+
+.clear {
+  clear: both;
+}
+
+#clearrequests {
+  float: right;
+}
+
+#requestlist {
+  width: 100%;
+  height: 25%;
+  border-bottom: 1px solid #ccc;
+}
+#requestlist table{
+  width: 100%;
+  table-layout: fixed;
+}
+#requestlist table .type {
+  width: 110px;
+  text-align: center;
+}
+#requestlist table .method {
+  width: 50px;
+  text-align: center;
+}
+#requestlist table .uri {
+
+}
+#requestlist table .extra {
+  width: 85px;
+  text-align: center;
+}
+#requestlist tr.active td {
+  background: #3778d8;
+  color: #fff;
+}
+#requestlist table td {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 2px;
+}
+#requesttableheader {
+  height: 15px;
+}
+#requestlist #requesttableheader td {
+  border-top: 1px solid #ccc;
+  border-bottom: 2px solid #999;
+  text-align: center;
+  font-weight: bold;
+}
+#requestlist #requesttableheader .extra {
+  width: 100px;
+}
+#requesttablewrapper {
+  overflow-y: scroll;
+  height: calc(100% - 21px);
+}
+
+#requestdetailpane {
+  position: relative;
+  float: left;
+  width: calc(80% - 21px);
+  height: calc(75% - 21px);
+  overflow-y: auto;
+  padding: 0 10px;
+  border-right: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+
+.decoding #requestdetailpane {
+  height: calc(75% - 270px);
+}
+#show-decoder {
+  color: #555;
+  background: #eee;
+  position: fixed;
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #999;
+  border-bottom: 0;
+  bottom: 0;
+  left: calc(40% - 15px);
+  text-align: center;
+}
+.decoding #show-decoder {
+  bottom: 249px;
+}
+
+#show-decoder::after {
+  content: "▴";
+}
+.decoding #show-decoder::after {
+  content: "▾";
+}
+#decodearea {
+  float: left;
+  height: 249px;
+  width: calc(80% - 21px);
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 0 10px;
+  display: none;
+}
+.decoding #decodearea {
+  display: block;
+}
+#decodearea textarea {
+  height: 75px;
+}
+
+#requestdetails > table {
+  width: 100%;
+}
+
+.inputTable {
+  table-layout: fixed;
+  width: 100%;
+}
+.inputTable th {
+  text-align: left;
+}
+
+.inputTable td {
+  vertical-align: top;
+}
+
+.inputTable .inputName {
+  width: 150px;;
+}
+.inputTable .inputValue {
+  word-wrap: break-word;
+  -webkit-user-select: text;
+  position: relative;
+}
+.inputTable .inputDelete {
+  text-align: center;
+  width: 100px;
+}
+.inputTable .disabled {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+#requestactions {
+  float: right;
+  width: 20%;
+}
+
+#requestactions button {
+  box-shadow:inset 0px 1px 3px 0px #91b8b3;
+  background-color:#768d87;
+  border-radius:5px;
+  border:1px solid #566963;
+  display:block;
+  color:#ffffff;
+  font-family:arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:11px 23px;
+  text-shadow:0px 0px 0px #2b665e;
+  width: calc(100% - 20px);
+  margin: 10px;
+}
+#requestactions button:hover {
+  background-color:#6c7c7c;
+}
+#requestactions button:active {
+  position:relative;
+  top:1px;
+}
+
+
+#requestactions button.no {
+  box-shadow:inset 0px 1px 3px 0px #cf866c;
+  background-color:#a13b1e;
+  border:1px solid #942911;
+  text-shadow:0px 0px 0px #854629;
+}
+
+#requestactions button.no:hover {
+  background-color:#8a2d1a;
+}
+
+#requestActuators {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  width: 20%;
+  border-top: 1px solid #ccc;
+  text-align: center;
+  height: 100px;
+}
+
+#statusbuttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: 40px;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+}
+
+#statusbuttons label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+  margin-bottom: 3px;
+  margin-left: 10px;
+}
+#statusbuttons label input[type=checkbox] {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: 1px;
+  overflow: hidden;
+}

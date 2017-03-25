@@ -1,0 +1,19 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "name": "Tamper Chrome (application)",
+  "description": "Intercept and modify Chrome requests",
+  "version": "1.3.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": { "16": "tamper-16.png", "48": "tamper-48.png", "128": "tamper-128.png" },
+  "permissions": [
+    {"socket":["tcp-connect", "tcp-listen"]},
+    "clipboardWrite"
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7G3OE689k34waPVw/qLNjlDmZeiCUgBy4Px1bFTZwd+4lSdrFy+qJJ6o6lBn/ddWwjRPC+KHVy4+D++GinAsx3irGQNCcmL3gYsIMK1n8/6AuEnCKl19wCG9qBeE3C+RmJGosJJMwirjZZGo9CLsxgF0EqJeEgVoKqkUm8DZ2EiT8HXs4OhbPO90B6rd40nVCZB2t3aqRpKdXrf9FqPW4odAeWMFQJXzZFCRbm0PDSurLZ6EPcIYFtfKz7EowY6BmWnwUq81TPeFU2wi6+at88fBwdXFlZdCZ4up0ilU66g8UphPiUeAOn3Fw2V66udwsWNIHsz1lbgrsLoQVdi4swIDAQAB"
+}

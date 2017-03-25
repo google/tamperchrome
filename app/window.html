@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="main.css" />
+    <script src="window.js"></script>
+  </head>
+  <body>
+    <div id="requestlist">
+      <table id="requesttableheader">
+        <tr>
+          <td class="type">Type</th>
+          <td class="method">Method</th>
+          <td class="uri">URI</th>
+          <td class="extra">Extra</th>
+        </tr>
+      </table>
+      <div id="requesttablewrapper">
+        <table id="requesttable">
+
+        </table>
+      </div>
+    </div>
+
+    <div id="requestdetailpane">
+     <div id="requestdetails"></div>
+     <a id="show-decoder">Decoder </a>
+    </div>
+
+    <div id="requestactions"></div>
+
+    <div id="decodearea">
+      <label>Input:</label>
+      <textarea id="decoder-input"></textarea>
+      <select id="decoder-type">
+       <option value="autodetect">Autodetect decoding</option>
+       <option value="urldecode">URL Decode</option>
+       <option value="urlencode">URL Encode</option>
+       <option value="b64decode">Base64 Decode</option>
+       <option value="b64encode">Base64 Encode</option>
+       <option value="hexdecode">Hexadecimal Decode</option>
+       <option value="hexencode">Hexadecimal Encode</option>
+      </select>
+      <label>Output:</label>
+      <textarea id="decoder-output" disabled></textarea>
+    </div>
+
+    <div id="requestActuators">
+      <label>Filter request list:</label>
+      <input type="text" id="filterRequestList">
+      <br><br>
+      <button id="clearRequestList">Clear requests</button>
+    </div>
+
+    <div id="statusbuttons">
+      <label><input type="checkbox" id="debug"> debug injection</label>
+      <label><input type="checkbox" id="ignore"> ignore requests</label>
+    </div>
+    <div id="applink">
+      <h1>You must have the Tamper Chrome chrome application in order to use this extension.</h1>
+    </div>
+  </body>
+</html>

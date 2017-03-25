@@ -1,0 +1,117 @@
+body {
+    cursor: default;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Lucida Grande', 'Ubuntu', Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    margin: 0;
+    tab-size: 4;
+    -webkit-user-select: none;
+    color: #222;
+}
+
+#applink {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #fdd;
+  display: none;
+  text-align: center;
+}
+
+h1 {
+  color: #666;
+  font-family: arial;
+}
+
+label {
+  display: block;
+  padding: 5px 0;
+}
+label > input[type="checkbox"] {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin: 0;
+  margin-right: 5px;
+  vertical-align: bottom;
+  position: relative;
+  overflow: hidden;
+}
+
+#sidebar {
+  float: left;
+  width: 230px;
+  height: 100%;
+  background: #eee;
+  border-right: 1px solid #999;
+  margin-right: 20px;
+  overflow: auto;
+}
+
+#sidebar ul {
+  padding: 0;
+  margin: 0;
+}
+#sidebar li {
+  list-style-type: none;
+}
+#sidebar li a {
+  display: block;
+  height: 10px;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#sidebar li a.active {
+  background: #3778d8;
+  color: #fff;
+}
+#sidebar li a.enabled {
+  font-weight: bold;
+}
+#sidebar li a input {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin: 0;
+  margin-right: 5px;
+  vertical-align: bottom;
+  position: relative;
+  overflow: hidden;
+}
+
+#main {
+  float: left;
+}
+#main > div {
+  display: none;
+}
+#main .active {
+  display: block;
+}
+#main h1 {
+  margin-bottom: 3px;
+}
+#main .description {
+  display: block;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+
+#main .enabled h1 {
+  color: #000;
+}
+#main .enabled h1::after {
+  content: ' (active)';
+}
+
+#main .optionsPane {
+  float: left;
+  margin-right: 20px;
+}
