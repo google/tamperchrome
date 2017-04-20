@@ -1,4 +1,4 @@
-Tamper Chrome is a Chrome extension that allows you to modify HTTP requests on the fly and aid on web security testing. Tamper Chrome works across all operating systems (including Chrome OS).
+[Tamper Chrome](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb) is a Chrome extension that allows you to modify HTTP requests on the fly and aid on web security testing. Tamper Chrome works across all operating systems (including Chrome OS).
 
 # Want to know how to use *Tamper Chrome*?
 
@@ -88,3 +88,7 @@ The last tool in *Tamper Chrome* is to replay and modify requests. This is parti
 ![replay](https://sirdarckcat.github.io/images/replay.png)
 
 Note that if you modify the request, then a new request will be generated, which in turn you will be allowed to modify. So make sure to leave at least one request unmodified so the requests stop showing up.
+
+# NOTE
+
+This is not an official Google product.
