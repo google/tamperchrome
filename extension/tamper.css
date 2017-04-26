@@ -31,6 +31,7 @@ h1 {
 label {
   display: block;
   padding: 5px 0;
+  color: blue;
 }
 label > input[type="checkbox"] {
   width: 13px;
