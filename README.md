@@ -54,7 +54,7 @@ This tool will allow you to do just that.
 
 ![Headers](https://sirdarckcat.github.io/images/headers.png)
 
-You can drop a header by clicking on the *Trash* icon, or copy it's value by clicking on the *Copy* icon. You can add a new header by clicking on the [ *new* ] button.
+You can drop a header by clicking on the *Trash* icon, or copy its value by clicking on the *Copy* icon. You can add a new header by clicking on the [ *new* ] button.
 
 ### Response Headers
 
