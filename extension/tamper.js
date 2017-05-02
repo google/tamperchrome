@@ -162,7 +162,7 @@ onload = function() {
         'sidebar': 'Monitor Reflected XSS',
         'title': 'Monitor Reflected XSS',
         'description': 'Displays information in the console if a <tcxss> ' +
-            'element or any element with a tcxss attribute is present inthe DOM'
+            'element or any element with a tcxss attribute is present in the DOM'
       },
       { 'category': 'interceptPost',
         'sidebar': 'Replay Requests (Experimental)',
