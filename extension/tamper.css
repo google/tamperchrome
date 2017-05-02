@@ -10,6 +10,7 @@ body {
     tab-size: 4;
     -webkit-user-select: none;
     color: #222;
+    background-color: #222;
 }
 
 #applink {
@@ -24,13 +25,14 @@ body {
 }
 
 h1 {
-  color: #666;
+  color: #999;
   font-family: arial;
 }
 
 label {
   display: block;
   padding: 5px 0;
+  color: white;
 }
 label > input[type="checkbox"] {
   width: 13px;
