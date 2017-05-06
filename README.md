@@ -1,5 +1,12 @@
 [Tamper Chrome](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb) is a Chrome extension that allows you to modify HTTP requests on the fly and aid on web security testing. Tamper Chrome works across all operating systems (including Chrome OS).
 
+# How To Install *Tamper Chrome*
+
+***Tamper Chrome* has two components that need to be installed:** 
+1. **First Install the [*Tamper Chrome* Extension](https://chrome.google.com/webstore/detail/tamper-chrome-extension/hifhgpdkfodlpnlmlnmhchnkepplebkb?hl=en)**
+2. **Then Install the [*Tamper Chrome* Application](https://chrome.google.com/webstore/detail/tamper-chrome-application/odldmflbckacdofpepkdkmkccgdfaemb)**
+3. **Restart your browser.**
+
 # Want to know how to use *Tamper Chrome*?
 
 If you have any more questions feel free to post [to the group](https://groups.google.com/forum/#!forum/tamper-chrome-help).
