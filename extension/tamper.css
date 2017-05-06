@@ -24,6 +24,26 @@ body {
   text-align: center;
 }
 
+#applink h1 {
+  font-size: 48px;
+}
+
+#applink p {
+  font-size: 28px;
+}
+
+#applink p.footnote {
+  font-size: 18px;
+}
+
+#applink a {
+  color: maroon;
+}
+
+#applink a:hover {
+  color: blue;
+}
+
 h1 {
   color: #999;
   font-family: arial;
