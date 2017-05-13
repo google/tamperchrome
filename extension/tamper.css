@@ -87,6 +87,7 @@ label > input[type="checkbox"] {
   height: 10px;
   padding: 15px;
   text-decoration: none;
+  color: #222;
 }
 
 #sidebar li a.active {
