@@ -1,5 +1,4 @@
 {
-"update_url":"http://clients2.google.com/service/update2/crx",
    "background": {
       "scripts": [ "inject.js", "background.js" ]
    },
