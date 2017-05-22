@@ -128,7 +128,7 @@ label > input[type="checkbox"] {
 
 
 #main .enabled h1 {
-  color: #000;
+  color: #fff;
 }
 #main .enabled h1::after {
   content: ' (active)';
