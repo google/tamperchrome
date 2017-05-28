@@ -247,7 +247,7 @@ var endRequest = function(socketId, request, retval, debug) {
 
 // function to launch the application
 var launchApp = function() {
-  if (!uiWindow || !uiWindow.contentWindow.window) {
+  if (!uiWindow || !uiWindow.contentWindow.window || uiWindow.contentWindow.closed) {
     console.log('popping window');
     forceLaunchApp();
   }
