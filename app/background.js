@@ -253,8 +253,8 @@ var launchApp = function() {
   }
 };
 
-var forceLaunchApp = function() {
-  chrome.app.window.create('window.html', {
+var forceLaunchApp = function(extraArgs) {
+  chrome.app.window.create('window.html?'+extraArgs, {
     'id': 'UI',
     'bounds': {
       'width': 900,
@@ -265,7 +265,7 @@ var forceLaunchApp = function() {
     uiWindow.onClosed.addListener(function(e) {
       for (request_id in requests) {
         if (!requests[request_id].completed) {
-          forceLaunchApp();
+          forceLaunchApp('ignore=1');
           break;
         }
       }

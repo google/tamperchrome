@@ -801,6 +801,7 @@ document.addEventListener('DOMContentLoaded', function() {requestlist
   actions = document.getElementById('requestactions');
   debug = document.getElementById('debug');
   ignore = document.getElementById('ignore');
+  ignore.checked = !!location.href.match('ignore=1');
 
   var decoderButton = document.getElementById('show-decoder');
   decoderButton.onclick = function(e) {
