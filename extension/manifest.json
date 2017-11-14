@@ -7,7 +7,7 @@
    "manifest_version": 2,
    "name": "Tamper Chrome (extension)",
    "permissions": [ "webRequest", "webRequestBlocking", "webNavigation", "tabs", "http://*/*", "https://*/*", "debugger" ],
-   "version": "1.3.2",
+   "version": "1.3.3",
    "web_accessible_resources": ["tamper-16.png"],
    "icons": { "16": "r_tamper-16.png", "48": "r_tamper-48.png", "128": "r_tamper-128.png" },
    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyC+J6Ivsu28ollFArFpvdbJgX0umYR0/5trfCEbR5abNa0e5aXZcB5AHDSpwWLM5q4wSCq/Z1+OEOlC67xzAUTZ0bIyDEU6apOChS1fBV67YxAocz5vC3tBNe1oyQrjmwrjYHgdNLBljRljd8D2/Nnef8ykInb+3NlwpMOnpJrQIDAQAB"
