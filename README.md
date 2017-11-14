@@ -84,7 +84,11 @@ When activated, it does the following:
 
 Another very cool feature of *Tamper Chrome* is that it allows you to debug XSS vulnerabilities a bit better.
 
-When testing for XSS, you can use `<tc-xss>` as an HTML element (it also works as an attribute, and as a javascript variable - you can also use `<tamperchrome>` and `<tcxss>`), and *Tamper Chrome* will automatically detect it, and show you where it is and the stack trace from where it was generated. Particularly useful for DOM XSS.
+When testing for XSS, you can use `<tc-xss>` as an HTML element, and *Tamper Chrome* will automatically detect it, and show you where it is and the stack trace from where it was generated. Particularly useful for DOM XSS.
+
+Note that you can also use `<tamperchrome>` and `<tcxss>`, which also work as an attribute, and as a javascript variable.
+
+To trigger it, just use as your XSS payload `tamperchrome` as an attribute, tagname or javascript variable.
 
 ![tcxss](https://sirdarckcat.github.io/images/tcxss.png)
 
