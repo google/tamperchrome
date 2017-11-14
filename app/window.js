@@ -96,11 +96,11 @@ function activateRequest(reqId) {
         rows[i].classList.add('active');
 
         if (!request.completed && ignore.checked) {
-          // mark it as completed even though this happens later anyway so that
-          // UI is greyed out.
-          request.completed = true;
           releaseBlock(reqId, {}, true);
           rows[i].focus();
+          // Refocus this request in 10ms once its completed
+          let row = rows[i];
+          setTimeout(_=>row.focus(),10);
         }
 
         if (!ignore.checked) {
