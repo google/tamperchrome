@@ -96,10 +96,18 @@ function injectXSSMonitor(info) {
           console.groupEnd(); // Location
           console.groupEnd(); // XSS
         }
-        var identifiers = ["tcxss", "tamperchromexss", "tc-xss"];
+        class TamperChromeXSSElement extends HTMLElement {
+          connectedCallback() {
+            handler(this);
+          }
+        }
+        var identifiers = ["tcxss", "tamperchromexss", "tamperchrome", "tc-xss"];
         identifiers.forEach(function(ident){
           window.__defineGetter__(ident, handler);
           window.__defineSetter__(ident, handler);
+          try {
+            customElements.define(ident, TamperChromeXSSElement);
+          } catch(e) {}
         });
         function checkit(e){
           if (!e.target || !e.target.tagName) return;
