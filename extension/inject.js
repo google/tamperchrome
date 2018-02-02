@@ -13,6 +13,18 @@
 // limitations under the License.
 
 // TODO: High-level file comment.
+
+/*
+ * injectInjector injects a dummy content script to enable devtools to
+ * inject into the content script context, as it fails otherwise.
+ */
+function injectInjector(info){
+    chrome.tabs.executeScript(info.tabId, {
+      allFrames: true,
+      runAt: "document_start",
+      code: "/*dummy*/"
+    });
+}
 /*
  * injectPostMessageInjector injects a script into the DOM which displays any
  * PostMessages in the console, and drops to the javascript debugger.
