@@ -98,8 +98,6 @@ The last tool in *Tamper Chrome* is to replay and modify requests. This is parti
 
 ![replay](https://sirdarckcat.github.io/images/replay.png)
 
-Note that if you modify the request, then a new request will be generated, which in turn you will be allowed to modify. So make sure to leave at least one request unmodified so the requests stop showing up.
-
 # NOTE
 
 This is not an official Google product.
