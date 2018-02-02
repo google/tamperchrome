@@ -191,7 +191,6 @@ SILENTLY FAIL TO MODIFY THOSE HEADERS
 */
 chrome.webRequest.onBeforeSendHeaders.addListener(
   function(info) {
-    console.log(info);
     var category = 'requestHeaders';
     // If the request is from us..
     if (chrome.runtime.getURL('').slice(0,-1) == info.initiator) {
