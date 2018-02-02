@@ -192,6 +192,15 @@ SILENTLY FAIL TO MODIFY THOSE HEADERS
 chrome.webRequest.onBeforeSendHeaders.addListener(
   function(info) {
     var category = 'requestHeaders';
+    // If the request is from us..
+    if (chrome.runtime.getURL('').slice(0,-1) == info.initiator) {
+      for (var i = 0; i < info.requestHeaders.length; ++i) {
+        if (info.requestHeaders[i].name === 'x-tamperchrome-origin') {
+          info.requestHeaders[i].name = 'origin';
+          return {requestHeaders: info.requestHeaders};
+        }
+      }
+    }
     if (skipRequest(info, category)) {
       return {};
     }
@@ -236,6 +245,9 @@ chrome.webRequest.onHeadersReceived.addListener(
 // away, we need to reinject the scripts
 chrome.webNavigation.onCommitted.addListener(
   function(info) {
+    if (config.interceptPost[info.tabId]) {
+      injectInjector(info);
+    }
     if (config.monitorPostMessage[info.tabId]) {
       injectPostMessageInjector(info);
     }

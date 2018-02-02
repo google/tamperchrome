@@ -113,18 +113,56 @@ chrome.devtools.network.onRequestFinished.addListener(
     var answer = askUser(category, info.request);
     if (answer && !answer.cancel && answer.modified) {
       answer.body = info.request.bodySize?answer.data:undefined;
-      chrome.devtools.inspectedWindow.eval('(' + (function(answer) {
-        fetch(answer.url, {
-          method: answer.method,
-          headers: answer.headers.reduce(function(o, h) {
-            if (h.name.charAt() != ':')
-              o[h.name] = h.value;
-            return o;
-          }, {}),
-          credentials: 'include',
-          body: answer.body
+      answer.requestHeaders = answer.headers.reduce(function(o, h) {
+        if (h.name.charAt() != ':')
+          o[h.name] = h.value;
+        if (h.name.toLowerCase() == 'origin')
+          o['x-tamperchrome-origin'] = h.value;
+        return o;
+      }, {});
+      // This will request as the extension's devtools page.
+      fetch(answer.url, {
+        method: answer.method,
+        headers: answer.requestHeaders,
+        credentials: 'include',
+        body: answer.body
+      }).then(response=>{
+        var headers = {};
+        response.headers.forEach(function(value, name) {
+          headers[name] = value;
         });
-      }) + ')('+JSON.stringify(answer)+')');
+        return response.text().then(function(text){
+          var tamperChromeRequest = {
+            request: {
+              method: answer.method,
+              url: answer.url,
+              headers: answer.requestHeaders,
+              body: answer.body
+            },
+            response: {
+              status: response.status,
+              headers: headers,
+              body: text
+            }
+          };
+          // delete internal header
+          delete tamperChromeRequest.request.headers['x-tamperchrome-origin'];
+          chrome.devtools.inspectedWindow.eval('('+function(tamperChromeRequest){
+            console.group('TamperChrome:', tamperChromeRequest.request.method + ' ' + tamperChromeRequest.request.url);
+            console.log(tamperChromeRequest);
+            console.groupEnd();
+          }+')('+JSON.stringify(tamperChromeRequest)+')', {useContentScriptContext: true});
+        });
+      }).catch(function(error){
+        var tamperChromeError = {
+          error: error,
+          method: answer.method,
+          url: answer.url
+        };
+        chrome.devtools.inspectedWindow.eval('('+function(tamperChromeError){
+          console.error('TamperChrome:', tamperChromeError.method + ' ' + tamperChromeError.url, '->', tamperChromeError.error);
+        }+')('+JSON.stringify(tamperChromeError)+')', {useContentScriptContext: true});
+      });
     }
   });
 
