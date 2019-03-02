@@ -4,11 +4,13 @@
 		"sourceMap": true,
 		"target": "ES2018",
 		"alwaysStrict": true,
+		"outDir": "../out"
 	},
 	"files": [
 		"background.ts",
 		"debuggee.ts",
 		"interception.ts",
-		"request.ts"
+		"request.ts",
+		"load.ts",
 	],
 }
