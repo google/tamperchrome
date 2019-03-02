@@ -1,1 +1,2 @@
-background.js.map debuggee.js.map interception.js.map request.js.map
+*.js.map
+*.js
