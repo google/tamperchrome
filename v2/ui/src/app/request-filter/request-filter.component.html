@@ -1,0 +1,38 @@
+<form [formGroup]="filterInputForm" fxFill fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-form-field fxFlex="1 0">
+    <mat-chip-list #filterChipList>
+      <mat-chip
+        *ngFor="let filterChip of filterChips"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="remove(filterChip)">
+        {{filterChip}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        type="text"
+        matInput
+        #filterInputElement
+        placeholder="Add a filter"
+        formControlName="filterInputGroup"
+        [matAutocomplete]="autoGroup"
+        [matChipInputFor]="filterChipList"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="add($event)"/>
+      <mat-autocomplete
+        #autoGroup="matAutocomplete"
+        (optionSelected)="selected($event)">
+        <mat-optgroup
+          *ngFor="let filterType of filterSuggestionOptions | async"
+          [label]="filterType.label+':'">
+          <mat-option
+            *ngFor="let value of filterType.values"
+            [value]="filterType.label+':'+value+' '">
+            <span class="cdk-visually-hidden">{{filterType.label}}:</span>{{value}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-chip-list>
+  </mat-form-field>
+  <mat-slide-toggle fxFlex="0">Intercept requests</mat-slide-toggle>
+</form>

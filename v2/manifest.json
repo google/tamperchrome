@@ -5,7 +5,7 @@
   "manifest_version": 2,
   "permissions": ["debugger", "<all_urls>", "activeTab", "debugger"],
   "background": {
-    "page": "background.html",
+    "page": "background/background.html",
     "persistent": true
   },
   "browser_action": {"default_title": "TC2"},

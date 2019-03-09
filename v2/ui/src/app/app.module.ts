@@ -15,11 +15,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RequestFilterComponent } from './request-filter/request-filter.component';
 
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		RequestFilterComponent
 	],
 	imports: [
 		BrowserModule,
