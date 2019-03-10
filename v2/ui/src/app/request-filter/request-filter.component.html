@@ -1,6 +1,7 @@
 <form [formGroup]="filterInputForm" fxFill fxLayout="row" fxLayoutAlign="space-between center">
   <mat-form-field fxFlex="1 0">
-    <mat-chip-list #filterChipList>
+    <mat-label>Filter HTTP Requests</mat-label>
+    <mat-chip-list #filterChipList title="Active filters">
       <mat-chip
         *ngFor="let filterChip of filterChips"
         [selectable]="true"
@@ -10,6 +11,7 @@
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
       <input
+      	autofocus
         type="text"
         matInput
         #filterInputElement
@@ -28,7 +30,7 @@
           <mat-option
             *ngFor="let value of filterType.values"
             [value]="filterType.label+':'+value+' '">
-            <span class="cdk-visually-hidden">{{filterType.label}}:</span>{{value}}
+            {{value}}
           </mat-option>
         </mat-optgroup>
       </mat-autocomplete>

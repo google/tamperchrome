@@ -12,16 +12,21 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { MatChipsModule, MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RequestFilterComponent } from './request-filter/request-filter.component';
+import { MatListModule } from '@angular/material/list';
+import { RequestListComponent, RequestListItem } from './request-list/request-list.component';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		RequestFilterComponent
+		RequestFilterComponent,
+		RequestListComponent,
+		RequestListItem,
 	],
 	imports: [
 		BrowserModule,
@@ -36,12 +41,14 @@ import { RequestFilterComponent } from './request-filter/request-filter.componen
 		MatChipsModule,
 		MatIconModule,
 		MatSlideToggleModule,
-		FlexLayoutModule
+		FlexLayoutModule,
+		MatListModule,
+		MatTableModule
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,
 		useValue: {
-			separatorKeyCodes: [ENTER, COMMA]
+			separatorKeyCodes: [ENTER, SPACE, COMMA]
 		}
 	}],
 	bootstrap: [AppComponent]
