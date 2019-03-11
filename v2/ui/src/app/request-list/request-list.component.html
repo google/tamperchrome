@@ -1,33 +1,35 @@
 <table
   mat-table
+  fxFill
   [dataSource]="dataSource"
   aria-label="List of HTTP Requests"
   (keydown)="keyManager?.onKeydown($event)">
   <ng-container matColumnDef="method">
-    <th mat-header-cell *matHeaderCellDef> Method </th>
-    <td mat-cell *matCellDef="let request"> {{request.method}} </td>
+    <th mat-header-cell *matHeaderCellDef>Method</th>
+    <td mat-cell *matCellDef="let request">{{request.method}}</td>
   </ng-container>
   <ng-container matColumnDef="host">
-    <th mat-header-cell *matHeaderCellDef> Host </th>
-    <td mat-cell *matCellDef="let request"> {{request.host}} </td>
+    <th mat-header-cell *matHeaderCellDef>Host</th>
+    <td mat-cell *matCellDef="let request">{{request.host}}</td>
   </ng-container>
-  <ng-container matColumnDef="path">
-    <th mat-header-cell *matHeaderCellDef> Path </th>
-    <td mat-cell *matCellDef="let request"> {{request.path}} </td>
+  <ng-container matColumnDef="pathquery">
+    <th mat-header-cell *matHeaderCellDef>Path + Query</th>
+    <td mat-cell *matCellDef="let request">{{request.path}} {{request.query}}</td>
   </ng-container>
-  <ng-container matColumnDef="query">
-    <th mat-header-cell *matHeaderCellDef> Query </th>
-    <td mat-cell *matCellDef="let request"> {{request.query}} </td>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let request">pending</td>
   </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr
     mat-row
     app-request-list-item
     *matRowDef="let row; columns: displayedColumns; let i = index;"
+    (click)="keyManager?.setActiveItem(i)"
     [request]="row"
     [attr.aria-selected]="(keyManager?.activeItemIndex || 0) == i"
     [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
-    [ngClass]="{highlighted: (keyManager?.activeItemIndex || 0) == i}">
+    [ngClass]="{'cdk-keyboard-focused': (keyManager?.activeItemIndex || 0) == i}">
   </tr>
 </table>
-{{ keyManager?.activeItemIndex || 0 }}

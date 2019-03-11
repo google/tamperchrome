@@ -1,5 +1,5 @@
 import { Component, Directive, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
-import { FocusKeyManager, Highlightable, ListKeyManagerOption } from '@angular/cdk/a11y';
+import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { MatListItem, MatTableDataSource } from '@angular/material';
 
 class Request {
@@ -25,16 +25,16 @@ export class RequestListItem implements FocusableOption {
 @Component({
 	selector: 'app-request-list',
 	templateUrl: './request-list.component.html',
-	styleUrls: ['./request-list.component.css']
+	styleUrls: ['./request-list.component.scss']
 })
 export class RequestListComponent implements OnInit {
-	ngOnInit() {}
+	ngOnInit() { }
 
 	requests: Array<Request> = [
 		{ method: 'GET', host: 'www.example.com', path: '/path', query: '?q=a' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?' }
 	];
-	displayedColumns: Array<string> = ['method', 'host', 'path', 'query'];
+	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'status'];
 	dataSource: MatTableDataSource<Request> = new MatTableDataSource(this.requests);;
 	keyManager: FocusKeyManager<RequestListItem> = null;
 	@ViewChildren(RequestListItem) listItems: QueryList<RequestListItem>;

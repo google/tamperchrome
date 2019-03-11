@@ -18,7 +18,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RequestFilterComponent } from './request-filter/request-filter.component';
 import { MatListModule } from '@angular/material/list';
 import { RequestListComponent, RequestListItem } from './request-list/request-list.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatRippleModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatTableModule} from '@angular/material/table';
 		MatSlideToggleModule,
 		FlexLayoutModule,
 		MatListModule,
-		MatTableModule
+		MatTableModule,
+		MatRippleModule
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,
