@@ -1,9 +1,7 @@
 <table
   mat-table
-  tabindex="0"
   [dataSource]="dataSource"
   aria-label="List of HTTP Requests"
-  [attr.aria-activedescendant]="'request-' + (keyManager?.activeItemIndex || 0)"
   (keydown)="keyManager?.onKeydown($event)">
   <ng-container matColumnDef="method">
     <th mat-header-cell *matHeaderCellDef> Method </th>
@@ -27,7 +25,8 @@
     app-request-list-item
     *matRowDef="let row; columns: displayedColumns; let i = index;"
     [request]="row"
-    [id]="'request-' + i"
+    [attr.aria-selected]="(keyManager?.activeItemIndex || 0) == i"
+    [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
     [ngClass]="{highlighted: (keyManager?.activeItemIndex || 0) == i}">
   </tr>
 </table>

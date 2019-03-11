@@ -17,7 +17,7 @@ export class RequestListItem implements FocusableOption {
 	request: Request;
 	constructor(public el: ElementRef<any>) { }
 	focus() {
-		// Display the request.
+		this.el.nativeElement.focus();
 	}
 	disabled = false;
 }
