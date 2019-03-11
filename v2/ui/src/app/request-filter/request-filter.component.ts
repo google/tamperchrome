@@ -30,12 +30,11 @@ export class RequestFilterComponent implements OnInit {
 	});
 
 	filterSuggestions: FilterSuggestion[] = [{
+		label: 'method',
+		values: ['GET', 'POST']
+	},{
 		label: 'domain',
 		values: ['example.com', 'example.net']
-	},
-	{
-		label: 'method',
-		values: ['GET', 'POST', 'HEAD', 'OPTIONS']
 	}];
 
 	filterSuggestionOptions: Observable<FilterSuggestion[]>;
