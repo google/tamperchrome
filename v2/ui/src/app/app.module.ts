@@ -19,7 +19,6 @@ import { RequestFilterComponent } from './request-filter/request-filter.componen
 import { MatListModule } from '@angular/material/list';
 import { RequestListComponent, RequestListItem } from './request-list/request-list.component';
 import { MatTableModule } from '@angular/material/table';
-import { MatRippleModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 
@@ -47,7 +46,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 		FlexLayoutModule,
 		MatListModule,
 		MatTableModule,
-		MatRippleModule,
 		MatToolbarModule
 	],
 	providers: [{
