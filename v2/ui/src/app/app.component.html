@@ -1,7 +1,8 @@
-<mat-toolbar>
-  <span>Tamper Chrome</span>
+<mat-toolbar role="banner">
+  <span id="banner-title">Tamper Chrome</span>
 </mat-toolbar>
-<div fxLayout="column">
+<main fxLayout="column" aria-labelledby="banner-title">
   <app-request-filter></app-request-filter>
   <app-request-list></app-request-list>
-</div>
+  <app-request-editor></app-request-editor>
+</main>

@@ -7,7 +7,7 @@
   	&:hover {
     	background-color: mat-color($background, 'hover');
     }
-    &[aria-selected="true"] {
+    &.cdk-keyboard-focused {
     	background-color: mat-color($background, 'hover');
     }
   }

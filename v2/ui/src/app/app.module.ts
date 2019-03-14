@@ -20,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { RequestListComponent, RequestListItem } from './request-list/request-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { RequestEditorComponent } from './request-editor/request-editor.component';
 
 
 
@@ -29,6 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 		RequestFilterComponent,
 		RequestListComponent,
 		RequestListItem,
+		RequestEditorComponent,
 	],
 	imports: [
 		BrowserModule,

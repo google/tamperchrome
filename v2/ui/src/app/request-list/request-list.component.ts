@@ -7,6 +7,7 @@ class Request {
 	host: string;
 	path: string;
 	query: string;
+	type: string;
 }
 
 @Directive({
@@ -31,10 +32,10 @@ export class RequestListComponent implements OnInit {
 	ngOnInit() { }
 
 	requests: Array<Request> = [
-		{ method: 'GET', host: 'www.example.com', path: '/path', query: '?q=a' },
-		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?' }
+		{ method: 'GET', host: 'www.example.com', path: '/path', query: '?q=a', type: 'xhr' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' }
 	];
-	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'status'];
+	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];
 	dataSource: MatTableDataSource<Request> = new MatTableDataSource(this.requests);;
 	keyManager: FocusKeyManager<RequestListItem> = null;
 	@ViewChildren(RequestListItem) listItems: QueryList<RequestListItem>;
