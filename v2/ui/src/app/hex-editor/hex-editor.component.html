@@ -1,0 +1,61 @@
+<div
+  role="grid"
+  fxLayout="row wrap"
+  (keydown)="keyManager?.onKeydown($event)">
+  <div
+    role="row"
+    fxFlex="0 0 64ch"
+    style="font-family: monospace;"
+    fxLayout="row wrap">
+    <input
+      app-hex-editor-character
+      autocomplete="off"
+      role="gridcell"
+      *ngFor="let char of hexValues; let i = index; trackBy: trackByFn"
+      [(ngModel)]="hexValues[i]"
+      (change)="onHexChange()"
+      (click)="keyManager?.setActiveItem(i)"
+      [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+      [attr.title]="value[i]"
+      maxlength="2"
+      size="2"
+      fxFlex="0 0 2ch"
+      [ngClass]="{'hex-editor-active': (keyManager?.activeItemIndex || 0) == i}"
+      style="
+        font-family: monospace;
+        font-variant-ligatures: none;
+        font-kerning: none;
+        padding: 0;
+        margin: 0;
+        border: 0;
+      ">
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div
+    role="row"
+    fxFlex="0 0 32ch"
+    style="font-family: monospace;"
+    fxLayout="row wrap">
+    <input
+      autocomplete="off"
+      role="gridcell"
+      *ngFor="let char of value; let i = index; trackBy: trackByFn"
+      [(ngModel)]="value[i]"
+      (keyup)="onValueChange()"
+      (click)="keyManager?.setActiveItem(i)"
+      [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+      [attr.title]="hexValues[i]"
+      maxlength="1"
+      size="1"
+      fxFlex="0 0 1ch"
+      [ngClass]="{'hex-editor-active': (keyManager?.activeItemIndex || 0) == i}"
+      style="
+        font-family: monospace;
+        font-variant-ligatures: none;
+        font-kerning: none;
+        padding: 0;
+        margin: 0;
+        border: 0;
+      ">
+  </div>
+</div>

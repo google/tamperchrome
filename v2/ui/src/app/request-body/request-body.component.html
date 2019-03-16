@@ -1,6 +1,11 @@
 <mat-tab-group>
   <mat-tab label="Raw">
-    this is the raw request body, with a hex editor
+    <mat-form-field>
+      <textarea matInput placeholder="Request Body"></textarea>
+    </mat-form-field>
+  </mat-tab>
+  <mat-tab label="Binary">
+    <app-hex-editor></app-hex-editor>
   </mat-tab>
   <!-- TODO: implement
     <mat-tab label="URL decoded">

@@ -25,6 +25,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RequestBodyComponent } from './request-body/request-body.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { HexEditorComponent, HexEditorCharacter } from './hex-editor/hex-editor.component';
 
 
 
@@ -37,6 +38,8 @@ import { MatCardModule } from '@angular/material/card';
 		RequestEditorComponent,
 		RequestEditorHeaderItem,
 		RequestBodyComponent,
+		HexEditorComponent,
+		HexEditorCharacter,
 	],
 	imports: [
 		BrowserModule,

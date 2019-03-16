@@ -30,8 +30,8 @@
     mat-row
     app-request-list-item
     *matRowDef="let row; columns: displayedColumns; let i = index;"
-    (click)="keyManager?.setActiveItem(i)"
     [request]="row"
+    (click)="keyManager?.setActiveItem(i)"
     [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
     [ngClass]="{'cdk-keyboard-focused': (keyManager?.activeItemIndex || 0) == i}">
   </tr>

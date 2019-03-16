@@ -12,3 +12,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 @import "./app/request-list/request-list.component.scss";
 @include app-request-list-theme($theme);
+
+@import "./app/hex-editor/hex-editor.component.scss";
+@include app-hex-editor-theme($theme);

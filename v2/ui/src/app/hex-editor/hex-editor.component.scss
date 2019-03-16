@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin app-hex-editor-theme($theme) {
+  $background: map-get($theme, background);
+
+  .hex-editor-active {
+	background-color: mat-color($background, 'focused-button');
+  }
+};
