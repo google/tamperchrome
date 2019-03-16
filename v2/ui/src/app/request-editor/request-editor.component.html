@@ -1,3 +1,25 @@
-<p>
-  request-editor works!
-</p>
+<mat-list
+  (keydown)="keyManager?.onKeydown($event)">
+  <mat-list-item
+    app-request-editor-header-item
+    checkboxPosition="before"
+    *ngFor="let header of headers; let i = index;"
+    (click)="keyManager?.setActiveItem(i)">
+    <mat-form-field fxFlex="1 0">
+      <input
+        [attr.data-i]="i"
+        [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+        matInput
+        [(ngModel)]="header[1]"
+        placeholder="{{header[0]}}">
+    </mat-form-field>
+    <mat-checkbox
+      [attr.title]="'Send ' + header[0] + ' header'"
+      [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+      checked="true" labelPosition="before" fxFlex="0 0 auto">
+      <span class="cdk-visually-hidden">
+        Send {{ header[0] }} header
+      </span>
+    </mat-checkbox>
+  </mat-list-item>
+</mat-list>

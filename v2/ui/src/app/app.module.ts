@@ -20,7 +20,8 @@ import { MatListModule } from '@angular/material/list';
 import { RequestListComponent, RequestListItem } from './request-list/request-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RequestEditorComponent } from './request-editor/request-editor.component';
+import { RequestEditorComponent, RequestEditorHeaderItem } from './request-editor/request-editor.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 
@@ -31,6 +32,7 @@ import { RequestEditorComponent } from './request-editor/request-editor.componen
 		RequestListComponent,
 		RequestListItem,
 		RequestEditorComponent,
+		RequestEditorHeaderItem,
 	],
 	imports: [
 		BrowserModule,
@@ -48,7 +50,8 @@ import { RequestEditorComponent } from './request-editor/request-editor.componen
 		FlexLayoutModule,
 		MatListModule,
 		MatTableModule,
-		MatToolbarModule
+		MatToolbarModule,
+		MatButtonToggleModule
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,

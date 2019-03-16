@@ -11,5 +11,4 @@ $theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
 
 @import "./app/request-list/request-list.component.scss";
-
 @include app-request-list-theme($theme);
