@@ -22,6 +22,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RequestEditorComponent, RequestEditorHeaderItem } from './request-editor/request-editor.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { RequestBodyComponent } from './request-body/request-body.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -33,6 +36,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 		RequestListItem,
 		RequestEditorComponent,
 		RequestEditorHeaderItem,
+		RequestBodyComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -51,7 +55,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 		MatListModule,
 		MatTableModule,
 		MatToolbarModule,
-		MatButtonToggleModule
+		MatButtonToggleModule,
+		MatTabsModule,
+		MatCardModule,
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,

@@ -1,7 +1,11 @@
 <form [formGroup]="filterInputForm" fxFill fxLayout="row" fxLayoutAlign="space-between center">
   <mat-form-field fxFlex="1 0">
-    <mat-label>Filter HTTP Requests</mat-label>
-    <mat-chip-list #filterChipList title="Active filters">
+    <mat-label>
+      <mat-icon style="opacity: 0;">filter_list</mat-icon>
+      Filter HTTP Requests
+    </mat-label>
+    <mat-chip-list fxFill #filterChipList title="Active filters">
+      <mat-icon>filter_list</mat-icon>
       <mat-chip
         *ngFor="let filterChip of filterChips"
         [selectable]="true"
