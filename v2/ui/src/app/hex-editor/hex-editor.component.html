@@ -1,9 +1,10 @@
 <div
   role="grid"
+  aria-label="Hex editor of 32 bytes per row"
   fxLayout="row wrap"
-  (keydown)="keyManager?.onKeydown($event)">
-  <div
-    role="row"
+  (keydown)="onKeydown($event)">
+  <pre
+    aria-label="Hex values"
     fxFlex="0 0 64ch"
     style="font-family: monospace;"
     fxLayout="row wrap">
@@ -13,10 +14,13 @@
       role="gridcell"
       *ngFor="let char of hexValues; let i = index; trackBy: trackByFn"
       [(ngModel)]="hexValues[i]"
+      [index]="i"
       (change)="onHexChange()"
       (click)="keyManager?.setActiveItem(i)"
       [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
       [attr.title]="value[i]"
+      [attr.aria-colindex]="(i%32) + 1"
+      [attr.aria-rowindex]="(i/32) + 1"
       maxlength="2"
       size="2"
       fxFlex="0 0 2ch"
@@ -29,22 +33,26 @@
         margin: 0;
         border: 0;
       ">
-  </div>
+  </pre>
   <mat-divider [vertical]="true"></mat-divider>
-  <div
-    role="row"
+  <pre
+    aria-label="Characters"
     fxFlex="0 0 32ch"
     style="font-family: monospace;"
     fxLayout="row wrap">
     <input
+      app-hex-editor-character-shadow
       autocomplete="off"
       role="gridcell"
       *ngFor="let char of value; let i = index; trackBy: trackByFn"
       [(ngModel)]="value[i]"
+      [index]="i"
       (keyup)="onValueChange()"
       (click)="keyManager?.setActiveItem(i)"
       [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
       [attr.title]="hexValues[i]"
+      [attr.aria-colindex]="(i%32) + 1"
+      [attr.aria.rowindex]="(i/32) + 1"
       maxlength="1"
       size="1"
       fxFlex="0 0 1ch"
@@ -57,5 +65,5 @@
         margin: 0;
         border: 0;
       ">
-  </div>
+  </pre>
 </div>
