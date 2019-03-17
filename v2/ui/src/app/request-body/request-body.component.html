@@ -1,16 +1,19 @@
 <mat-tab-group>
   <mat-tab label="Raw">
-    <mat-form-field>
-      <textarea matInput placeholder="Request Body"></textarea>
-    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="end stretch">
+      <mat-form-field fxFlex="noshrink">
+        <textarea matInput placeholder="Raw Body"></textarea>
+      </mat-form-field>
+      <mat-divider [vertical]="true"></mat-divider>
+      <mat-form-field fxFlex="noshrink">
+        <textarea matInput placeholder="URL Decoded"></textarea>
+      </mat-form-field>
+    </div>
   </mat-tab>
   <mat-tab label="Binary">
     <app-hex-editor></app-hex-editor>
   </mat-tab>
   <!-- TODO: implement
-    <mat-tab label="URL decoded">
-      if this was an url-encoded form, show a list of inputs with values
-    </mat-tab>
     <mat-tab label="Multipart">
       if this was a multipart-encoded form, show a list of fields with each header
     </mat-tab>
