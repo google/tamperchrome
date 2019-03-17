@@ -26,6 +26,8 @@ import { RequestBodyComponent } from './request-body/request-body.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { HexEditorComponent, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -62,6 +64,8 @@ import { HexEditorComponent, HexEditorCharacter, HexEditorCharacterShadow } from
 		MatButtonToggleModule,
 		MatTabsModule,
 		MatCardModule,
+		MatRadioModule,
+		MatSelectModule,
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,
