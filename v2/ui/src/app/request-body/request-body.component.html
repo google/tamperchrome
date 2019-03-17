@@ -1,24 +1,19 @@
 <mat-tab-group>
   <mat-tab label="Raw">
-    <div fxLayout="row">
-      <mat-form-field fxFlex="noshrink" fxFlexAlign="end">
-        <textarea matInput mat-autosize placeholder="Raw Body"></textarea>
+    <div fxFill fxLayout="column">
+      <mat-form-field>
+        <mat-select placeholder="Encoding">
+          <mat-option value="raw">Raw</mat-option>
+          <mat-optgroup label="URL Encoding">
+            <mat-option value="utf8">UTF-8 (%XX)</mat-option>
+            <mat-option value="utf16">UTF-16 (%uXXXX)</mat-option>
+          </mat-optgroup>
+          <mat-option value="base64">Base 64</mat-option>
+        </mat-select>
       </mat-form-field>
-      <mat-divider [vertical]="true"></mat-divider>
-      <div fxFlex="noshrink" fxLayout="column">
-        <mat-form-field>
-          <mat-select placeholder="Encoding">
-            <mat-option
-              *ngFor="let encoding of ['URL UTF-8','URL UTF-16','Base64']"
-              [value]="encoding">
-              {{encoding}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <textarea matInput mat-autosize placeholder="Decoded"></textarea>
-        </mat-form-field>
-      </div>
+      <mat-form-field>
+        <textarea matInput mat-autosize placeholder="Decoded"></textarea>
+      </mat-form-field>
     </div>
   </mat-tab>
   <mat-tab label="Binary">
