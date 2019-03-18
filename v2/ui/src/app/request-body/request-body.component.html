@@ -2,7 +2,11 @@
   <mat-tab label="Raw">
     <div fxFill fxLayout="column">
       <mat-form-field>
-        <mat-select placeholder="Encoding">
+        <textarea matInput mat-autosize placeholder="Request body"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Request body encoding</mat-label>
+        <mat-select>
           <mat-option value="raw">Raw</mat-option>
           <mat-optgroup label="URL Encoding">
             <mat-option value="utf8">UTF-8 (%XX)</mat-option>
@@ -10,9 +14,6 @@
           </mat-optgroup>
           <mat-option value="base64">Base 64</mat-option>
         </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <textarea matInput mat-autosize placeholder="Decoded"></textarea>
       </mat-form-field>
     </div>
   </mat-tab>

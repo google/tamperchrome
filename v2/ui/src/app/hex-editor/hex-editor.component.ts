@@ -36,8 +36,8 @@ export class HexEditorCharacterShadow {
 		'(click)': 'keyManager?.setActiveItem(index)',
 		'[attr.size]': 'size',
 		'[attr.maxlength]': 'size',
-		'[attr.aria-colindex]': '(index%32) + 1',
-		'[attr.aria-rowindex]': '(index/32) + 1',
+		'[attr.aria-colindex]': '(index%16) + 1',
+		'[attr.aria-rowindex]': '(index/16) + 1',
 		'[attr.tabindex]': '(keyManager?.activeItemIndex || 0) == index ? 0 : -1',
 		'[attr.data-hex-editor-active]': '(keyManager?.activeItemIndex || 0) == index',
 	}

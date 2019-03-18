@@ -1,24 +1,24 @@
 <div
   fxLayout="row wrap"
-  (keydown)="onKeydown($event)"
-  aria-label="Hex editor of 16 bytes per row">
+  (keydown)="onKeydown($event)">
   <mat-card>
     <mat-card-header>
       <mat-card-subtitle id="app-hex-editor-grid-hex-label">Hex Editor</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div
-      app-hex-editor-grid
-      aria-labelledby="app-hex-editor-grid-hex-label"
-      fxFlex="0 0 64ch"
-      role="grid" fxLayout="row wrap">
-      <input
-        app-hex-editor-character
-        app-hex-editor-grid-cell
-        fxFlex="0 0 4ch" [size]="2"
-        *ngFor="let char of hexValues; let i = index; trackBy: trackByFn"
-        [(ngModel)]="hexValues[i]" [attr.title]="value[i]"
-        (change)="onHexChange()" [index]="i" [keyManager]="keyManager">
+        app-hex-editor-grid
+        aria-labelledby="app-hex-editor-grid-hex-label"
+        fxFlex="0 0 64ch"
+        [attr.aria-colcount]="16" [attr.aria-rowcount]="value.length/16"
+        role="grid" fxLayout="row wrap">
+        <input
+          app-hex-editor-character
+          app-hex-editor-grid-cell
+          fxFlex="0 0 4ch" [size]="2"
+          *ngFor="let char of hexValues; let i = index; trackBy: trackByFn"
+          [(ngModel)]="hexValues[i]" [attr.title]="value[i]"
+          (change)="onHexChange()" [index]="i" [keyManager]="keyManager">
       </div>
     </mat-card-content>
   </mat-card>
@@ -28,17 +28,18 @@
     </mat-card-header>
     <mat-card-content>
       <div
-      app-hex-editor-grid
-      aria-labelledby="app-hex-editor-grid-chars-label"
-      fxFlex="0 0 48ch"
-      role="grid" fxLayout="row wrap">
-      <input
-        app-hex-editor-character-shadow
-        app-hex-editor-grid-cell
-        fxFlex="0 0 3ch" [size]="1"
-        *ngFor="let char of value; let i = index; trackBy: trackByFn"
-        [(ngModel)]="value[i]" [attr.title]="hexValues[i]"
-        (keyup)="onValueChange()" [index]="i" [keyManager]="keyManager">
+        app-hex-editor-grid
+        aria-labelledby="app-hex-editor-grid-chars-label"
+        fxFlex="0 0 48ch"
+        [attr.aria-colcount]="16" [attr.aria-rowcount]="value.length/16"
+        role="grid" fxLayout="row wrap">
+        <input
+          app-hex-editor-character-shadow
+          app-hex-editor-grid-cell
+          fxFlex="0 0 3ch" [size]="1"
+          *ngFor="let char of value; let i = index; trackBy: trackByFn"
+          [(ngModel)]="value[i]" [attr.title]="hexValues[i]"
+          (keyup)="onValueChange()" [index]="i" [keyManager]="keyManager">
       </div>
     </mat-card-content>
   </mat-card>
