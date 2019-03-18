@@ -4,9 +4,11 @@
   $background: map-get($theme, background);
   [app-hex-editor-grid] {
   	font-family: monospace;
+  	font-size: medium;
   }
   [app-hex-editor-grid-cell] {
     font-family: monospace;
+  	font-size: medium;
     font-variant-ligatures: none;
     font-kerning: none;
     padding: 1ch;
