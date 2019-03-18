@@ -25,7 +25,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RequestBodyComponent } from './request-body/request-body.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { HexEditorComponent, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
+import { HexEditorComponent, HexEditorGridCell, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -43,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
 		HexEditorComponent,
 		HexEditorCharacter,
 		HexEditorCharacterShadow,
+		HexEditorGridCell,
 	],
 	imports: [
 		BrowserModule,

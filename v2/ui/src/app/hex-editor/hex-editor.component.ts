@@ -27,6 +27,26 @@ export class HexEditorCharacterShadow {
 	constructor(public el: ElementRef<any>) { }
 }
 
+@Directive({
+	selector: '[app-hex-editor-grid-cell]',
+	inputs: ['index', 'keyManager', 'size'],
+	host: {
+		'autocomplete': 'off',
+		'role': 'gridcell',
+		'(click)': 'keyManager?.setActiveItem(index)',
+		'[attr.size]': 'size',
+		'[attr.maxlength]': 'size',
+		'[attr.aria-colindex]': '(index%32) + 1',
+		'[attr.aria-rowindex]': '(index/32) + 1',
+		'[attr.tabindex]': '(keyManager?.activeItemIndex || 0) == index ? 0 : -1',
+		'[attr.data-hex-editor-active]': '(keyManager?.activeItemIndex || 0) == index',
+	}
+})
+export class HexEditorGridCell {
+	index: number;
+	keyManager: FocusKeyManager<HexEditorCharacter>;
+}
+
 @Component({
 	selector: 'app-hex-editor',
 	templateUrl: './hex-editor.component.html',
@@ -72,11 +92,11 @@ export class HexEditorComponent implements OnInit {
 		const currentIndex = this.keyManager.activeItemIndex;
 		switch (event.keyCode) {
 			case UP_ARROW:
-				this.keyManager.setActiveItem(Math.max(0, currentIndex - 32));
+				this.keyManager.setActiveItem(Math.max(0, currentIndex - 16));
 				break;
 			case DOWN_ARROW:
 				this.keyManager.setActiveItem(
-					Math.min(this.charInputs.length - 1, currentIndex + 32));
+					Math.min(this.charInputs.length - 1, currentIndex + 16));
 				break;
 			default:
 				this.keyManager.onKeydown(event);
