@@ -28,8 +28,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HexEditorComponent, HexEditorGridCell, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
 	declarations: [
@@ -67,6 +66,7 @@ import { MatSelectModule } from '@angular/material/select';
 		MatCardModule,
 		MatRadioModule,
 		MatSelectModule,
+		MatTooltipModule,
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,

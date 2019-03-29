@@ -1,34 +1,66 @@
 <mat-card>
   <mat-card-subtitle>Edit HTTP Request</mat-card-subtitle>
-  <mat-list
-    role="grid"
-    aria-label="HTTP Headers"
-    [attr.aria-rowcount]="headers.length"
-    (keydown)="keyManager?.onKeydown($event)">
-    <mat-list-item
-      role="row"
-      app-request-editor-header-item
-      checkboxPosition="before"
-      *ngFor="let header of headers; let i = index;"
-      [attr.aria-rowindex]="i+1"
-      (click)="keyManager?.setActiveItem(i)">
-      <mat-form-field fxFlex="1 0" role="gridcell">
-        <input
+  <mat-card-content>
+    <mat-form-field>
+      <input
+        type="text" matInput [matAutocomplete]="auto"
+        placeholder="Method" aria-label="Request Path">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of ['GET','POST']" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field fxFill>
+      <input
+        type="text" matInput [matAutocomplete]="auto"
+        placeholder="Request Path" aria-label="Request Path">
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-list
+      role="grid"
+      aria-label="HTTP Headers"
+      [attr.aria-rowcount]="headers.length"
+      (keydown)="keyManager?.onKeydown($event)">
+      <mat-list-item
+        role="row"
+        app-request-editor-header-item
+        checkboxPosition="before"
+        *ngFor="let header of headers; let i = index;"
+        [attr.aria-rowindex]="i+1"
+        (click)="keyManager?.setActiveItem(i)">
+        <mat-form-field fxFlex="1 0" role="gridcell">
+          <input
+            [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+            matInput
+            [(ngModel)]="header[1]"
+            placeholder="{{header[0]}}">
+        </mat-form-field>
+        <mat-checkbox
+          role="gridcell"
+          [attr.title]="'Send ' + header[0] + ' header'"
           [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
-          matInput
-          [(ngModel)]="header[1]"
-          placeholder="{{header[0]}}">
-      </mat-form-field>
-      <mat-checkbox
-        role="gridcell"
-        [attr.title]="'Send ' + header[0] + ' header'"
-        [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
-        checked="true" labelPosition="before" fxFlex="0 0 auto">
-        <span class="cdk-visually-hidden">
-          Send {{ header[0] }} header
-        </span>
-      </mat-checkbox>
-    </mat-list-item>
-  </mat-list>
-  <app-request-body aria-label="Request Body"></app-request-body>
+          checked="true" labelPosition="before" fxFlex="0 0 auto">
+          <span class="cdk-visually-hidden">
+            Send {{ header[0] }} header
+          </span>
+        </mat-checkbox>
+      </mat-list-item>
+    </mat-list>
+    <button mat-button>
+      <mat-icon>add</mat-icon> Add HTTP Header
+    </button>
+  </mat-card-content>
+  <mat-card-content>
+    <app-request-body aria-label="Request Body"></app-request-body>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button matTooltip="Send request" mat-mini-fab color="primary">
+      <mat-icon>send</mat-icon>
+    </button>
+    <button matTooltip="Apply changes to all requests" mat-icon-button>
+      <mat-icon>done_all</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>
