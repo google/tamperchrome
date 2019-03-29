@@ -18,7 +18,8 @@
           fxFlex="0 0 4ch" [size]="2"
           *ngFor="let char of hexValues; let i = index; trackBy: trackByFn"
           [(ngModel)]="hexValues[i]" [attr.title]="value[i]"
-          (change)="onHexChange()" [index]="i" [keyManager]="keyManager">
+          (keyup)="onHexChange(i)" (keypress)="onHexChange(i)"
+          [index]="i" [keyManager]="keyManager">
       </div>
     </mat-card-content>
   </mat-card>
@@ -39,7 +40,8 @@
           fxFlex="0 0 3ch" [size]="1"
           *ngFor="let char of value; let i = index; trackBy: trackByFn"
           [(ngModel)]="value[i]" [attr.title]="hexValues[i]"
-          (keyup)="onValueChange()" [index]="i" [keyManager]="keyManager">
+          (keyup)="onValueChange()" (keypress)="onValueChange()"
+          [index]="i" [keyManager]="keyManager">
       </div>
     </mat-card-content>
   </mat-card>

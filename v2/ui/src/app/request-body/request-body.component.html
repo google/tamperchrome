@@ -1,31 +1,20 @@
 <mat-tab-group>
-  <mat-tab label="Raw">
-    <div fxFill fxLayout="column">
-      <mat-form-field>
-        <textarea matInput mat-autosize placeholder="Request body"></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Request body encoding</mat-label>
-        <mat-select>
-          <mat-option value="raw">Raw</mat-option>
-          <mat-optgroup label="URL Encoding">
-            <mat-option value="utf8">UTF-8 (%XX)</mat-option>
-            <mat-option value="utf16">UTF-16 (%uXXXX)</mat-option>
-          </mat-optgroup>
-          <mat-option value="base64">Base 64</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+  <mat-tab label="Text">
+    <mat-form-field fxFill>
+      <textarea matInput mat-autosize placeholder="Request body"></textarea>
+    </mat-form-field>
   </mat-tab>
-  <mat-tab label="Binary">
+  <mat-tab label="Base64 Decoded">
+    <mat-form-field fxFill>
+      <textarea matInput mat-autosize placeholder="Request body"></textarea>
+    </mat-form-field>
+  </mat-tab>
+  <mat-tab label="URL Decoded">
+    <mat-form-field fxFill>
+      <textarea matInput mat-autosize placeholder="Request body"></textarea>
+    </mat-form-field>
+  </mat-tab>
+  <mat-tab label="Hex Editor">
     <app-hex-editor></app-hex-editor>
   </mat-tab>
-  <!-- TODO: implement
-    <mat-tab label="Multipart">
-      if this was a multipart-encoded form, show a list of fields with each header
-    </mat-tab>
-    <mat-tab label="JSON">
-      if this was a json encoded request body, show an editable json tree
-    </mat-tab>
-  -->
 </mat-tab-group>

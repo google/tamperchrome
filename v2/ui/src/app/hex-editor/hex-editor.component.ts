@@ -84,8 +84,12 @@ export class HexEditorComponent implements OnInit {
 		}
 	}
 
-	onHexChange() {
+	onHexChange(i: number) {
+		let prevValue = this.value[i];
 		this.value = this.hexValues.map(h => h ? String.fromCharCode(parseInt(h, 16)) : '');
+		if (this.hexValues[i].length == 2 && prevValue != this.value[i]) {
+			this.keyManager.setNextItemActive();
+		}
 	}
 
 	onKeydown(event: KeyboardEvent) {
