@@ -13,6 +13,12 @@
   }
 };
 
+[mat-cell] {
+  text-overflow: ellipsis;
+  max-width: 60vw;
+  overflow: hidden;
+}
+
 :host {
 	cursor: pointer;
 }

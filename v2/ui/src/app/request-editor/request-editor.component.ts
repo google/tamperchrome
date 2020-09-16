@@ -31,13 +31,31 @@ export class RequestEditorComponent implements OnInit {
 	headers: Array<Array<string>> = [
 		['Host', 'www.google.com'],
 		['User-Agent', 'evilwebsite.com'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
+		['Accept', '*/*'],
 		['Accept', '*/*']
 	];
 	@ViewChildren(RequestEditorHeaderItem) headerItems: QueryList<RequestEditorHeaderItem>;
 	ngAfterViewInit() {
 		setTimeout(()=>{
 			this.keyManager = new FocusKeyManager(this.headerItems);
-			this.keyManager.setFirstItemActive();
+			this.keyManager.updateActiveItem(0);
 		});
 	}
 }

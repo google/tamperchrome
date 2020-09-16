@@ -43,7 +43,7 @@ export class RequestListComponent implements OnInit {
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
-		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', type: 'fetch' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
@@ -59,6 +59,6 @@ export class RequestListComponent implements OnInit {
 	@ViewChildren(RequestListItem) listItems: QueryList<RequestListItem>;
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems);
-		this.keyManager.setFirstItemActive();
+		this.keyManager.updateActiveItem(0);
 	}
 }
