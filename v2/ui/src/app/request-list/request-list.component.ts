@@ -33,6 +33,24 @@ export class RequestListComponent implements OnInit {
 
 	requests: Array<Request> = [
 		{ method: 'GET', host: 'www.example.com', path: '/path', query: '?q=a', type: 'xhr' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
+		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' },
 		{ method: 'POST', host: 'www.example.net', path: '/file', query: '?', type: 'fetch' }
 	];
 	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];

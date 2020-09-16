@@ -60,10 +60,12 @@ export class HexEditorComponent implements OnInit {
 	@ViewChildren(HexEditorCharacter) charInputs: QueryList<HexEditorCharacter>;
 	@ViewChildren(HexEditorCharacterShadow) shadows: QueryList<HexEditorCharacterShadow>;
 	ngAfterViewInit() {
-		this.keyManager = new FocusKeyManager(this.charInputs)
-			.withHorizontalOrientation('ltr')
-			.withVerticalOrientation(false);
-		this.keyManager.setFirstItemActive();
+		setTimeout(()=>{
+			this.keyManager = new FocusKeyManager(this.charInputs)
+				.withHorizontalOrientation('ltr')
+				.withVerticalOrientation(false);
+			this.keyManager.setFirstItemActive();
+		});
 	}
 	constructor() {
 		this.hexValues = this.value.map(c => c ? c.charCodeAt(0).toString(16) : '');

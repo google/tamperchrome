@@ -1,23 +1,28 @@
 <mat-card>
   <mat-card-subtitle>Edit HTTP Request</mat-card-subtitle>
   <mat-card-content>
-    <mat-form-field>
-      <input
-        type="text" matInput [matAutocomplete]="auto"
-        placeholder="Method" aria-label="Request Path">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of ['GET','POST']" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-form-field fxFill>
-      <input
-        type="text" matInput [matAutocomplete]="auto"
-        placeholder="Request Path" aria-label="Request Path">
-    </mat-form-field>
-  </mat-card-content>
-  <mat-card-content>
+    <div fxLayout="row">
+      <mat-form-field>
+        <input
+          type="text" matInput [matAutocomplete]="methodAutocomplete"
+          placeholder="Method" aria-label="HTTP Method">
+        <mat-autocomplete #methodAutocomplete="matAutocomplete">
+          <mat-option *ngFor="let option of ['GET','POST']" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field fxFlex="1 0 auto">
+        <input
+          type="text" matInput [matAutocomplete]="pathAutocomplete"
+          placeholder="Request Path" aria-label="Request Path">
+          <mat-autocomplete #pathAutocomplete="matAutocomplete">
+            <mat-option *ngFor="let option of ['/','/robots.txt']" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+    </div>
     <mat-list
       role="grid"
       aria-label="HTTP Headers"
@@ -51,16 +56,11 @@
     <button mat-button>
       <mat-icon>add</mat-icon> Add HTTP Header
     </button>
-  </mat-card-content>
-  <mat-card-content>
     <app-request-body aria-label="Request Body"></app-request-body>
   </mat-card-content>
   <mat-card-actions align="end">
     <button matTooltip="Send request" mat-mini-fab color="primary">
       <mat-icon>send</mat-icon>
-    </button>
-    <button matTooltip="Apply changes to all requests" mat-icon-button>
-      <mat-icon>done_all</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>

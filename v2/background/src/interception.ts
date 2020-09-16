@@ -26,8 +26,8 @@ export abstract class Interception {
   }
 
   static build(dbg: Debuggee): Interception {
-    // TODO: at some point, also build Fetch.
-    return new RequestInterception(dbg);
+    return new FetchInterception(dbg);
+    // return new RequestInterception(dbg);
   }
 
 }

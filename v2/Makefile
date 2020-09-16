@@ -4,7 +4,13 @@ background: FORCE node_modules/@types/chrome
 node_modules/@types/chrome:
 	npm install --save @types/chrome
 
+ui/node_modules:
+	cd ui && npm install
+
+ui: FORCE ui/node_modules
+	cd ui && ng build --prod
+
 FORCE:
 
 clean:
-	rm -rf package-lock.json node_modules background/out
+	rm -rf node_modules background/out ui/dist

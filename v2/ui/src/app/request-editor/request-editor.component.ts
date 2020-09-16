@@ -35,7 +35,9 @@ export class RequestEditorComponent implements OnInit {
 	];
 	@ViewChildren(RequestEditorHeaderItem) headerItems: QueryList<RequestEditorHeaderItem>;
 	ngAfterViewInit() {
-		this.keyManager = new FocusKeyManager(this.headerItems);
-		this.keyManager.setFirstItemActive();
+		setTimeout(()=>{
+			this.keyManager = new FocusKeyManager(this.headerItems);
+			this.keyManager.setFirstItemActive();
+		});
 	}
 }
