@@ -7,19 +7,19 @@ export abstract class Interception {
     this.debuggee = dbg;
   }
 
-  abstract async onRequestInternal(listener: (req: Intercepted) => void): Promise<void>;
+  abstract onRequestInternal(listener: (req: Intercepted) => void): Promise<void>;
 
   async onRequest(listener: (req: Intercepted) => void): Promise<void> {
     return this.onRequestInternal(listener);
   }
 
-  abstract async onResponseInternal(listener: (res: Intercepted) => void): Promise<void>;
+  abstract onResponseInternal(listener: (res: Intercepted) => void): Promise<void>;
 
   async onResponse(listener: (res: Intercepted) => void): Promise<void> {
     return this.onResponseInternal(listener);
   }
 
-  abstract async captureInternal(pattern: string): Promise<void>;
+  abstract captureInternal(pattern: string): Promise<void>;
 
   async capture(pattern: string): Promise<void> {
     return this.captureInternal(pattern);

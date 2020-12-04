@@ -60,7 +60,7 @@ export class Debuggee {
 
     async attach() {
         this.waitForDetach();
-        return new Promise((res, err) => chrome.debugger.attach(this.target, '1.2', () => {
+        return new Promise<void>((res, err) => chrome.debugger.attach(this.target, '1.2', () => {
             if (chrome.runtime.lastError) {
                 err(chrome.runtime.lastError);
             } else {

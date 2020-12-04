@@ -1,3 +1,5 @@
+all: background ui
+
 background: FORCE node_modules/@types/chrome
 	cd background && tsc --project src/tsconfig.json
 
@@ -13,4 +15,4 @@ ui: FORCE ui/node_modules
 FORCE:
 
 clean:
-	rm -rf node_modules background/out ui/dist
+	rm -rf ui/node_modules node_modules background/out ui/dist

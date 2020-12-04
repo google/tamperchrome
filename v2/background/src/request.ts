@@ -42,7 +42,7 @@ export abstract class Intercepted implements InterceptedData {
 
   }
 
-  protected abstract async getResponseBodyInternal(): Promise<Debugger_Network_ResponseBody>;
+  protected abstract getResponseBodyInternal(): Promise<Debugger_Network_ResponseBody>;
 
   async getResponseBody() {
     let body = await this.getResponseBodyInternal();
@@ -52,14 +52,14 @@ export abstract class Intercepted implements InterceptedData {
     return this.responseBody = body.body;
   }
 
-  protected abstract async continueRequestInternal(request: Partial<Debugger_Network_Request>): Promise<void>;
+  protected abstract continueRequestInternal(request: Partial<Debugger_Network_Request>): Promise<void>;
 
   async continueRequest({ method, url, requestHeaders, requestBody }: Partial<InterceptedData>): Promise<void> {
     return this.continueRequestInternal(
       this.getModifiedRequest({ method, url, requestHeaders, requestBody }));
   }
 
-  protected abstract async continueResponseInternal(request: Partial<InterceptedData>): Promise<void>;
+  protected abstract continueResponseInternal(request: Partial<InterceptedData>): Promise<void>;
 
   async continueResponse({ status, responseHeaders, responseBody }: Partial<InterceptedData>): Promise<void> {
     return this.continueResponseInternal({ status, responseHeaders, responseBody });
