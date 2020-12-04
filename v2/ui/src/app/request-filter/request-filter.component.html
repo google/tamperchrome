@@ -43,7 +43,7 @@
           </mat-autocomplete>
         </mat-chip-list>
       </mat-form-field>
-      <mat-slide-toggle fxFlex="0">Intercept requests</mat-slide-toggle>
+      <mat-slide-toggle (change)="intercept($event)" fxFlex="0">Intercept requests</mat-slide-toggle>
     </form>
   </mat-card-content>
 </mat-card>

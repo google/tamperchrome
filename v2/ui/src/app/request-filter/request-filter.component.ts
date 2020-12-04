@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent, MatSlideToggleChange } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -68,6 +68,10 @@ export class RequestFilterComponent implements OnInit {
 
 	remove(filterChip: string): void {
 		this.filterChips.delete(filterChip);
+	}
+
+	intercept(event: MatSlideToggleChange): void {
+		// someService.setInterceptEnabled(event.checked)
 	}
 
 	ngOnInit() {
