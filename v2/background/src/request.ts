@@ -141,13 +141,15 @@ export class FetchIntercepted extends Intercepted {
     let newResponse: {
       requestId: string,
       responseCode: number,
-      responseHeaders: Debugger_Fetch_HeaderEntry[],
+      responseHeaders?: Debugger_Fetch_HeaderEntry[],
       body?: string
     } = {
       requestId: this.id,
       responseCode: response.status || this.status,
-      responseHeaders: response.responseHeaders || this.responseHeaders
     };
+    if (response.responseHeaders) {
+      newResponse.responseHeaders = response.responseHeaders;
+    }
     if (response.responseBody) {
       newResponse.body = response.responseBody;
     }

@@ -99,7 +99,7 @@ export class Debuggee {
     async sendCommand(method: 'Fetch.fulfillRequest', params: {
         requestId: string,
         responseCode: number,
-        responseHeaders: Debugger_Fetch_HeaderEntry[],
+        responseHeaders?: Debugger_Fetch_HeaderEntry[],
         body?: string
     }): Promise<never>;
     async sendCommand(method: string, params: any) {
