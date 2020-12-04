@@ -32,7 +32,7 @@ export interface Debugger_Network_RequestPattern {
 export interface Debugger_Fetch_RequestPattern {
     urlPattern: string,
     resourceType?: string,
-    interceptionStage: 'Request' | 'Response'
+    requestStage: 'Request' | 'Response'
 }
 
 export interface Debugger_Network_requestIntercepted {

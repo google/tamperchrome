@@ -63,8 +63,8 @@ class FetchInterception extends Interception {
   async captureInternal(pattern: string) {
     await this.debuggee.sendCommand('Fetch.enable', {
       patterns: [
-        { urlPattern: pattern, interceptionStage: 'Request' },
-        { urlPattern: pattern, interceptionStage: 'Response' },
+        { urlPattern: pattern, requestStage: 'Request' },
+        { urlPattern: pattern, requestStage: 'Response' },
       ]
     });
   }
