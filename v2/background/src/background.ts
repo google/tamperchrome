@@ -6,13 +6,28 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
   let dbg: Debuggee = new Debuggee(tab);
   await dbg.attach();
   let int: Interception = Interception.build(dbg);
-  await int.capture('*');
-  await int.onRequest(async (req: Intercepted) => {
-    console.log(req);
-    await req.continueRequest({});
-  });
-  await int.onResponse(async (res: Intercepted) => {
-    console.log(res);
-    await res.continueResponse({});
-  });
+  const popup = open('/ui/dist/ui/index.html', '_blank', 'menubar=0');
+  if (!popup) {
+    throw new Error('Failed to open UI window');
+  }
+  popup.onmessage = async e => {
+    if (e.data.event == 'capture') {
+      popup.onmessage = null;
+      await int.capture(e.data.pattern || '*');
+      await int.onRequest(async (req: Intercepted) => {
+        const mc = new MessageChannel;
+        popup.postMessage({'event': 'onRequest', request: req}, origin, [mc.port1]);
+        mc.port2.onmessage = async (e) => {
+          await req.continueRequest(e.data.request);
+        };
+      });
+      await int.onResponse(async (res: Intercepted) => {
+        const mc = new MessageChannel;
+        popup.postMessage({'event': 'onResponse', response: res}, origin, [mc.port1]);
+        mc.port2.onmessage = async (e) => {
+          await res.continueResponse(e.data.response);
+        };
+      });
+    }
+  };
 });
