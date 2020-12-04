@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent, MatSlideToggleChange } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { InterceptorService } from '../../interceptor.service';
 
 export interface FilterSuggestion {
 	label: string;
@@ -44,7 +45,7 @@ export class RequestFilterComponent implements OnInit {
 	@ViewChild('autoGroup') matAutocomplete: MatAutocomplete;
 	@ViewChild('filterInputElement') filterInputElement: ElementRef<HTMLInputElement>;
 
-	constructor(private fb: FormBuilder) { }
+	constructor(private fb: FormBuilder, private interceptor: InterceptorService) { }
 
 	add(event: MatChipInputEvent): void {
 		if (!this.matAutocomplete.isOpen) {
@@ -52,6 +53,7 @@ export class RequestFilterComponent implements OnInit {
 			const value = event.value;
 			if ((value || '').trim()) {
 				this.filterChips.add(value.trim());
+				this.interceptor.setFilters([...this.filterChips]);
 			}
 			if (input) {
 				input.value = '';
@@ -62,16 +64,18 @@ export class RequestFilterComponent implements OnInit {
 
 	selected(event: MatAutocompleteSelectedEvent): void {
 		this.filterChips.add(event.option.viewValue);
+		this.interceptor.setFilters([...this.filterChips.values()]);
 		this.filterInputElement.nativeElement.value = '';
 		this.filterInputForm.get('filterInputGroup').setValue(null);
 	}
 
 	remove(filterChip: string): void {
 		this.filterChips.delete(filterChip);
+		this.interceptor.setFilters([...this.filterChips]);
 	}
 
 	intercept(event: MatSlideToggleChange): void {
-		// someService.setInterceptEnabled(event.checked)
+		this.interceptor.setInterceptEnabled(event.checked);
 	}
 
 	ngOnInit() {
