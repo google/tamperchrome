@@ -30,4 +30,6 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
       });
     }
   };
+  await dbg.waitForDetach();
+  popup.close();
 });
