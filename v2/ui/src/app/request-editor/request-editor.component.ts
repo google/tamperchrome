@@ -10,11 +10,8 @@ class HttpHeader {
 	selector: '[app-request-editor-header-item]',
 })
 export class RequestEditorHeaderItem implements FocusableOption {
-	constructor(public el: ElementRef<any>) {
-		console.log('new', this);
-	}
+	constructor(public el: ElementRef<any>) { }
 	focus() {
-		console.log('focused', this);
 		this.el.nativeElement.querySelector('input').focus();
 	}
 	disabled = false;
