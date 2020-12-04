@@ -153,7 +153,9 @@ export class FetchIntercepted extends Intercepted {
     if (response.responseBody) {
       newResponse.body = response.responseBody;
     }
-    return this.debuggee.sendCommand('Fetch.fulfillRequest', newResponse);
+    if (newResponse.body || newResponse.responseHeaders || newResponse.responseCode != this.status) {
+      return this.debuggee.sendCommand('Fetch.fulfillRequest', newResponse);
+    }
+    return this.debuggee.sendCommand('Fetch.continueRequest', newResponse);
   }
 }
-
