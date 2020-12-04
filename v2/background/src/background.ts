@@ -16,14 +16,14 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
       await int.capture(e.data.pattern || '*');
       await int.onRequest(async (req: Intercepted) => {
         const mc = new MessageChannel;
-        popup.postMessage({'event': 'onRequest', request: req}, origin, [mc.port1]);
+        popup.postMessage({'event': 'onRequest', request: JSON.parse(JSON.stringify(req))}, origin, [mc.port1]);
         mc.port2.onmessage = async (e) => {
           await req.continueRequest(e.data.request);
         };
       });
       await int.onResponse(async (res: Intercepted) => {
         const mc = new MessageChannel;
-        popup.postMessage({'event': 'onResponse', response: res}, origin, [mc.port1]);
+        popup.postMessage({'event': 'onResponse', response: JSON.parse(JSON.stringify(res))}, origin, [mc.port1]);
         mc.port2.onmessage = async (e) => {
           await res.continueResponse(e.data.response);
         };
