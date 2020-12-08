@@ -6,7 +6,7 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
   let dbg: Debuggee = new Debuggee(tab);
   await dbg.attach();
   let int: Interception = Interception.build(dbg);
-  const popup = open('/ui/dist/ui/index.html', `tamperchrome_${tab.id}`, 'menubar=0');
+  const popup = open('/ui/dist/ui/index.html', `tamperchrome_${tab.id}`, 'menubar=0,width=1024');
   if (!popup) {
     throw new Error('Failed to open UI window');
   }

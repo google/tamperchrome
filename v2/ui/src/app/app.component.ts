@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InterceptorService } from '../interceptor.service';
+import { InterceptorService, InterceptorRequest } from '../interceptor.service';
 
 @Component({
 	selector: 'app-root',
@@ -7,6 +7,7 @@ import { InterceptorService } from '../interceptor.service';
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+	selected: InterceptorRequest;
 	constructor (private interceptor: InterceptorService) { }
 	ngOnInit() {
 		this.interceptor.startListening(window);

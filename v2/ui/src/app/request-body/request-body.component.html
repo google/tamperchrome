@@ -1,17 +1,12 @@
 <mat-tab-group>
   <mat-tab label="Text">
     <mat-form-field fxFill>
-      <textarea matInput mat-autosize placeholder="Request body"></textarea>
-    </mat-form-field>
-  </mat-tab>
-  <mat-tab label="Base64 Decoded">
-    <mat-form-field fxFill>
-      <textarea matInput mat-autosize placeholder="Request body"></textarea>
+      <textarea matInput mat-autosize placeholder="Request body" [(ngModel)]="request.requestBody"></textarea>
     </mat-form-field>
   </mat-tab>
   <mat-tab label="URL Decoded">
     <mat-form-field fxFill>
-      <textarea matInput mat-autosize placeholder="Request body"></textarea>
+      <textarea matInput mat-autosize placeholder="Request body (url decoded)"></textarea>
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Hex Editor">

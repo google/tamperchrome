@@ -8,13 +8,18 @@ export class InterceptorRequest {
 	path: string;
 	query: string;
   type: string;
+  url: URL;
+  headers: Array<{name: string, value: string}>;
+  requestBody?: string;
   private request: InterceptedData;
   constructor(request: InterceptedData) {
     this.method = request.method;
-    const url = new URL(request.url);
-    this.host = url.host;
-    this.path = url.pathname;
-    this.query = url.search;
+    this.url = new URL(request.url);
+    this.host = this.url.host;
+    this.path = this.url.pathname;
+    this.query = this.url.search;
+    this.headers = request.requestHeaders;
+    this.requestBody = request.requestBody;
     this.request = request;
   }
 }

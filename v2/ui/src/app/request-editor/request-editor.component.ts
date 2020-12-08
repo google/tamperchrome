@@ -1,10 +1,6 @@
-import { Component, OnInit, Directive, QueryList, ElementRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, Directive, Input, QueryList, ElementRef, ViewChildren } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
-
-class HttpHeader {
-	name: string;
-	value: string;
-}
+import { InterceptorRequest } from '../../interceptor.service';
 
 @Directive({
 	selector: '[app-request-editor-header-item]',
@@ -23,31 +19,9 @@ export class RequestEditorHeaderItem implements FocusableOption {
 	styleUrls: ['./request-editor.component.scss']
 })
 export class RequestEditorComponent implements OnInit {
+	@Input() request: InterceptorRequest;
 	ngOnInit() { }
 	keyManager: FocusKeyManager<RequestEditorHeaderItem> = null;
-	headers: Array<Array<string>> = [
-		['Host', 'www.google.com'],
-		['User-Agent', 'evilwebsite.com'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*'],
-		['Accept', '*/*']
-	];
 	@ViewChildren(RequestEditorHeaderItem) headerItems: QueryList<RequestEditorHeaderItem>;
 	ngAfterViewInit() {
 		setTimeout(()=>{

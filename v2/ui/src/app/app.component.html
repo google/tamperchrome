@@ -1,5 +1,5 @@
 <main fxLayout="column">
   <app-request-filter></app-request-filter>
-  <app-request-list fxFlex="0 1 40vh"></app-request-list>
-  <app-request-editor></app-request-editor>
+  <app-request-list (selected)="selected=$event" fxFlex="0 1 40vh"></app-request-list>
+  <app-request-editor *ngIf="selected" [request]="selected"></app-request-editor>
 </main>

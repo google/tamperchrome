@@ -1,4 +1,4 @@
-import { Component, Directive, OnInit, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, Directive, OnInit, Output, EventEmitter, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { MatListItem, MatTableDataSource } from '@angular/material';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
@@ -24,6 +24,9 @@ export class RequestListItem implements FocusableOption {
 	styleUrls: ['./request-list.component.scss'],
 })
 export class RequestListComponent implements OnInit {
+	@Output()
+	selected = new EventEmitter<InterceptorRequest>();
+
 	constructor(private interceptor: InterceptorService) { }
 	ngOnInit() { this.updateTable() }
 
@@ -35,6 +38,9 @@ export class RequestListComponent implements OnInit {
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems);
 		this.keyManager.updateActiveItem(0);
+		this.keyManager.change.subscribe({
+			next: (v) => this.selected.emit(this.requests[v])
+		});
 	}
 	@ViewChild(MatTable) table: MatTable<any>;
 	async updateTable() {
