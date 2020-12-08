@@ -4,9 +4,12 @@
       <textarea matInput mat-autosize placeholder="Request body" [(ngModel)]="request.requestBody"></textarea>
     </mat-form-field>
   </mat-tab>
-  <mat-tab label="URL Decoded">
+  <mat-tab label="JSON">
     <mat-form-field fxFill>
-      <textarea matInput mat-autosize placeholder="Request body (url decoded)"></textarea>
+      <textarea
+      matInput mat-autosize
+      placeholder="Request body as JSON"
+      [ngModel]="request.requestBody | json" (ngModelChange)="request.requestBody = $event"></textarea>
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Hex Editor">
