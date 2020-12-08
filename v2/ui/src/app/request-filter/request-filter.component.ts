@@ -30,14 +30,6 @@ export class RequestFilterComponent implements OnInit {
 		filterInputGroup: '',
 	});
 
-	filterSuggestions: FilterSuggestion[] = [{
-		label: 'method',
-		values: ['GET', 'POST']
-	},{
-		label: 'domain',
-		values: ['example.com', 'example.net']
-	}];
-
 	filterSuggestionOptions: Observable<FilterSuggestion[]>;
 
 	filterChips: Set<string> = new Set<string>();
@@ -88,11 +80,24 @@ export class RequestFilterComponent implements OnInit {
 
 	private _filterGroup(value: string): FilterSuggestion[] {
 		if (value) {
-			return this.filterSuggestions
+			const methods = new Set<string>();
+			const domains = new Set<string>();
+			for (const request of this.interceptor.requests) {
+				methods.add(request.method);
+				domains.add(request.host);
+			}
+			const filterSuggestions: FilterSuggestion[] = [{
+				label: 'method',
+				values: [...methods.values()]
+			},{
+				label: 'domain',
+				values: [...domains.values()]
+			}];
+			return filterSuggestions
 				.map(group => ({ label: group.label, values: _filter(group.label, group.values, value) }))
 				.filter(group => group.values.length > 0);
 		}
 
-		return this.filterSuggestions;
+		return [];
 	}
 }
