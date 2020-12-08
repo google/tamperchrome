@@ -82,9 +82,13 @@ export class RequestFilterComponent implements OnInit {
 		if (value) {
 			const methods = new Set<string>();
 			const domains = new Set<string>();
+			const paths = new Set<string>();
+			const queries = new Set<string>();
 			for (const request of this.interceptor.requests) {
 				methods.add(request.method);
 				domains.add(request.host);
+				paths.add(request.path);
+				queries.add(request.query);
 			}
 			const filterSuggestions: FilterSuggestion[] = [{
 				label: 'method',
@@ -92,6 +96,12 @@ export class RequestFilterComponent implements OnInit {
 			},{
 				label: 'domain',
 				values: [...domains.values()]
+			},{
+				label: 'path',
+				values: [...paths.values()]
+			},{
+				label: 'query',
+				values: [...queries.values()]
 			}];
 			return filterSuggestions
 				.map(group => ({ label: group.label, values: _filter(group.label, group.values, value) }))
