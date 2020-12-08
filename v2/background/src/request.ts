@@ -7,15 +7,7 @@ import {
   Debugger_Fetch_HeaderEntry
 } from "./debuggee";
 
-export interface InterceptedData {
-  method: string;
-  url: string;
-  requestHeaders: { name: string, value: string }[];
-  requestBody?: string | null;
-  status: number;
-  responseHeaders: { name: string, value: string }[];
-  responseBody?: string | null;
-}
+import { InterceptedData } from "../../common/types";
 
 export abstract class Intercepted implements InterceptedData {
   protected debuggee: Debuggee;

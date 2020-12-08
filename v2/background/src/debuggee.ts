@@ -69,6 +69,16 @@ export class Debuggee {
         }));
     }
 
+    async detach() {
+        return new Promise<void>((res, err) => chrome.debugger.detach(this.target, () => {
+            if (chrome.runtime.lastError) {
+                err(chrome.runtime.lastError);
+            } else {
+                res();
+            }
+        }));
+    }
+
     async waitForDetach(): Promise<string> {
         let reason = await new Promise((res: (reason: string) => void, err) => {
             chrome.debugger.onDetach.addListener((source, reason: string) => {
