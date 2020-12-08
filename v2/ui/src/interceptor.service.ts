@@ -27,6 +27,7 @@ export class InterceptorService {
   filters: string[] = [];
 
   requests: InterceptorRequest[] = [];
+  private unfilteredRequests: InterceptorRequest[] = [];
 
   private waitForChange: Promise<void> = Promise.resolve();
   private triggerChange: Function = null;
@@ -48,7 +49,16 @@ export class InterceptorService {
 
   private addRequest(request: InterceptedData) {
     console.log(request);
-    this.requests.push(new InterceptorRequest(request));
+    this.unfilteredRequests.push(new InterceptorRequest(request));
+    this.filterRequests();
+  }
+
+  private filterRequests() {
+    const requests = this.unfilteredRequests.filter(
+      request=>this.filters.every(
+        filter=>Object.values(request).some(
+          field=>field==filter)));
+    this.requests.splice(0, this.requests.length, ...requests);
     this.triggerChange();
   }
 
@@ -72,6 +82,7 @@ export class InterceptorService {
 
   setFilters(filters: string[]) {
     this.filters = filters;
+    this.filterRequests();
   }
 
   setInterceptEnabled(enabled: boolean) {
