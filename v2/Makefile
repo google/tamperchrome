@@ -1,12 +1,14 @@
 ENV=--prod
 FAKE=dev
 
-all: background ui
+prod: background ui
+	jq 'del(.key)' manifest_base.json > manifest.json
 
 dev: ENV=
-dev: all
+dev: prod
+	cp manifest_base.json manifest.json
 
-crx.zip: all
+crx.zip: prod
 	rm -f crx.zip
 	zip -r crx.zip *
 
