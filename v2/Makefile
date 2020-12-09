@@ -1,10 +1,16 @@
 ENV=--prod
-FAKE=dev
+FAKE=dev prod
 
-all: background ui
+prod: background ui
+	jq 'del(.key)' manifest_base.json > manifest.json
 
 dev: ENV=
-dev: all
+dev: prod
+	cp manifest_base.json manifest.json
+
+crx.zip: prod
+	rm -f crx.zip
+	zip -r crx.zip background/out ui/dist icons manifest.json
 
 background: FORCE node_modules/@types/chrome
 	cd background && tsc --project src/tsconfig.json
@@ -21,4 +27,4 @@ ui: FORCE ui/node_modules
 FORCE:
 
 clean:
-	rm -rf ui/node_modules node_modules background/out ui/dist
+	rm -rf ui/node_modules node_modules background/out ui/dist manifest.json crx.zip
