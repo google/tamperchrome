@@ -8,7 +8,9 @@ import { InterceptorRequest } from '../../interceptor.service';
 export class RequestEditorHeaderItem implements FocusableOption {
 	constructor(public el: ElementRef<any>) { }
 	focus() {
-		this.el.nativeElement.querySelector('input').focus();
+		let element = this.el.nativeElement.querySelector('input:focus');
+		if (!element) element = this.el.nativeElement.querySelector('input');
+		element.focus();
 	}
 	disabled = false;
 }
