@@ -1,4 +1,10 @@
+ENV=--prod
+FAKE=dev
+
 all: background ui
+
+dev: ENV=
+dev: all
 
 background: FORCE node_modules/@types/chrome
 	cd background && tsc --project src/tsconfig.json
@@ -10,7 +16,7 @@ ui/node_modules:
 	cd ui && npm install
 
 ui: FORCE ui/node_modules
-	cd ui && ng build --prod
+	cd ui && ng build ${ENV}
 
 FORCE:
 
