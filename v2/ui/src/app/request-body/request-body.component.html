@@ -5,6 +5,6 @@
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Hex Editor">
-    <app-hex-editor></app-hex-editor>
+    <app-hex-editor [(value)]="request.requestBody"></app-hex-editor>
   </mat-tab>
 </mat-tab-group>
