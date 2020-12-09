@@ -66,16 +66,19 @@ export class InterceptorService {
   private addRequest(request: InterceptedData, port: MessagePort) {
     console.log(request);
     const intRequest = new InterceptorRequest(request, port);
-    if (!this.enabled || !this.filterRequest(intRequest)) intRequest.respond();
+    const filtered = this.filterRequest(intRequest);
+    if (!this.enabled || !filtered) intRequest.respond();
     this.unfilteredRequests.push(intRequest);
-    this.filterRequests();
+    if (filtered) {
+      this.requests.push(intRequest);
+      this.triggerChange();
+    }
   }
 
   private filterRequests() {
     const requests = this.unfilteredRequests.filter(
       request=>this.filterRequest(request));
     this.requests.splice(0, this.requests.length, ...requests);
-    this.triggerChange();
   }
 
   private filterRequest(request: InterceptorRequest) {
@@ -104,6 +107,7 @@ export class InterceptorService {
   setFilters(filters: string[]) {
     this.filters = filters;
     this.filterRequests();
+    this.triggerChange();
   }
 
   setInterceptEnabled(enabled: boolean) {
