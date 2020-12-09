@@ -46,6 +46,7 @@ export class RequestListComponent implements OnInit {
 	async updateTable() {
 		for await (const change of this.interceptor.changes) {
 			this.table.renderRows();
+			this.selected.emit(this.requests[this.keyManager.activeItemIndex]);
 		}
 	}
 }
