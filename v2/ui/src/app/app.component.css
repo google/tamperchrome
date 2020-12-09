@@ -1,0 +1,7 @@
+app-request-list {
+    overflow: auto;
+}
+
+main > * {
+    margin: 10px;
+}

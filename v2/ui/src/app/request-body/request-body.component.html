@@ -1,0 +1,10 @@
+<mat-tab-group>
+  <mat-tab label="Text">
+    <mat-form-field fxFill>
+      <textarea matInput mat-autosize placeholder="Request body" [(ngModel)]="request.requestBody"></textarea>
+    </mat-form-field>
+  </mat-tab>
+  <mat-tab label="Hex Editor">
+    <app-hex-editor [(value)]="request.requestBody"></app-hex-editor>
+  </mat-tab>
+</mat-tab-group>

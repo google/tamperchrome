@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$primary: mat-palette($mat-yellow);
+$accent:  mat-palette($mat-pink, A200, A100, A400);
+$warn:    mat-palette($mat-red);
+
+$theme: mat-dark-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+@import "./app/request-list/request-list.component.scss";
+@include app-request-list-theme($theme);
+
+@import "./app/hex-editor/hex-editor.component.scss";
+@include app-hex-editor-theme($theme);

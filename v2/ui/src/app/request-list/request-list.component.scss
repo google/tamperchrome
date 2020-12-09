@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+@mixin app-request-list-theme($theme) {
+  $background: map-get($theme, background);
+
+  [app-request-list-item] {
+  	&:hover {
+    	background-color: mat-color($background, 'hover');
+    }
+    &.cdk-keyboard-focused {
+    	background-color: mat-color($background, 'hover');
+    }
+  }
+};
+
+[mat-cell] {
+  text-overflow: ellipsis;
+  max-width: 60vw;
+  overflow: hidden;
+}
+
+:host {
+	cursor: pointer;
+}

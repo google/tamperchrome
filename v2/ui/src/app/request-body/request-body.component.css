@@ -1,0 +1,4 @@
+mat-form-field textarea {
+    max-height: 50vh;
+    overflow: auto;
+}

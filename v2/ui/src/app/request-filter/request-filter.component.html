@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="filterInputForm" fxFill fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="1 0">
+        <mat-label>
+          <mat-icon style="opacity: 0;">filter_list</mat-icon>
+          &nbsp;
+          Filter HTTP Requests
+        </mat-label>
+        <mat-chip-list fxFill #filterChipList title="Active filters">
+          <mat-icon>filter_list</mat-icon>
+          <mat-chip
+            *ngFor="let filterChip of filterChips"
+            [selectable]="true"
+            [removable]="true"
+            (removed)="remove(filterChip)">
+            {{filterChip}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            autofocus
+            type="text"
+            matInput
+            #filterInputElement
+            placeholder="Add a filter"
+            formControlName="filterInputGroup"
+            [matAutocomplete]="autoGroup"
+            [matChipInputFor]="filterChipList"
+            (matChipInputTokenEnd)="add($event)"
+            (blur)="$event.target.value=''"/>
+          <mat-autocomplete
+            #autoGroup="matAutocomplete"
+            (optionSelected)="selected($event)">
+            <mat-optgroup
+              *ngFor="let filterType of filterSuggestionOptions | async"
+              [label]="filterType.label+':'">
+              <mat-option
+                *ngFor="let value of filterType.values"
+                [value]="filterType.label+':'+value+' '">
+                {{value}}
+              </mat-option>
+            </mat-optgroup>
+          </mat-autocomplete>
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-slide-toggle (change)="intercept($event)" fxFlex="0">Intercept requests</mat-slide-toggle>
+    </form>
+  </mat-card-content>
+</mat-card>
