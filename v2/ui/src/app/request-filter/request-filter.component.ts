@@ -64,6 +64,9 @@ export class RequestFilterComponent implements OnInit {
 	remove(filterChip: string): void {
 		this.filterChips.delete(filterChip);
 		this.interceptor.setFilters([...this.filterChips]);
+		if (this.filterChips.size == 0) {
+			this.filterInputElement.nativeElement.focus();
+		}
 	}
 
 	intercept(event: MatSlideToggleChange): void {

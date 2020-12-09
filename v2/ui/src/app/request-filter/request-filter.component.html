@@ -26,8 +26,8 @@
             formControlName="filterInputGroup"
             [matAutocomplete]="autoGroup"
             [matChipInputFor]="filterChipList"
-            [matChipInputAddOnBlur]="true"
-            (matChipInputTokenEnd)="add($event)"/>
+            (matChipInputTokenEnd)="add($event)"
+            (blur)="$event.target.value=''"/>
           <mat-autocomplete
             #autoGroup="matAutocomplete"
             (optionSelected)="selected($event)">
