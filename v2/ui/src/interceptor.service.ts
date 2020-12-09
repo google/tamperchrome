@@ -3,24 +3,35 @@ import { InterceptedData } from "../../common/types";
 
 
 export class InterceptorRequest {
-	method: string;
-	host: string;
-	path: string;
-	query: string;
+  method: string;
+  readonly host: string;
+  readonly path: string;
+  readonly query: string;
   type: string;
-  url: URL;
+  url: string;
   headers: Array<{name: string, value: string}>;
   requestBody?: string;
-  private request: InterceptedData;
-  constructor(request: InterceptedData) {
+  pending: boolean = true;
+
+  constructor(private request: InterceptedData, private port: MessagePort) {
     this.method = request.method;
-    this.url = new URL(request.url);
-    this.host = this.url.host;
-    this.path = this.url.pathname;
-    this.query = this.url.search;
+    this.url = request.url;
     this.headers = request.requestHeaders;
     this.requestBody = request.requestBody;
-    this.request = request;
+    const url = new URL(this.url);
+    this.host = url.host;
+    this.path = url.pathname;
+    this.query = url.search;
+  }
+
+  respond() {
+    this.port.postMessage({request: {
+      method: this.method,
+      url: this.url,
+      requestHeaders: this.headers,
+      requestBody: this.requestBody,
+    }});
+    this.pending = false;
   }
 }
 
@@ -52,19 +63,25 @@ export class InterceptorService {
     }
   }
 
-  private addRequest(request: InterceptedData) {
+  private addRequest(request: InterceptedData, port: MessagePort) {
     console.log(request);
-    this.unfilteredRequests.push(new InterceptorRequest(request));
+    const intRequest = new InterceptorRequest(request, port);
+    if (!this.enabled || !this.filterRequest(intRequest)) intRequest.respond();
+    this.unfilteredRequests.push(intRequest);
     this.filterRequests();
   }
 
   private filterRequests() {
     const requests = this.unfilteredRequests.filter(
-      request=>this.filters.every(
-        filter=>Object.values(request).some(
-          field=>field==filter)));
+      request=>this.filterRequest(request));
     this.requests.splice(0, this.requests.length, ...requests);
     this.triggerChange();
+  }
+
+  private filterRequest(request: InterceptorRequest) {
+    return this.filters.every(
+      filter=>Object.values(request).some(
+        field=>field==filter))
   }
 
   startListening(window: Window) {
@@ -76,8 +93,7 @@ export class InterceptorService {
   }
 
   onRequest(request, port: MessagePort) {
-    this.addRequest(request);
-    port.postMessage({request: {}});
+    this.addRequest(request, port);
   }
 
   onResponse(response, port: MessagePort) {

@@ -14,9 +14,9 @@ export const _filter = (label: string, opt: string[], value: string): string[] =
 	const filterValue = value.toLowerCase();
 
 	return opt.filter(item =>
-		label.toLowerCase().indexOf(filterValue) === 0 ||
-		item.toLowerCase().indexOf(filterValue) === 0 ||
-		(label + ':' + item).toLowerCase().indexOf(filterValue) === 0);
+		label.toLowerCase().includes(filterValue) ||
+		item.toLowerCase().includes(filterValue) ||
+		(label + ':' + item).toLowerCase().includes(filterValue));
 };
 
 @Component({

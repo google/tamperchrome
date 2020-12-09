@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
       <mat-card-title-group>
-          <mat-card-title>Edit</mat-card-title>
+          <mat-card-title *ngIf="request.pending">Edit</mat-card-title>
           <mat-card-subtitle>HTTP Request</mat-card-subtitle>
       </mat-card-title-group>
   </mat-card-header> 
@@ -66,8 +66,8 @@
     </button>
     <app-request-body *ngIf="request.requestBody" [request]="request" aria-label="Request Body"></app-request-body>
   </mat-card-content>
-  <mat-card-actions align="end">
-    <button matTooltip="Send request" mat-mini-fab color="primary">
+  <mat-card-actions *ngIf="request.pending" align="end">
+    <button matTooltip="Send request" (click)="request.respond()" mat-mini-fab color="primary">
       <mat-icon>send</mat-icon>
     </button>
   </mat-card-actions>
