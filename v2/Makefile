@@ -6,6 +6,10 @@ all: background ui
 dev: ENV=
 dev: all
 
+crx.zip: all
+	rm -f crx.zip
+	zip -r crx.zip *
+
 background: FORCE node_modules/@types/chrome
 	cd background && tsc --project src/tsconfig.json
 
