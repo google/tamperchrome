@@ -10,7 +10,7 @@ dev: prod
 
 crx.zip: prod
 	rm -f crx.zip
-	zip -r crx.zip background/out ui/dist icons manifest.json
+	zip -r crx.zip background/*.html background/sw.js background/out ui/dist icons manifest.json
 
 background: FORCE node_modules/@types/chrome
 	cd background && tsc --project src/tsconfig.json
