@@ -12,6 +12,7 @@ export class InterceptorRequest {
   headers: Array<{name: string, value: string}>;
   requestBody?: string;
   pending: boolean = true;
+  visible: boolean = false;
 
   constructor(private request: InterceptedData, private port: MessagePort) {
     this.method = request.method;
@@ -43,7 +44,6 @@ export class InterceptorService {
   filters: string[] = [];
 
   requests: InterceptorRequest[] = [];
-  private unfilteredRequests: InterceptorRequest[] = [];
 
   private waitForChange: Promise<void> = Promise.resolve();
   private triggerChange: Function = null;
@@ -68,17 +68,17 @@ export class InterceptorService {
     const intRequest = new InterceptorRequest(request, port);
     const filtered = this.filterRequest(intRequest);
     if (!this.enabled || !filtered) intRequest.respond();
-    this.unfilteredRequests.push(intRequest);
+    intRequest.visible = filtered;
+    this.requests.push(intRequest);
     if (filtered) {
-      this.requests.push(intRequest);
       this.triggerChange();
     }
   }
 
   private filterRequests() {
-    const requests = this.unfilteredRequests.filter(
-      request=>this.filterRequest(request));
-    this.requests.splice(0, this.requests.length, ...requests);
+    for (const request of this.requests) {
+      request.visible = this.filterRequest(request);
+    }
   }
 
   private filterRequest(request: InterceptorRequest) {
