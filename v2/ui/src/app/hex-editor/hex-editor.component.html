@@ -6,21 +6,25 @@
       <mat-card-subtitle id="app-hex-editor-grid-hex-label">Hex Editor</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <div
+      <cdk-virtual-scroll-viewport
         app-hex-editor-grid
         aria-labelledby="app-hex-editor-grid-hex-label"
-        fxFlex="0 0 64ch"
+        itemSize="charValues.length/16"
         [attr.aria-colcount]="16" [attr.aria-rowcount]="charValues.length/16"
-        role="grid" fxLayout="row wrap">
-        <input
-          app-hex-editor-character
-          app-hex-editor-grid-cell
-          fxFlex="0 0 4ch" [size]="2"
-          *ngFor="let char of hexValues; let i = index; trackBy: trackByFn"
-          [(ngModel)]="hexValues[i]" [attr.title]="charValues[i]"
-          (keyup)="onHexChange(i)" (keypress)="onHexChange(i)"
-          [index]="i" [keyManager]="keyManager">
-      </div>
+        role="grid" style="width: 66ch; height: 40vh;">
+        <div fxLayout="column">
+          <div *cdkVirtualFor="let rowIndex of getRowIndex()">
+            <input
+              app-hex-editor-character
+              app-hex-editor-grid-cell
+              fxFlex="0 0 4ch" [size]="2"
+              *ngFor="let char of hexValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn"
+              [(ngModel)]="hexValues[rowIndex*16 + i]" [attr.title]="charValues[rowIndex*16 + i]"
+              (keyup)="onHexChange(rowIndex*16 + i)" (keypress)="onHexChange(rowIndex*16 + i)"
+              [index]="rowIndex*16 + i" [keyManager]="keyManager">
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
     </mat-card-content>
   </mat-card>
   <mat-card>
@@ -28,21 +32,25 @@
       <mat-card-subtitle id="app-hex-editor-grid-chars-label">Characters</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <div
+      <cdk-virtual-scroll-viewport
         app-hex-editor-grid
         aria-labelledby="app-hex-editor-grid-chars-label"
-        fxFlex="0 0 48ch"
+        itemSize="charValues.length/16"
         [attr.aria-colcount]="16" [attr.aria-rowcount]="charValues.length/16"
-        role="grid" fxLayout="row wrap">
-        <input
-          app-hex-editor-character-shadow
-          app-hex-editor-grid-cell
-          fxFlex="0 0 3ch" [size]="1"
-          *ngFor="let char of charValues; let i = index; trackBy: trackByFn"
-          [(ngModel)]="charValues[i]" [attr.title]="hexValues[i]"
-          (keyup)="onValueChange()" (keypress)="onValueChange()"
-          [index]="i" [keyManager]="keyManager">
-      </div>
+        role="grid" style="width: 50ch; height: 40vh;">
+        <div fxLayout="column">
+          <div *cdkVirtualFor="let rowIndex of getRowIndex()">
+            <input
+              app-hex-editor-character-shadow
+              app-hex-editor-grid-cell
+              fxFlex="0 0 3ch" [size]="1"
+              *ngFor="let char of charValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn"
+              [(ngModel)]="charValues[rowIndex*16 + i]" [attr.title]="hexValues[rowIndex*16 + i]"
+              (keyup)="onValueChange()" (keypress)="onValueChange()"
+              [index]="rowIndex*16 + i" [keyManager]="keyManager">
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
     </mat-card-content>
   </mat-card>
 </div>

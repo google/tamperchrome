@@ -1,6 +1,7 @@
 import { Component, Directive, OnInit, EventEmitter, ElementRef, ViewChildren, QueryList, Input, Output } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 
 @Directive({
 	selector: '[app-hex-editor-character]',
@@ -69,6 +70,18 @@ export class HexEditorComponent {
 			setTimeout(()=>this.updateInputs());
 		});
 		setTimeout(()=>this.updateInputs());
+		this.scrollDispatcher.scrolled().subscribe((scrollable: CdkScrollable) => {
+			if (scrollable) {
+				const top = scrollable.measureScrollOffset('top');
+				Array.from(this.scrollDispatcher.scrollContainers.keys())
+				.filter(otherScrollable => otherScrollable && otherScrollable !== scrollable)
+				.forEach(otherScrollable => {
+					if (otherScrollable.measureScrollOffset('top') !== top) {
+						otherScrollable.scrollTo({top});
+					}
+				});
+			}
+		});
 	}
 
 	updateInputs() {
@@ -119,5 +132,11 @@ export class HexEditorComponent {
 	trackByFn(index, char) {
 		return index;
 	}
+
+	getRowIndex() {
+		return Array.from(Array(Math.ceil(this.charValues.length / 16)).keys());
+	}
+
+	constructor(private scrollDispatcher: ScrollDispatcher) {}
 
 }

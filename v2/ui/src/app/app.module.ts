@@ -30,6 +30,7 @@ import { HexEditorComponent, HexEditorGridCell, HexEditorCharacter, HexEditorCha
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
 	declarations: [
@@ -68,6 +69,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 		MatRadioModule,
 		MatSelectModule,
 		MatTooltipModule,
+		ScrollingModule,
 	],
 	providers: [{
 		provide: MAT_CHIPS_DEFAULT_OPTIONS,
