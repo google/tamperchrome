@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HexEditorComponent } from './hex-editor.component';
 
@@ -6,7 +6,7 @@ describe('HexEditorComponent', () => {
   let component: HexEditorComponent;
   let fixture: ComponentFixture<HexEditorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HexEditorComponent ]
     })
