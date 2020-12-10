@@ -34,8 +34,8 @@ export class RequestFilterComponent implements OnInit {
 
 	filterChips: Set<string> = new Set<string>();
 
-	@ViewChild('autoGroup') matAutocomplete: MatAutocomplete;
-	@ViewChild('filterInputElement') filterInputElement: ElementRef<HTMLInputElement>;
+	@ViewChild('autoGroup', { static: true }) matAutocomplete: MatAutocomplete;
+	@ViewChild('filterInputElement', { static: true }) filterInputElement: ElementRef<HTMLInputElement>;
 
 	constructor(private fb: FormBuilder, private interceptor: InterceptorService) { }
 

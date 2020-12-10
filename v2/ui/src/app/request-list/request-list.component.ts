@@ -42,7 +42,7 @@ export class RequestListComponent implements OnInit {
 			next: (v) => this.selected.emit(this.requests[v])
 		});
 	}
-	@ViewChild(MatTable) table: MatTable<any>;
+	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
 	async updateTable() {
 		for await (const change of this.interceptor.changes) {
 			this.table.renderRows();
