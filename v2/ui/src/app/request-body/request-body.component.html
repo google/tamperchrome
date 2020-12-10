@@ -5,6 +5,8 @@
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Hex Editor">
-    <app-hex-editor [(value)]="request.requestBody"></app-hex-editor>
+    <ng-template matTabContent>
+      <app-hex-editor [(value)]="request.requestBody"></app-hex-editor>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>
