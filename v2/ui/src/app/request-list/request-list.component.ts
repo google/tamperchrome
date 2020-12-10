@@ -1,5 +1,5 @@
 import { Component, Directive, OnInit, Output, EventEmitter, ViewChild, ViewChildren, QueryList, ElementRef, Input } from '@angular/core';
-import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
+import { FocusKeyManager, FocusableOption, ListKeyManagerOption } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
 import { MatTable } from '@angular/material/table';
@@ -8,11 +8,16 @@ import { MatTable } from '@angular/material/table';
 @Directive({
 	selector: '[app-request-list-item]',
 })
-export class RequestListItem implements FocusableOption {
+export class RequestListItem implements FocusableOption, ListKeyManagerOption {
 	constructor(public el: ElementRef<any>) { }
 	focus() {
 		this.el.nativeElement.focus();
 	}
+
+	getLabel() {
+		return this.request.method + ' ' + this.request.path + this.request.query;
+	}
+
 	@Input() disabled = false;
 	@Input() request:InterceptorRequest = null;
 }
@@ -35,7 +40,7 @@ export class RequestListComponent implements OnInit {
 	keyManager: FocusKeyManager<RequestListItem> = null;
 	@ViewChildren(RequestListItem) listItems: QueryList<RequestListItem>;
 	ngAfterViewInit() {
-		this.keyManager = new FocusKeyManager(this.listItems);
+		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
 		this.keyManager.updateActiveItem(0);
 		this.keyManager.change.subscribe({
 			next: (v) => this.selected.emit(this.requests[v])
