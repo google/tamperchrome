@@ -1,12 +1,24 @@
 ENV=--prod
-FAKE=dev
+FAKE=.FORCE dev prod local
 
-all: background ui
+crx.zip: prod
+	rm -f crx.zip
+	zip -r crx.zip background/*.html background/sw.js background/out ui/dist icons manifest.json
+
+crx_local: crx.zip
+	rm -f crx_local
+	cp crx.zip crx_local
+	cd crx_local && unzip crx.zip
+	cp manifest_base.json > crx/manifest.json
+
+prod: background ui
+	jq 'del(.key)' manifest_base.json > manifest.json
 
 dev: ENV=
-dev: all
+dev: prod
+	cp manifest_base.json manifest.json
 
-background: FORCE node_modules/@types/chrome
+background: .FORCE node_modules/@types/chrome
 	cd background && tsc --project src/tsconfig.json
 
 node_modules/@types/chrome:
@@ -15,10 +27,10 @@ node_modules/@types/chrome:
 ui/node_modules:
 	cd ui && npm install
 
-ui: FORCE ui/node_modules
+ui: .FORCE ui/node_modules
 	cd ui && ng build ${ENV}
 
-FORCE:
+.FORCE:
 
 clean:
-	rm -rf ui/node_modules node_modules background/out ui/dist
+	rm -rf ui/node_modules node_modules background/out ui/dist manifest.json crx.zip
