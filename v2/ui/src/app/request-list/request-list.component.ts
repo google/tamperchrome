@@ -1,6 +1,5 @@
 import { Component, Directive, OnInit, Output, EventEmitter, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
-import { MatListItem } from '@angular/material/list';
 import { MatTableDataSource } from '@angular/material/table';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
 import { MatTable } from '@angular/material/table';
