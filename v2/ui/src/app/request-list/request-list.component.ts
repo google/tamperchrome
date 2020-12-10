@@ -1,4 +1,4 @@
-import { Component, Directive, OnInit, Output, EventEmitter, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, Directive, OnInit, Output, EventEmitter, ViewChild, ViewChildren, QueryList, ElementRef, Input } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
@@ -7,15 +7,14 @@ import { MatTable } from '@angular/material/table';
 
 @Directive({
 	selector: '[app-request-list-item]',
-	inputs: ['request'],
 })
 export class RequestListItem implements FocusableOption {
-	request: InterceptorRequest;
 	constructor(public el: ElementRef<any>) { }
 	focus() {
 		this.el.nativeElement.focus();
 	}
-	disabled = false;
+	@Input() disabled = false;
+	@Input() request:InterceptorRequest = null;
 }
 
 @Component({

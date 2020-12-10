@@ -31,6 +31,7 @@
     app-request-list-item
     *matRowDef="let row; columns: displayedColumns; let i = index;"
     [request]="row"
+    [disabled]="!row.visible"
     [hidden]="!row.visible"
     (click)="keyManager?.setActiveItem(i)"
     [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
