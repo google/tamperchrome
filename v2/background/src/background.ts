@@ -3,6 +3,17 @@ import { Interception } from "./interception";
 import { Intercepted } from "./request";
 
 chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
+  if (tab.url) {
+    await new Promise<void>((res, rej)=>chrome.permissions.request({
+      origins: [new URL(tab.url!).origin + '/*']
+    }, granted => {
+      if (granted) {
+        res();
+      } else {
+        rej();
+      }
+    }));
+  }
   let dbg: Debuggee = new Debuggee(tab);
   await dbg.attach();
   let int: Interception = Interception.build(dbg);
