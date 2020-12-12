@@ -6,10 +6,11 @@ crx.zip: prod
 	zip -r crx.zip background/*.html background/sw.js background/out ui/dist icons manifest.json
 
 crx_local: crx.zip
-	rm -f crx_local
+	rm -rf crx_local
+	mkdir crx_local
 	cp crx.zip crx_local
 	cd crx_local && unzip crx.zip
-	cp manifest_base.json > crx/manifest.json
+	cp manifest_base.json crx_local/manifest.json
 
 prod: background ui
 	jq 'del(.key)' manifest_base.json > manifest.json
