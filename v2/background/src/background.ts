@@ -4,15 +4,15 @@ import { Intercepted } from "./request";
 
 chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
   if (tab.url) {
-    await new Promise<void>((res, rej)=>chrome.permissions.request({
-      origins: [new URL(tab.url!).origin + '/*']
-    }, granted => {
-      if (granted) {
-        res();
-      } else {
-        rej();
+    const permission = {origins: [new URL(tab.url!).origin + '/*']};
+    const allowed = await new Promise<boolean>(res=>chrome.permissions.contains(permission, res));
+    if (!allowed) {
+      const granted = await new Promise<boolean>(res=>chrome.permissions.request(permission, res));
+      if (!granted) {
+        // this will fail on the constructor below.
+        console.error('User rejected access to tab', tab);
       }
-    }));
+    }
   }
   let dbg: Debuggee = new Debuggee(tab);
   await dbg.attach();
