@@ -102,13 +102,13 @@ export class RequestFilterComponent implements OnInit {
 			const filterSuggestions: FilterSuggestion[] = [{
 				label: 'method',
 				values: [...methods.values()]
-			},{
+			}, {
 				label: 'domain',
 				values: [...domains.values()]
-			},{
+			}, {
 				label: 'path',
 				values: [...paths.values()]
-			},{
+			}, {
 				label: 'query',
 				values: [...queries.values()]
 			}];

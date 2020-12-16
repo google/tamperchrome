@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InterceptedData } from "../../common/types";
+import { InterceptedData } from '../../common/types';
 
 
 export class InterceptorRequest {
@@ -9,11 +9,11 @@ export class InterceptorRequest {
   readonly query: string;
   type: string;
   url: string;
-  headers: Array<{name: string, value: string, disabled?: boolean}>;
+  headers: Array<{name: string; value: string; disabled?: boolean}>;
   requestBody?: string;
-  pending: boolean = true;
-  visibleInFilter: boolean = false;
-  cleared: boolean = false;
+  pending = true;
+  visibleInFilter = false;
+  cleared = false;
 
   get visible(): boolean {
     return !this.cleared && this.visibleInFilter;
@@ -34,7 +34,7 @@ export class InterceptorRequest {
     this.port.postMessage({request: {
       method: this.method,
       url: this.url,
-      requestHeaders: this.headers.filter(v=>!v.disabled),
+      requestHeaders: this.headers.filter(v => !v.disabled),
       requestBody: this.requestBody,
     }});
     this.pending = false;
@@ -45,13 +45,13 @@ export class InterceptorRequest {
   providedIn: 'root'
 })
 export class InterceptorService {
-  enabled: boolean = false;
+  enabled = false;
   filters: string[] = [];
 
   requests: InterceptorRequest[] = [];
 
   private waitForChange: Promise<void> = Promise.resolve();
-  private triggerChange: Function = null;
+  private triggerChange: () => void = null;
   changes;
 
   constructor() {
@@ -59,9 +59,9 @@ export class InterceptorService {
   }
 
   private async *getChanges() {
-    while(true) {
+    while (true) {
       await this.waitForChange;
-      this.waitForChange = new Promise(res=>{
+      this.waitForChange = new Promise(res => {
         this.triggerChange = res;
       });
       yield;
@@ -71,7 +71,7 @@ export class InterceptorService {
   private addRequest(request: InterceptedData, port: MessagePort) {
     const intRequest = new InterceptorRequest(request, port);
     const filtered = this.filterRequest(intRequest);
-    if (!this.enabled || !filtered) intRequest.respond();
+    if (!this.enabled || !filtered) { intRequest.respond(); }
     intRequest.visibleInFilter = filtered;
     this.requests.push(intRequest);
     if (filtered) {
@@ -87,16 +87,16 @@ export class InterceptorService {
 
   private filterRequest(request: InterceptorRequest) {
     return this.filters.every(
-      filter=>Object.values(request).some(
-        field=>field==filter))
+      filter => Object.values(request).some(
+        field => field === filter));
   }
 
   startListening(window: Window) {
     window.addEventListener('message', e => {
-      if (e.data.event == 'onRequest') this.onRequest(e.data.request, e.ports[0]);
-      if (e.data.event == 'onResponse') this.onResponse(e.data.response, e.ports[0]);
+      if (e.data.event === 'onRequest') { this.onRequest(e.data.request, e.ports[0]); }
+      if (e.data.event === 'onResponse') { this.onResponse(e.data.response, e.ports[0]); }
     });
-    window.postMessage({'event': 'capture', 'pattern': '*'}, '*');
+    window.postMessage({event: 'capture', pattern: '*'}, '*');
   }
 
   onRequest(request, port: MessagePort) {

@@ -8,7 +8,7 @@ import { InterceptorService, InterceptorRequest } from '../interceptor.service';
 })
 export class AppComponent implements OnInit {
 	selected: InterceptorRequest;
-	constructor (private interceptor: InterceptorService) { }
+	constructor(private interceptor: InterceptorService) { }
 	ngOnInit() {
 		this.interceptor.startListening(window);
 	}

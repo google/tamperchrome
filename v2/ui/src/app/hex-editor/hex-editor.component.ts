@@ -6,17 +6,17 @@ import { UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 	selector: '[app-hex-editor-character]'
 })
 export class HexEditorCharacter implements FocusableOption {
-	@Input() index: number;
 	constructor(public el: ElementRef<any>) { }
+	@Input() index: number;
+	disabled = false;
 	focus() {
-		setTimeout(()=>{
-			let element = this.el.nativeElement;
+		setTimeout(() => {
+			const element = this.el.nativeElement;
 			const input = element.querySelector('input');
 			input.focus();
 			input.select();
 		});
 	}
-	disabled = false;
 }
 
 @Directive({
@@ -40,7 +40,7 @@ export class HexEditorComponent {
 	@Output() valueChange = new EventEmitter<string>();
 	@Input() readonly: boolean;
 
-	shadowFocused: boolean = false;
+	shadowFocused = false;
 	charValues: string[] = [];
 	hexValues: string[] = [];
 	keyManager: FocusKeyManager<HexEditorCharacter> = null;
@@ -64,16 +64,16 @@ export class HexEditorComponent {
 
 	clickElement(rowIndex: number, i: number) {
 		const charIndex = rowIndex * 16 + i;
-		const char = this.chars.find(item=>item.index==charIndex);
+		const char = this.chars.find(item => item.index == charIndex);
 		this.keyManager.setActiveItem(char);
 		this.focusShadowIfNeeded();
 	}
 
 	focusShadowIfNeeded() {
-		if (!this.shadowFocused) return;
+		if (!this.shadowFocused) { return; }
 		const shadow = this.shadows.find(
-			(item)=>item.index == this.keyManager.activeItem.index);
-		setTimeout(()=>{
+			(item) => item.index == this.keyManager.activeItem.index);
+		setTimeout(() => {
 			const element = shadow.el.nativeElement.querySelector('input');
 			element.focus();
 			element.select();
@@ -91,7 +91,7 @@ export class HexEditorComponent {
 	}
 
 	onHexChange(i: number) {
-		let prevValue = this.charValues[i];
+		const prevValue = this.charValues[i];
 		this.charValues = this.hexValues.map(h => h ? String.fromCharCode(parseInt(h, 16)) : '');
 		if (this.hexValues[i].length == 2 && prevValue != this.charValues[i]) {
 			this.keyManager.setNextItemActive();

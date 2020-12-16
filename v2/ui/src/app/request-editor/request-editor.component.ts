@@ -7,12 +7,12 @@ import { InterceptorRequest } from '../../interceptor.service';
 })
 export class RequestEditorHeaderItem implements FocusableOption {
 	constructor(public el: ElementRef<any>) { }
+	disabled = false;
 	focus() {
 		let element = this.el.nativeElement.querySelector('input:focus');
-		if (!element) element = this.el.nativeElement.querySelector('input:not([disabled])');
+		if (!element) { element = this.el.nativeElement.querySelector('input:not([disabled])'); }
 		element.focus();
 	}
-	disabled = false;
 }
 
 @Component({
@@ -22,18 +22,18 @@ export class RequestEditorHeaderItem implements FocusableOption {
 })
 export class RequestEditorComponent implements OnInit {
 	@Input() request: InterceptorRequest;
-	ngOnInit() { }
 	keyManager: FocusKeyManager<RequestEditorHeaderItem> = null;
 	@ViewChildren(RequestEditorHeaderItem) headerItems: QueryList<RequestEditorHeaderItem>;
+	ngOnInit() { }
 	ngAfterViewInit() {
-		setTimeout(()=>{
+		setTimeout(() => {
 			this.keyManager = new FocusKeyManager(this.headerItems);
 			this.keyManager.updateActiveItem(0);
 		});
 	}
 	addHeader() {
-		this.request.headers.push({name:'', value: ''});
-		setTimeout(()=>{
+		this.request.headers.push({name: '', value: ''});
+		setTimeout(() => {
 			this.keyManager.setLastItemActive();
 		});
 	}

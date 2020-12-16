@@ -10,6 +10,9 @@ import { MatTable } from '@angular/material/table';
 })
 export class RequestListItem implements FocusableOption, ListKeyManagerOption {
 	constructor(public el: ElementRef<any>) { }
+
+	@Input() disabled = false;
+	@Input() request: InterceptorRequest = null;
 	focus() {
 		this.el.nativeElement.focus();
 	}
@@ -17,9 +20,6 @@ export class RequestListItem implements FocusableOption, ListKeyManagerOption {
 	getLabel() {
 		return this.request.method + ' ' + this.request.path + this.request.query;
 	}
-
-	@Input() disabled = false;
-	@Input() request:InterceptorRequest = null;
 }
 
 @Component({
@@ -28,17 +28,18 @@ export class RequestListItem implements FocusableOption, ListKeyManagerOption {
 	styleUrls: ['./request-list.component.scss'],
 })
 export class RequestListComponent implements OnInit {
-	@Output()
-	selected = new EventEmitter<InterceptorRequest>();
 
 	constructor(private interceptor: InterceptorService) { }
-	ngOnInit() { this.updateTable() }
+	@Output()
+	selected = new EventEmitter<InterceptorRequest>();
 
 	requests: InterceptorRequest[] = this.interceptor.requests;
 	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];
 	dataSource: MatTableDataSource<InterceptorRequest> = new MatTableDataSource(this.requests);
 	keyManager: FocusKeyManager<RequestListItem> = null;
 	@ViewChildren(RequestListItem) listItems: QueryList<RequestListItem>;
+	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
+	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
 		this.keyManager.updateActiveItem(0);
@@ -46,7 +47,6 @@ export class RequestListComponent implements OnInit {
 			next: (v) => this.selected.emit(this.requests[v])
 		});
 	}
-	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
 	async updateTable() {
 		for await (const change of this.interceptor.changes) {
 			this.table.renderRows();

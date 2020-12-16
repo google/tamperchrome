@@ -46,6 +46,17 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.5"
+    "typescript": "~4.0.5",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsdoc": "30.7.6",
+    "eslint-plugin-prefer-arrow": "1.2.2",
+    "@angular-eslint/builder": "0.8.0-beta.5",
+    "@angular-eslint/eslint-plugin": "0.8.0-beta.5",
+    "@angular-eslint/eslint-plugin-template": "0.8.0-beta.5",
+    "@angular-eslint/schematics": "^0.8.0-beta.5",
+    "@angular-eslint/template-parser": "0.8.0-beta.5",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0"
   }
 }
