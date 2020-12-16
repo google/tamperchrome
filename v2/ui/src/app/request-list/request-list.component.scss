@@ -8,7 +8,7 @@
     &:hover {
     	background-color: mat-color($background, 'hover');
     }
-    &.cdk-keyboard-focused {
+    &[aria-selected="true"] {
       // 0.12 comes from "activated" https://material.io/design/interaction/states.html#anatomy
       background-color: mat-color($background, 'hover', 0.12);
       font-weight: 500;
