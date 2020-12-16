@@ -41,7 +41,10 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
       });
     }
   };
-  popup.onload = () => popup.onunload = () => dbg.detach();
+  popup.onload = () => popup.onunload = () => {
+    dbg.detach();
+    popup.close();
+  }
   await dbg.waitForDetach();
   popup.close();
 });
