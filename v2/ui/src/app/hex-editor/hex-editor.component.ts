@@ -104,10 +104,12 @@ export class HexEditorComponent {
 		switch (event.keyCode) {
 			case UP_ARROW:
 				this.keyManager.setActiveItem(Math.max(0, currentIndex - 16));
+				event.preventDefault();
 				break;
 			case DOWN_ARROW:
 				this.keyManager.setActiveItem(
 					Math.min(this.chars.length - 1, currentIndex + 16));
+				event.preventDefault();
 				break;
 			default:
 				this.keyManager.onKeydown(event);
