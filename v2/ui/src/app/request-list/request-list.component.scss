@@ -3,7 +3,7 @@
 @mixin app-request-list-theme($theme) {
   $background: map-get($theme, background);
 
-  [app-request-list-item] {
+  [appRequestListItem] {
     cursor: pointer;
     &:hover {
     	background-color: mat-color($background, 'hover');

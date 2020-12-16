@@ -1,4 +1,5 @@
-import { Component, Directive, OnInit, Output, EventEmitter, ViewChild, ViewChildren, QueryList, ElementRef, Input } from '@angular/core';
+import { Component, Directive, OnInit, AfterViewInit, Output, EventEmitter,
+	ViewChild, ViewChildren, QueryList, ElementRef, Input } from '@angular/core';
 import { FocusKeyManager, FocusableOption, ListKeyManagerOption } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
@@ -6,13 +7,14 @@ import { MatTable } from '@angular/material/table';
 
 
 @Directive({
-	selector: '[app-request-list-item]',
+	selector: '[appRequestListItem]',
 })
-export class RequestListItem implements FocusableOption, ListKeyManagerOption {
-	constructor(public el: ElementRef<any>) { }
-
+export class RequestListItemDirective implements FocusableOption, ListKeyManagerOption {
 	@Input() disabled = false;
 	@Input() request: InterceptorRequest = null;
+
+	constructor(public el: ElementRef<any>) { }
+
 	focus() {
 		this.el.nativeElement.focus();
 	}
@@ -27,18 +29,15 @@ export class RequestListItem implements FocusableOption, ListKeyManagerOption {
 	templateUrl: './request-list.component.html',
 	styleUrls: ['./request-list.component.scss'],
 })
-export class RequestListComponent implements OnInit {
-
-	constructor(private interceptor: InterceptorService) { }
-	@Output()
-	selected = new EventEmitter<InterceptorRequest>();
-
+export class RequestListComponent implements OnInit, AfterViewInit {
+	@Output() selected = new EventEmitter<InterceptorRequest>();
+	@ViewChildren(RequestListItemDirective) listItems: QueryList<RequestListItemDirective>;
+	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
 	requests: InterceptorRequest[] = this.interceptor.requests;
 	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];
 	dataSource: MatTableDataSource<InterceptorRequest> = new MatTableDataSource(this.requests);
-	keyManager: FocusKeyManager<RequestListItem> = null;
-	@ViewChildren(RequestListItem) listItems: QueryList<RequestListItem>;
-	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
+	keyManager: FocusKeyManager<RequestListItemDirective> = null;
+	constructor(private interceptor: InterceptorService) { }
 	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();

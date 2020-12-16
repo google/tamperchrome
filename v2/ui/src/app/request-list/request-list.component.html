@@ -30,7 +30,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr
     mat-row
-    app-request-list-item
+    appRequestListItem
     *matRowDef="let row; columns: displayedColumns; let i = index;"
     [request]="row"
     [disabled]="!row.visible"

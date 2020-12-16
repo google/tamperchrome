@@ -1,13 +1,13 @@
-import { Component, OnInit, Directive, Input, QueryList, ElementRef, ViewChildren } from '@angular/core';
+import { Component, AfterViewInit, Directive, Input, QueryList, ElementRef, ViewChildren } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { InterceptorRequest } from '../../interceptor.service';
 
 @Directive({
-	selector: '[app-request-editor-header-item]',
+	selector: '[appRequestEditorHeaderItem]',
 })
-export class RequestEditorHeaderItem implements FocusableOption {
-	constructor(public el: ElementRef<any>) { }
+export class RequestEditorHeaderItemDirective implements FocusableOption {
 	disabled = false;
+	constructor(public el: ElementRef<any>) { }
 	focus() {
 		let element = this.el.nativeElement.querySelector('input:focus');
 		if (!element) { element = this.el.nativeElement.querySelector('input:not([disabled])'); }
@@ -20,11 +20,11 @@ export class RequestEditorHeaderItem implements FocusableOption {
 	templateUrl: './request-editor.component.html',
 	styleUrls: ['./request-editor.component.scss']
 })
-export class RequestEditorComponent implements OnInit {
+export class RequestEditorComponent implements AfterViewInit {
 	@Input() request: InterceptorRequest;
-	keyManager: FocusKeyManager<RequestEditorHeaderItem> = null;
-	@ViewChildren(RequestEditorHeaderItem) headerItems: QueryList<RequestEditorHeaderItem>;
-	ngOnInit() { }
+	@ViewChildren(RequestEditorHeaderItemDirective) headerItems: QueryList<RequestEditorHeaderItemDirective>;
+
+	keyManager: FocusKeyManager<RequestEditorHeaderItemDirective> = null;
 	ngAfterViewInit() {
 		setTimeout(() => {
 			this.keyManager = new FocusKeyManager(this.headerItems);

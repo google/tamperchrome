@@ -12,7 +12,7 @@ export interface FilterSuggestion {
 	values: string[];
 }
 
-export const _filter = (label: string, opt: string[], value: string): string[] => {
+export const filter = (label: string, opt: string[], value: string): string[] => {
 	const filterValue = value.toLowerCase();
 
 	return opt.filter(item =>
@@ -27,6 +27,8 @@ export const _filter = (label: string, opt: string[], value: string): string[] =
   styleUrls: ['./request-filter.component.css']
 })
 export class RequestFilterComponent implements OnInit {
+	@ViewChild('autoGroup', { static: true }) matAutocomplete: MatAutocomplete;
+	@ViewChild('filterInputElement', { static: true }) filterInputElement: ElementRef<HTMLInputElement>;
 
 	filterInputForm: FormGroup = this.fb.group({
 		filterInputGroup: '',
@@ -35,9 +37,6 @@ export class RequestFilterComponent implements OnInit {
 	filterSuggestionOptions: Observable<FilterSuggestion[]>;
 
 	filterChips: Set<string> = new Set<string>();
-
-	@ViewChild('autoGroup', { static: true }) matAutocomplete: MatAutocomplete;
-	@ViewChild('filterInputElement', { static: true }) filterInputElement: ElementRef<HTMLInputElement>;
 
 	constructor(private fb: FormBuilder, private interceptor: InterceptorService) { }
 
@@ -66,7 +65,7 @@ export class RequestFilterComponent implements OnInit {
 	remove(filterChip: string): void {
 		this.filterChips.delete(filterChip);
 		this.interceptor.setFilters([...this.filterChips]);
-		if (this.filterChips.size == 0) {
+		if (this.filterChips.size === 0) {
 			this.filterInputElement.nativeElement.focus();
 		}
 	}
@@ -80,14 +79,14 @@ export class RequestFilterComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.filterSuggestionOptions = this.filterInputForm.get('filterInputGroup')!.valueChanges
+		this.filterSuggestionOptions = this.filterInputForm.get('filterInputGroup').valueChanges
 			.pipe(
 				startWith(''),
-				map(value => this._filterGroup(value))
+				map(value => this.filterGroup(value))
 			);
 	}
 
-	private _filterGroup(value: string): FilterSuggestion[] {
+	private filterGroup(value: string): FilterSuggestion[] {
 		if (value) {
 			const methods = new Set<string>();
 			const domains = new Set<string>();
@@ -113,7 +112,7 @@ export class RequestFilterComponent implements OnInit {
 				values: [...queries.values()]
 			}];
 			return filterSuggestions
-				.map(group => ({ label: group.label, values: _filter(group.label, group.values, value) }))
+				.map(group => ({ label: group.label, values: filter(group.label, group.values, value) }))
 				.filter(group => group.values.length > 0);
 		}
 

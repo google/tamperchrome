@@ -33,7 +33,7 @@
       (keydown)="keyManager?.onKeydown($event)">
       <mat-list-item
         role="row"
-        app-request-editor-header-item
+        appRequestEditorHeaderItem
         checkboxPosition="before"
         *ngFor="let header of request.headers; let i = index;"
         [attr.aria-rowindex]="i+1"

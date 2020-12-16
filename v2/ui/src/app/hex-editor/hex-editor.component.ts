@@ -1,14 +1,14 @@
-import { Component, Directive, OnInit, EventEmitter, ElementRef, ViewChildren, QueryList, Input, Output } from '@angular/core';
+import { Component, Directive, AfterViewInit, EventEmitter, ElementRef, ViewChildren, QueryList, Input, Output } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 
 @Directive({
-	selector: '[app-hex-editor-character]'
+	selector: '[appHexEditorCharacter]'
 })
-export class HexEditorCharacter implements FocusableOption {
-	constructor(public el: ElementRef<any>) { }
+export class HexEditorCharacterDirective implements FocusableOption {
 	@Input() index: number;
 	disabled = false;
+	constructor(public el: ElementRef<any>) { }
 	focus() {
 		setTimeout(() => {
 			const element = this.el.nativeElement;
@@ -20,9 +20,9 @@ export class HexEditorCharacter implements FocusableOption {
 }
 
 @Directive({
-	selector: '[app-hex-editor-character-shadow]',
+	selector: '[appHexEditorCharacterShadow]',
 })
-export class HexEditorCharacterShadow {
+export class HexEditorCharacterShadowDirective {
 	@Input() index: number;
 	constructor(public el: ElementRef<any>) { }
 }
@@ -32,7 +32,7 @@ export class HexEditorCharacterShadow {
 	templateUrl: './hex-editor.component.html',
 	styleUrls: ['./hex-editor.component.scss']
 })
-export class HexEditorComponent {
+export class HexEditorComponent implements AfterViewInit {
 	@Input() set value(v: string) {
 		this.charValues = v.split('');
 		this.hexValues = this.charValues.map(c => c ? c.charCodeAt(0).toString(16) : '');
@@ -40,12 +40,13 @@ export class HexEditorComponent {
 	@Output() valueChange = new EventEmitter<string>();
 	@Input() readonly: boolean;
 
+	@ViewChildren(HexEditorCharacterDirective) chars: QueryList<HexEditorCharacterDirective>;
+	@ViewChildren(HexEditorCharacterShadowDirective) shadows: QueryList<HexEditorCharacterShadowDirective>;
+
 	shadowFocused = false;
 	charValues: string[] = [];
 	hexValues: string[] = [];
-	keyManager: FocusKeyManager<HexEditorCharacter> = null;
-	@ViewChildren(HexEditorCharacter) chars: QueryList<HexEditorCharacter>;
-	@ViewChildren(HexEditorCharacterShadow) shadows: QueryList<HexEditorCharacterShadow>;
+	keyManager: FocusKeyManager<HexEditorCharacterDirective> = null;
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.chars)
 			.withHorizontalOrientation('ltr')
@@ -56,15 +57,15 @@ export class HexEditorComponent {
 	elementIsSelected(rowIndex: number, i: number) {
 		const charIndex = rowIndex * 16 + i;
 		if (this.keyManager && this.keyManager.activeItem) {
-			return this.keyManager.activeItem.index == charIndex;
+			return this.keyManager.activeItem.index === charIndex;
 		}
 		// if the keyManager is not setup yet, show the first.
-		return charIndex == 0;
+		return charIndex === 0;
 	}
 
 	clickElement(rowIndex: number, i: number) {
 		const charIndex = rowIndex * 16 + i;
-		const char = this.chars.find(item => item.index == charIndex);
+		const char = this.chars.find(item => item.index === charIndex);
 		this.keyManager.setActiveItem(char);
 		this.focusShadowIfNeeded();
 	}
@@ -72,7 +73,7 @@ export class HexEditorComponent {
 	focusShadowIfNeeded() {
 		if (!this.shadowFocused) { return; }
 		const shadow = this.shadows.find(
-			(item) => item.index == this.keyManager.activeItem.index);
+			(item) => item.index === this.keyManager.activeItem.index);
 		setTimeout(() => {
 			const element = shadow.el.nativeElement.querySelector('input');
 			element.focus();
@@ -83,7 +84,7 @@ export class HexEditorComponent {
 	onValueChange() {
 		const oldHex = this.hexValues.join();
 		this.hexValues = this.charValues.map(c => c ? c.charCodeAt(0).toString(16) : '');
-		if (oldHex != this.hexValues.join()) {
+		if (oldHex !== this.hexValues.join()) {
 			this.keyManager.setNextItemActive();
 			this.focusShadowIfNeeded();
 		}
@@ -93,7 +94,7 @@ export class HexEditorComponent {
 	onHexChange(i: number) {
 		const prevValue = this.charValues[i];
 		this.charValues = this.hexValues.map(h => h ? String.fromCharCode(parseInt(h, 16)) : '');
-		if (this.hexValues[i].length == 2 && prevValue != this.charValues[i]) {
+		if (this.hexValues[i].length === 2 && prevValue !== this.charValues[i]) {
 			this.keyManager.setNextItemActive();
 		}
 		this.valueChange.emit(this.charValues.join(''));
@@ -114,7 +115,7 @@ export class HexEditorComponent {
 			default:
 				this.keyManager.onKeydown(event);
 		}
-		if (currentIndex != this.keyManager.activeItemIndex) {
+		if (currentIndex !== this.keyManager.activeItemIndex) {
 			this.focusShadowIfNeeded();
 		}
 	}
@@ -126,7 +127,5 @@ export class HexEditorComponent {
 	getRowIndex() {
 		return Array.from(Array(Math.ceil(this.charValues.length / 16)).keys());
 	}
-
-	constructor() {}
 
 }

@@ -18,15 +18,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RequestFilterComponent } from './request-filter/request-filter.component';
 import { MatListModule } from '@angular/material/list';
-import { RequestListComponent, RequestListItem } from './request-list/request-list.component';
+import { RequestListComponent, RequestListItemDirective } from './request-list/request-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RequestEditorComponent, RequestEditorHeaderItem } from './request-editor/request-editor.component';
+import { RequestEditorComponent, RequestEditorHeaderItemDirective } from './request-editor/request-editor.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RequestBodyComponent } from './request-body/request-body.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { HexEditorComponent, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
+import { HexEditorComponent, HexEditorCharacterDirective, HexEditorCharacterShadowDirective } from './hex-editor/hex-editor.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -37,13 +37,13 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 		AppComponent,
 		RequestFilterComponent,
 		RequestListComponent,
-		RequestListItem,
+		RequestListItemDirective,
 		RequestEditorComponent,
-		RequestEditorHeaderItem,
+		RequestEditorHeaderItemDirective,
 		RequestBodyComponent,
 		HexEditorComponent,
-		HexEditorCharacter,
-		HexEditorCharacterShadow,
+		HexEditorCharacterDirective,
+		HexEditorCharacterShadowDirective,
 	],
 	imports: [
 		BrowserModule,

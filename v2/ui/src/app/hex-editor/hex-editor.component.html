@@ -9,7 +9,7 @@
     <div *cdkVirtualFor="let rowIndex of getRowIndex(); templateCacheSize: 0;" fxLayout="row" style="height: 15px;">
       <div fxLayout="row" style="width: 48ch;">
         <div
-          app-hex-editor-character [index]="rowIndex*16 + i"
+          appHexEditorCharacter [index]="rowIndex*16 + i"
           *ngFor="let char of hexValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn">
           <div
             fxFlex="0 0 3ch"
@@ -31,7 +31,7 @@
       </div>
       <div fxLayout="row" style="width: 32ch;">
         <div
-          app-hex-editor-character-shadow [index]="rowIndex*16 + i"
+          appHexEditorCharacterShadow [index]="rowIndex*16 + i"
           *ngFor="let char of charValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn">
           <div
             fxFlex="0 0 2ch"

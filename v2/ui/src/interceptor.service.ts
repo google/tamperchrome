@@ -49,46 +49,13 @@ export class InterceptorService {
   filters: string[] = [];
 
   requests: InterceptorRequest[] = [];
+  changes;
 
   private waitForChange: Promise<void> = Promise.resolve();
   private triggerChange: () => void = null;
-  changes;
 
   constructor() {
     this.changes = this.getChanges();
-  }
-
-  private async *getChanges() {
-    while (true) {
-      await this.waitForChange;
-      this.waitForChange = new Promise(res => {
-        this.triggerChange = res;
-      });
-      yield;
-    }
-  }
-
-  private addRequest(request: InterceptedData, port: MessagePort) {
-    const intRequest = new InterceptorRequest(request, port);
-    const filtered = this.filterRequest(intRequest);
-    if (!this.enabled || !filtered) { intRequest.respond(); }
-    intRequest.visibleInFilter = filtered;
-    this.requests.push(intRequest);
-    if (filtered) {
-      this.triggerChange();
-    }
-  }
-
-  private filterRequests() {
-    for (const request of this.requests) {
-      request.visibleInFilter = this.filterRequest(request);
-    }
-  }
-
-  private filterRequest(request: InterceptorRequest) {
-    return this.filters.every(
-      filter => Object.values(request).some(
-        field => field === filter));
   }
 
   startListening(window: Window) {
@@ -122,5 +89,38 @@ export class InterceptorService {
     for (const request of this.requests) {
       request.cleared = !request.pending;
     }
+  }
+
+  private async *getChanges() {
+    while (true) {
+      await this.waitForChange;
+      this.waitForChange = new Promise(res => {
+        this.triggerChange = res;
+      });
+      yield;
+    }
+  }
+
+  private addRequest(request: InterceptedData, port: MessagePort) {
+    const intRequest = new InterceptorRequest(request, port);
+    const filtered = this.filterRequest(intRequest);
+    if (!this.enabled || !filtered) { intRequest.respond(); }
+    intRequest.visibleInFilter = filtered;
+    this.requests.push(intRequest);
+    if (filtered) {
+      this.triggerChange();
+    }
+  }
+
+  private filterRequests() {
+    for (const request of this.requests) {
+      request.visibleInFilter = this.filterRequest(request);
+    }
+  }
+
+  private filterRequest(request: InterceptorRequest) {
+    return this.filters.every(
+      filter => Object.values(request).some(
+        field => field === filter));
   }
 }
