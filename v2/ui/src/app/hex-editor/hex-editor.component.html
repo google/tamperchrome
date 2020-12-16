@@ -9,45 +9,53 @@
       <cdk-virtual-scroll-viewport
         app-hex-editor-grid
         aria-labelledby="app-hex-editor-grid-hex-label"
-        itemSize="charValues.length/16"
+        itemSize="15"
         [attr.aria-colcount]="16" [attr.aria-rowcount]="charValues.length/16"
-        role="grid" style="width: 66ch; height: 40vh;">
+        role="grid" style="width: 82ch; height: 40vh;">
         <div fxLayout="column">
-          <div *cdkVirtualFor="let rowIndex of getRowIndex()">
-            <input
-              app-hex-editor-character
-              app-hex-editor-grid-cell
-              fxFlex="0 0 4ch" [size]="2"
-              *ngFor="let char of hexValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn"
-              [(ngModel)]="hexValues[rowIndex*16 + i]" [attr.title]="charValues[rowIndex*16 + i]"
-              (keyup)="onHexChange(rowIndex*16 + i)" (keypress)="onHexChange(rowIndex*16 + i)"
-              [index]="rowIndex*16 + i" [keyManager]="keyManager">
-          </div>
-        </div>
-      </cdk-virtual-scroll-viewport>
-    </mat-card-content>
-  </mat-card>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-subtitle id="app-hex-editor-grid-chars-label">Characters</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <cdk-virtual-scroll-viewport
-        app-hex-editor-grid
-        aria-labelledby="app-hex-editor-grid-chars-label"
-        itemSize="charValues.length/16"
-        [attr.aria-colcount]="16" [attr.aria-rowcount]="charValues.length/16"
-        role="grid" style="width: 50ch; height: 40vh;">
-        <div fxLayout="column">
-          <div *cdkVirtualFor="let rowIndex of getRowIndex()">
-            <input
-              app-hex-editor-character-shadow
-              app-hex-editor-grid-cell
-              fxFlex="0 0 3ch" [size]="1"
-              *ngFor="let char of charValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn"
-              [(ngModel)]="charValues[rowIndex*16 + i]" [attr.title]="hexValues[rowIndex*16 + i]"
-              (keyup)="onValueChange()" (keypress)="onValueChange()"
-              [index]="rowIndex*16 + i" [keyManager]="keyManager">
+          <div *cdkVirtualFor="let rowIndex of getRowIndex(); templateCacheSize: 0;" fxLayout="row" style="height: 15px;">
+            <div fxLayout="row" style="width: 48ch;">
+              <div
+                app-hex-editor-character [index]="rowIndex*16 + i"
+                *ngFor="let char of hexValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn">
+                <div
+                  fxFlex="0 0 3ch"
+                  *ngIf="!elementIsSelected(rowIndex, i) else showHexInput"
+                  (click)="shadowFocused=false; clickElement(rowIndex, i)">{{ hexValues[rowIndex*16 + i] }}</div>
+                <ng-template #showHexInput>
+                  <input
+                    fxFlex="0 0 3ch" size="2" maxlength="2" autocomplete="off" role="gridcell"
+                    [(ngModel)]="hexValues[rowIndex*16 + i]" [attr.title]="charValues[rowIndex*16 + i]"
+                    [attr.aria-colindex]="(index%16) + 1"
+                    [attr.aria-rowindex]="(index/16) + 1 | number"
+                    [attr.tabindex]="elementIsSelected(rowIndex, i) ? 0 : -1"
+                    [attr.data-hex-editor-active]="elementIsSelected(rowIndex, i)"
+                    (focus)="shadowFocused=false" (click)="shadowFocused=false"
+                    (keyup)="onHexChange(rowIndex*16 + i)" (keypress)="onHexChange(rowIndex*16 + i)">
+                </ng-template>
+              </div>
+            </div>
+            <div fxLayout="row" style="width: 32ch;">
+              <div
+                app-hex-editor-character-shadow [index]="rowIndex*16 + i"
+                *ngFor="let char of charValues.slice(rowIndex*16, rowIndex*16+16); let i = index; trackBy: trackByFn">
+                <div
+                  fxFlex="0 0 2ch"
+                  *ngIf="!elementIsSelected(rowIndex, i) else showValueInput"
+                  (click)="shadowFocused=true; clickElement(rowIndex, i)">{{ charValues[rowIndex*16 + i] }}</div>
+                <ng-template #showValueInput>
+                  <input
+                    fxFlex="0 0 2ch" size="1" maxlength="1" autocomplete="off" role="gridcell"
+                    [(ngModel)]="charValues[rowIndex*16 + i]" [attr.title]="hexValues[rowIndex*16 + i]"
+                    [attr.aria-colindex]="(index%16) + 1"
+                    [attr.aria-rowindex]="(index/16) + 1 | number"
+                    [attr.tabindex]="elementIsSelected(rowIndex, i) ? 0 : -1"
+                    [attr.data-hex-editor-active]="elementIsSelected(rowIndex, i)"
+                    (focus)="shadowFocused=true" (click)="shadowFocused=true"
+                    (keyup)="onValueChange()" (keypress)="onValueChange()">
+                </ng-template>
+              </div>
+            </div>
           </div>
         </div>
       </cdk-virtual-scroll-viewport>

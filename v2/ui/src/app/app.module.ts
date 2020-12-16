@@ -26,7 +26,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RequestBodyComponent } from './request-body/request-body.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { HexEditorComponent, HexEditorGridCell, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
+import { HexEditorComponent, HexEditorCharacter, HexEditorCharacterShadow } from './hex-editor/hex-editor.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -44,7 +44,6 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 		HexEditorComponent,
 		HexEditorCharacter,
 		HexEditorCharacterShadow,
-		HexEditorGridCell,
 	],
 	imports: [
 		BrowserModule,

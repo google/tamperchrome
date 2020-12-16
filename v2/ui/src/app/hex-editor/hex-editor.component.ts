@@ -1,51 +1,30 @@
 import { Component, Directive, OnInit, EventEmitter, ElementRef, ViewChildren, QueryList, Input, Output } from '@angular/core';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
-import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 
 @Directive({
-	selector: '[app-hex-editor-character]',
-	inputs: ['request', 'index'],
+	selector: '[app-hex-editor-character]'
 })
 export class HexEditorCharacter implements FocusableOption {
-	request: Request;
-	index: number;
+	@Input() index: number;
 	constructor(public el: ElementRef<any>) { }
 	focus() {
-		const element = this.el.nativeElement;
-		element.focus();
-		element.select();
+		setTimeout(()=>{
+			let element = this.el.nativeElement;
+			const input = element.querySelector('input');
+			input.focus();
+			input.select();
+		});
 	}
 	disabled = false;
 }
 
 @Directive({
 	selector: '[app-hex-editor-character-shadow]',
-	inputs: ['index']
 })
 export class HexEditorCharacterShadow {
-	index: number;
+	@Input() index: number;
 	constructor(public el: ElementRef<any>) { }
-}
-
-@Directive({
-	selector: '[app-hex-editor-grid-cell]',
-	inputs: ['index', 'keyManager', 'size'],
-	host: {
-		'autocomplete': 'off',
-		'role': 'gridcell',
-		'(click)': 'keyManager?.setActiveItem(index)',
-		'[attr.size]': 'size',
-		'[attr.maxlength]': 'size',
-		'[attr.aria-colindex]': '(index%16) + 1',
-		'[attr.aria-rowindex]': '(index/16) + 1',
-		'[attr.tabindex]': '(keyManager?.activeItemIndex || 0) == index ? 0 : -1',
-		'[attr.data-hex-editor-active]': '(keyManager?.activeItemIndex || 0) == index',
-	}
-})
-export class HexEditorGridCell {
-	index: number;
-	keyManager: FocusKeyManager<HexEditorCharacter>;
 }
 
 @Component({
@@ -60,35 +39,44 @@ export class HexEditorComponent {
 	}
 	@Output() valueChange = new EventEmitter<string>();
 
+	shadowFocused: boolean = false;
 	charValues: string[] = [];
 	hexValues: string[] = [];
 	keyManager: FocusKeyManager<HexEditorCharacter> = null;
-	@ViewChildren(HexEditorCharacter) charInputs: QueryList<HexEditorCharacter>;
+	@ViewChildren(HexEditorCharacter) chars: QueryList<HexEditorCharacter>;
 	@ViewChildren(HexEditorCharacterShadow) shadows: QueryList<HexEditorCharacterShadow>;
 	ngAfterViewInit() {
-		this.charInputs.changes.subscribe(t=>{
-			setTimeout(()=>this.updateInputs());
-		});
-		setTimeout(()=>this.updateInputs());
-		this.scrollDispatcher.scrolled().subscribe((scrollable: CdkScrollable) => {
-			if (scrollable) {
-				const top = scrollable.measureScrollOffset('top');
-				Array.from(this.scrollDispatcher.scrollContainers.keys())
-				.filter(otherScrollable => otherScrollable && otherScrollable !== scrollable)
-				.forEach(otherScrollable => {
-					if (otherScrollable.measureScrollOffset('top') !== top) {
-						otherScrollable.scrollTo({top});
-					}
-				});
-			}
-		});
-	}
-
-	updateInputs() {
-		this.keyManager = new FocusKeyManager(this.charInputs)
+		this.keyManager = new FocusKeyManager(this.chars)
 			.withHorizontalOrientation('ltr')
 			.withVerticalOrientation(false);
-		this.keyManager.setFirstItemActive();
+		this.keyManager.updateActiveItem(0);
+	}
+
+	elementIsSelected(rowIndex: number, i: number) {
+		const charIndex = rowIndex * 16 + i;
+		if (this.keyManager && this.keyManager.activeItem) {
+			return this.keyManager.activeItem.index == charIndex;
+		}
+		// if the keyManager is not setup yet, show the first.
+		return charIndex == 0;
+	}
+
+	clickElement(rowIndex: number, i: number) {
+		const charIndex = rowIndex * 16 + i;
+		const char = this.chars.find(item=>item.index==charIndex);
+		this.keyManager.setActiveItem(char);
+		this.focusShadowIfNeeded();
+	}
+
+	focusShadowIfNeeded() {
+		if (!this.shadowFocused) return;
+		const shadow = this.shadows.find(
+			(item)=>item.index == this.keyManager.activeItem.index);
+		setTimeout(()=>{
+			const element = shadow.el.nativeElement.querySelector('input');
+			element.focus();
+			element.select();
+		});
 	}
 
 	onValueChange() {
@@ -96,11 +84,7 @@ export class HexEditorComponent {
 		this.hexValues = this.charValues.map(c => c ? c.charCodeAt(0).toString(16) : '');
 		if (oldHex != this.hexValues.join()) {
 			this.keyManager.setNextItemActive();
-			const element = this.shadows.find((shadow) =>
-				shadow.index == this.keyManager.activeItem.index
-			).el.nativeElement;
-			element.focus();
-			element.select();
+			this.focusShadowIfNeeded();
 		}
 		this.valueChange.emit(this.charValues.join(''));
 	}
@@ -122,10 +106,13 @@ export class HexEditorComponent {
 				break;
 			case DOWN_ARROW:
 				this.keyManager.setActiveItem(
-					Math.min(this.charInputs.length - 1, currentIndex + 16));
+					Math.min(this.chars.length - 1, currentIndex + 16));
 				break;
 			default:
 				this.keyManager.onKeydown(event);
+		}
+		if (currentIndex != this.keyManager.activeItemIndex) {
+			this.focusShadowIfNeeded();
 		}
 	}
 
@@ -137,6 +124,6 @@ export class HexEditorComponent {
 		return Array.from(Array(Math.ceil(this.charValues.length / 16)).keys());
 	}
 
-	constructor(private scrollDispatcher: ScrollDispatcher) {}
+	constructor() {}
 
 }
