@@ -38,6 +38,7 @@ export class HexEditorComponent {
 		this.hexValues = this.charValues.map(c => c ? c.charCodeAt(0).toString(16) : '');
 	}
 	@Output() valueChange = new EventEmitter<string>();
+	@Input() readonly: boolean;
 
 	shadowFocused: boolean = false;
 	charValues: string[] = [];
