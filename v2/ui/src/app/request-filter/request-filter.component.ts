@@ -75,6 +75,10 @@ export class RequestFilterComponent implements OnInit {
 		this.interceptor.setInterceptEnabled(event.checked);
 	}
 
+	clear(): void {
+		this.interceptor.clearSent();
+	}
+
 	ngOnInit() {
 		this.filterSuggestionOptions = this.filterInputForm.get('filterInputGroup')!.valueChanges
 			.pipe(

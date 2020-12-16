@@ -12,7 +12,12 @@ export class InterceptorRequest {
   headers: Array<{name: string, value: string, disabled?: boolean}>;
   requestBody?: string;
   pending: boolean = true;
-  visible: boolean = false;
+  visibleInFilter: boolean = false;
+  cleared: boolean = false;
+
+  get visible(): boolean {
+    return !this.cleared && this.visibleInFilter;
+  }
 
   constructor(private request: InterceptedData, private port: MessagePort) {
     this.method = request.method;
@@ -64,11 +69,10 @@ export class InterceptorService {
   }
 
   private addRequest(request: InterceptedData, port: MessagePort) {
-    console.log(request);
     const intRequest = new InterceptorRequest(request, port);
     const filtered = this.filterRequest(intRequest);
     if (!this.enabled || !filtered) intRequest.respond();
-    intRequest.visible = filtered;
+    intRequest.visibleInFilter = filtered;
     this.requests.push(intRequest);
     if (filtered) {
       this.triggerChange();
@@ -77,7 +81,7 @@ export class InterceptorService {
 
   private filterRequests() {
     for (const request of this.requests) {
-      request.visible = this.filterRequest(request);
+      request.visibleInFilter = this.filterRequest(request);
     }
   }
 
@@ -112,5 +116,11 @@ export class InterceptorService {
 
   setInterceptEnabled(enabled: boolean) {
     this.enabled = enabled;
+  }
+
+  clearSent() {
+    for (const request of this.requests) {
+      request.cleared = !request.pending;
+    }
   }
 }
