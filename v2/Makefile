@@ -29,7 +29,7 @@ ui/node_modules:
 	cd ui && npm install
 
 ui: .FORCE ui/node_modules
-	cd ui && ng build ${ENV}
+	cd ui && ng lint && ng build ${ENV}
 
 .FORCE:
 
