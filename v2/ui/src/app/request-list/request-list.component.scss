@@ -14,9 +14,13 @@
 };
 
 [mat-cell] {
+  max-width: 10vw;
+  &.mat-column-pathquery {
+    max-width: 60vw;
+  }
   text-overflow: ellipsis;
-  max-width: 60vw;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 :host {

@@ -10,11 +10,13 @@
   </ng-container>
   <ng-container matColumnDef="host">
     <th mat-header-cell *matHeaderCellDef>Host</th>
-    <td mat-cell *matCellDef="let request">{{request.host}}</td>
+    <td mat-cell *matCellDef="let request" [attr.title]="request.host">{{request.host}}</td>
   </ng-container>
   <ng-container matColumnDef="pathquery">
     <th mat-header-cell *matHeaderCellDef>Path + Query</th>
-    <td mat-cell *matCellDef="let request">{{request.path}} {{request.query}}</td>
+    <td mat-cell *matCellDef="let request" [attr.title]="request.path + request.query">
+      <span style="padding-right: 1ch;">{{request.path}}</span><span>{{request.query}}</span>
+    </td>
   </ng-container>
   <ng-container matColumnDef="type">
     <th mat-header-cell *matHeaderCellDef>Type</th>
