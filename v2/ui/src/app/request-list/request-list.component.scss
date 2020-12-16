@@ -4,11 +4,13 @@
   $background: map-get($theme, background);
 
   [app-request-list-item] {
-  	&:hover {
+    cursor: pointer;
+    &:hover {
     	background-color: mat-color($background, 'hover');
     }
     &.cdk-keyboard-focused {
-    	background-color: mat-color($background, 'hover');
+      // 0.12 comes from "activated" https://material.io/design/interaction/states.html#anatomy
+      background-color: mat-color($background, 'hover', 0.12);
     }
   }
 };
@@ -21,8 +23,4 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-
-:host {
-	cursor: pointer;
 }

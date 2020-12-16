@@ -37,6 +37,7 @@
     [hidden]="!row.visible"
     (click)="keyManager?.setActiveItem(i)"
     [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+    [attr.aria-selected]="(keyManager?.activeItemIndex || 0) == i"
     [ngClass]="{'cdk-keyboard-focused': (keyManager?.activeItemIndex || 0) == i}">
   </tr>
 </table>
