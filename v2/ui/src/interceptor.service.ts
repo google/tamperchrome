@@ -9,7 +9,7 @@ export class InterceptorRequest {
   readonly query: string;
   type: string;
   url: string;
-  headers: Array<{name: string, value: string}>;
+  headers: Array<{name: string, value: string, disabled?: boolean}>;
   requestBody?: string;
   pending: boolean = true;
   visible: boolean = false;
@@ -29,7 +29,7 @@ export class InterceptorRequest {
     this.port.postMessage({request: {
       method: this.method,
       url: this.url,
-      requestHeaders: this.headers,
+      requestHeaders: this.headers.filter(v=>!v.disabled),
       requestBody: this.requestBody,
     }});
     this.pending = false;

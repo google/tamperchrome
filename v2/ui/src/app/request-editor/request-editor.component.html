@@ -39,6 +39,8 @@
         <mat-form-field fxFlex="1 0" role="gridcell">
           <input
             [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+            [style.text-decoration]="header.disabled?'line-through':''"
+            [attr.disabled]="header.disabled||null"
             matInput
             [(ngModel)]="header.name"
             placeholder="Header Name">
@@ -46,6 +48,8 @@
         <mat-form-field fxFlex="1 0" role="gridcell">
           <input
             [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+            [style.text-decoration]="header.disabled?'line-through':''"
+            [attr.disabled]="header.disabled||null"
             matInput
             [(ngModel)]="header.value"
             placeholder="Header Value">
@@ -54,14 +58,15 @@
           role="gridcell"
           [attr.title]="'Send ' + header.name + ' header'"
           [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
-          checked="true" labelPosition="before" fxFlex="0 0 auto">
+          [ngModel]="!header.disabled" (ngModelChange)="header.disabled=!$event"
+          labelPosition="before" fxFlex="0 0 auto">
           <span class="cdk-visually-hidden">
-            Send {{ header.name }} header
+            Remove {{ header.name }} header
           </span>
         </mat-checkbox>
       </mat-list-item>
     </mat-list>
-    <button mat-button (click)="request.headers.push({name:'', value: ''}); keyManager?.setLastItemActive()">
+    <button mat-button (click)="addHeader()">
       <mat-icon>add</mat-icon> Add HTTP Header
     </button>
     <app-request-body *ngIf="request.requestBody" [request]="request" aria-label="Request Body"></app-request-body>

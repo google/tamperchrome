@@ -9,7 +9,7 @@ export class RequestEditorHeaderItem implements FocusableOption {
 	constructor(public el: ElementRef<any>) { }
 	focus() {
 		let element = this.el.nativeElement.querySelector('input:focus');
-		if (!element) element = this.el.nativeElement.querySelector('input');
+		if (!element) element = this.el.nativeElement.querySelector('input:not([disabled])');
 		element.focus();
 	}
 	disabled = false;
@@ -29,6 +29,12 @@ export class RequestEditorComponent implements OnInit {
 		setTimeout(()=>{
 			this.keyManager = new FocusKeyManager(this.headerItems);
 			this.keyManager.updateActiveItem(0);
+		});
+	}
+	addHeader() {
+		this.request.headers.push({name:'', value: ''});
+		setTimeout(()=>{
+			this.keyManager.setLastItemActive();
 		});
 	}
 }
