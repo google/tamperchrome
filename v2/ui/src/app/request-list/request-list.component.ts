@@ -37,19 +37,31 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];
 	dataSource: MatTableDataSource<InterceptorRequest> = new MatTableDataSource(this.requests);
 	keyManager: FocusKeyManager<RequestListItemDirective> = null;
+	firstRequestIndex = 0;
 	constructor(private interceptor: InterceptorService) { }
 	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
-		this.keyManager.updateActiveItem(0);
 		this.keyManager.change.subscribe({
 			next: (v) => this.selected.emit(this.requests[v])
 		});
 	}
+	isActive(index: number) {
+		if (this.keyManager && this.keyManager.activeItem) {
+			return this.keyManager.activeItemIndex === index;
+		}
+		return index === this.firstRequestIndex;
+	}
+	setActive(item: RequestListItemDirective) {
+		this.keyManager.setActiveItem(item);
+	}
 	async updateTable() {
 		for await (const change of this.interceptor.changes) {
 			this.table.renderRows();
-			this.selected.emit(this.requests[this.keyManager.activeItemIndex]);
+			if (!this.keyManager?.activeItem?.request.visible) {
+				this.keyManager.updateActiveItem(null);
+			}
+			this.firstRequestIndex = this.requests.findIndex(r=>r.visible);
 		}
 	}
 }

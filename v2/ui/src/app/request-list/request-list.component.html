@@ -35,9 +35,10 @@
     [request]="row"
     [disabled]="!row.visible"
     [hidden]="!row.visible"
-    (click)="keyManager?.setActiveItem(i)"
-    [attr.tabindex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
-    [attr.aria-selected]="(keyManager?.activeItemIndex || 0) == i"
-    [ngClass]="{'cdk-keyboard-focused': (keyManager?.activeItemIndex || 0) == i}">
+    (click)="setActive(i)"
+    (focus)="setActive(i)"
+    [attr.tabindex]="isActive(i)?0:-1"
+    [attr.aria-selected]="isActive(i)"
+    [ngClass]="{'cdk-keyboard-focused': isActive(i)}">
   </tr>
 </table>
