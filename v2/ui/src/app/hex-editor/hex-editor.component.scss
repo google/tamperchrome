@@ -1,19 +1,11 @@
 @import '~@angular/material/theming';
 
 @mixin app-hex-editor-theme($theme) {
-  $background: map-get($theme, background);
-  :host {
-  	font-family: monospace;
-  	font-size: medium;
-  }
-  [appHexEditorCharacter], [appHexEditorCharacterShadow] {
-    font-family: monospace;
-    font-variant-ligatures: none;
-    font-kerning: none;
-    margin: 0;
-    border: 0;
-  }
+  $background: map-get($theme, 'background');
+  $foreground: map-get($theme, 'foreground');
   [data-hex-editor-active="true"] {
     background-color: mat-color($background, 'focused-button');
+    color: mat-color($foreground, 'text');
+    border-width: 1px;
   }
 };
