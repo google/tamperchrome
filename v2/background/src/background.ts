@@ -3,19 +3,14 @@ import { Interception } from "./interception";
 import { Intercepted } from "./request";
 
 chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
-  if (tab.url) {
-    const permission = {origins: [new URL(tab.url!).origin + '/*']};
-    const allowed = await new Promise<boolean>(res=>chrome.permissions.contains(permission, res));
-    if (!allowed) {
-      const granted = await new Promise<boolean>(res=>chrome.permissions.request(permission, res));
-      if (!granted) {
-        // this will fail on the constructor below.
-        console.error('User rejected access to tab', tab);
-      }
-    }
-  }
   let dbg: Debuggee = new Debuggee(tab);
-  await dbg.attach();
+  try {
+    await dbg.attach();
+  } catch(e) {
+    console.error(e);
+    alert('Failed to attach to ' + tab.url + ' - probably because of enterprise policies.');
+    return;
+  }
   let int: Interception = Interception.build(dbg);
   const popup = open('/ui/dist/ui/index.html', `tamperchrome_${tab.id}`, 'menubar=0,innerWidth=800,innerHeight=600');
   if (!popup) {
