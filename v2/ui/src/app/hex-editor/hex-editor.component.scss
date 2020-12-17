@@ -2,20 +2,18 @@
 
 @mixin app-hex-editor-theme($theme) {
   $background: map-get($theme, background);
-  [app-hex-editor-grid] {
+  :host {
   	font-family: monospace;
   	font-size: medium;
   }
-  [app-hex-editor-grid-cell] {
+  [appHexEditorCharacter], [appHexEditorCharacterShadow] {
     font-family: monospace;
-  	font-size: medium;
     font-variant-ligatures: none;
     font-kerning: none;
-    padding: 1ch;
     margin: 0;
     border: 0;
   }
   [data-hex-editor-active="true"] {
-	background-color: mat-color($background, 'focused-button');
+    background-color: mat-color($background, 'focused-button');
   }
 };

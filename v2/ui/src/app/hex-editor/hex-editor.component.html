@@ -1,9 +1,8 @@
 <cdk-virtual-scroll-viewport
-  app-hex-editor-grid
   (keydown)="onKeydown($event)"
   aria-labelledby="app-hex-editor-grid-hex-label"
   itemSize="15"
-  [attr.aria-colcount]="16" [attr.aria-rowcount]="charValues.length/16"
+  [attr.aria-colcount]="16" [attr.aria-rowcount]="charValues.length / 16 | number"
   role="grid" style="width: 82ch; height: 40vh;">
   <div fxLayout="column">
     <div *cdkVirtualFor="let rowIndex of getRowIndex(); templateCacheSize: 0;" fxLayout="row" style="height: 15px;">
@@ -17,7 +16,7 @@
             (click)="shadowFocused=false; clickElement(rowIndex, i)">{{ hexValues[rowIndex*16 + i] }}</div>
           <ng-template #showHexInput>
             <input
-              [attr.readonly]="readonly"
+              [attr.readonly]="readonly||null"
               fxFlex="0 0 3ch" size="2" maxlength="2" autocomplete="off" role="gridcell"
               [(ngModel)]="hexValues[rowIndex*16 + i]" [attr.title]="charValues[rowIndex*16 + i]"
               [attr.aria-colindex]="(index%16) + 1"
@@ -39,7 +38,7 @@
             (click)="shadowFocused=true; clickElement(rowIndex, i)">{{ charValues[rowIndex*16 + i] }}</div>
           <ng-template #showValueInput>
             <input
-              [attr.readonly]="readonly"
+              [attr.readonly]="readonly||null"
               fxFlex="0 0 2ch" size="1" maxlength="1" autocomplete="off" role="gridcell"
               [(ngModel)]="charValues[rowIndex*16 + i]" [attr.title]="hexValues[rowIndex*16 + i]"
               [attr.aria-colindex]="(index%16) + 1"

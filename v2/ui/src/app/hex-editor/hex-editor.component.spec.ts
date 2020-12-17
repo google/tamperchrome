@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HexEditorComponent, HexEditorCharacterDirective } from './hex-editor.component';
+import { HexEditorComponent, HexEditorCharacterDirective, HexEditorCharacterShadowDirective } from './hex-editor.component';
+import { animationFrameScheduler } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { DOWN_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 
 describe('HexEditorComponent', () => {
   let component: HexEditorComponent;
@@ -8,7 +12,11 @@ describe('HexEditorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HexEditorComponent ]
+      declarations: [ HexEditorComponent, HexEditorCharacterDirective, HexEditorCharacterShadowDirective ],
+      imports: [ ScrollingModule, FormsModule ],
+      providers: [
+        {provide: ComponentFixtureAutoDetect, useValue: true}
+      ]
     })
     .compileComponents();
   }));
@@ -23,35 +31,54 @@ describe('HexEditorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should render the value', () => {
-  //   const val = 'omg';
-  //   component.value = val;
-  //   fixture.detectChanges();
-  //   expect(component.chars.length).toBe(val.length);
-  //   expect(component.shadows.length).toBe(val.length);
-  // });
+  it('should render the value in view', async () => {
+    const val = 'omg';
+    component.value = val;
+    expect(component.charValues.length).toBe(val.length);
+    expect(component.hexValues.length).toBe(val.length);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    expect(fixture.debugElement.queryAll(By.directive(HexEditorCharacterDirective)).length).toBe(val.length);
+    expect(fixture.debugElement.queryAll(By.directive(HexEditorCharacterShadowDirective)).length).toBe(val.length);
+  });
 
-  // it('should propagate readonly', () => {
-  //   component.value = 'foo';
-  //   component.readonly = true;
-  //   fixture.detectChanges();
-  //   const els = fixture.debugElement.nativeElement.querySelectorAll('input,textarea');
-  //   for(const el of els) {
-  //     expect(el.readonly).toBeTrue();
-  //   }
-  //   component.readonly = false;
-  //   fixture.detectChanges();
-  //   for(const el of els) {
-  //     expect(el.readonly).toBeFalse();
-  //   }
-  // });
+  it('should propagate readonly to view', async () => {
+    component.value = 'foo';
+    component.readonly = true;
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const els = fixture.debugElement.nativeElement.querySelectorAll('input,textarea');
+    for(const el of els) {
+      expect(el.readOnly).toBeTrue();
+    }
+    component.readonly = false;
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    for(const el of els) {
+      expect(el.readOnly).toBeFalse();
+    }
+  });
 
-  // it('should propagate changes', () => {
-  //   component.value = 'foo';
-  //   const firstChar = fixture.debugElement.query(By.directive(HexEditorCharacterDirective));
-  //   firstChar.triggerEventHandler('click', {});
-  //   fixture.detectChanges();
-  //   firstChar.query(By.css('input')).nativeElement.value = 'z';
-  //   fixture.detectChanges();
-  // });
+  it('should propagate changes within model', async () => {
+    component.value = 'foo';
+    let val;
+    component.valueChange.subscribe(v=>val=v);
+    component.hexValues[0] = 'z'.charCodeAt(0).toString(16);
+    component.onHexChange(0);
+    expect(val).toBe('zoo');
+  });
+
+  it('should react to arrow', async () => {
+    const val = '1234567890123456foobar';
+    component.value = val;
+    expect(component.charValues.length).toBe(val.length);
+    expect(component.hexValues.length).toBe(val.length);
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    const firstChar = fixture.debugElement.query(By.directive(HexEditorCharacterDirective));
+    const extra = {keyCode: DOWN_ARROW};
+    firstChar.nativeElement.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, ...extra}));
+    fixture.detectChanges();
+    expect(component.keyManager.activeItem.index).toBe(16);
+  });
 });
