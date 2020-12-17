@@ -143,7 +143,7 @@ export class FetchIntercepted extends Intercepted {
       newResponse.responseHeaders = response.responseHeaders;
     }
     if (response.responseBody) {
-      newResponse.body = response.responseBody;
+      newResponse.body = btoa(response.responseBody);
     }
     if (newResponse.body || newResponse.responseHeaders || newResponse.responseCode != this.status) {
       return this.debuggee.sendCommand('Fetch.fulfillRequest', newResponse);
