@@ -1,5 +1,5 @@
 import { Debuggee, Debugger_Network_requestIntercepted } from "./debuggee";
-import { Intercepted, FetchIntercepted, RequestIntercepted } from "./request";
+import { Intercepted, FetchIntercepted } from "./request";
 
 export abstract class Interception {
   debuggee: Debuggee;
@@ -27,36 +27,8 @@ export abstract class Interception {
 
   static build(dbg: Debuggee): Interception {
     return new FetchInterception(dbg);
-    // return new RequestInterception(dbg);
   }
 
-}
-
-class RequestInterception extends Interception {
-  async captureInternal(pattern: string) {
-    await this.debuggee.sendCommand('Network.setCacheDisabled', { cacheDisabled: true });
-    await this.debuggee.sendCommand('Network.setRequestInterception', {
-      patterns: [
-        { urlPattern: pattern, interceptionStage: 'Request' },
-        { urlPattern: pattern, interceptionStage: 'HeadersReceived' },
-      ]
-    });
-  }
-
-  async onRequestInternal(listener: (res: Intercepted) => void) {
-    return this.debuggee.on('Network.requestIntercepted', (params: Debugger_Network_requestIntercepted) => {
-      if (params.responseStatusCode) return;
-      listener(new RequestIntercepted(this.debuggee, params));
-    });
-  }
-
-  async onResponseInternal(listener: (res: Intercepted) => void) {
-    return this.debuggee.on('Network.requestIntercepted', params => {
-      if (params.responseStatusCode) {
-        listener(new RequestIntercepted(this.debuggee, params));
-      }
-    });
-  }
 }
 
 class FetchInterception extends Interception {
