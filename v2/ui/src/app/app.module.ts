@@ -30,7 +30,7 @@ import { HexEditorComponent, HexEditorCharacterDirective, HexEditorCharacterShad
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ResponseBodyComponent } from './response-body/response-body.component';
 import { ResponseEditorComponent } from './response-editor/response-editor.component';
 

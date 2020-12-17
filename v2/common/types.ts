@@ -4,7 +4,7 @@ export interface InterceptedData {
     url: string;
     requestHeaders: { name: string, value: string }[];
     requestBody?: string | null;
-    status: number;
-    responseHeaders: { name: string, value: string }[];
+    status?: number;
+    responseHeaders?: { name: string, value: string }[];
     responseBody?: string | null;
 }

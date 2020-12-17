@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { RequestFilterComponent } from './request-filter.component';
 
@@ -8,7 +10,8 @@ describe('RequestFilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RequestFilterComponent ]
+      declarations: [ RequestFilterComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, MatAutocompleteModule ]
     })
     .compileComponents();
   }));

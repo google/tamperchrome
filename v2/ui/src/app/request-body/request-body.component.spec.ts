@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RequestBodyComponent } from './request-body.component';
+import { InterceptorRequest, InterceptorService } from '../../interceptor.service';
 
 describe('RequestBodyComponent', () => {
   let component: RequestBodyComponent;
@@ -16,6 +17,7 @@ describe('RequestBodyComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RequestBodyComponent);
     component = fixture.componentInstance;
+    component.request = new InterceptorRequest({id: '1', method: '', url: 'https://foo/', requestHeaders: []});
     fixture.detectChanges();
   });
 
