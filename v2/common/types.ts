@@ -1,4 +1,5 @@
 export interface InterceptedData {
+    id: string;
     method: string;
     url: string;
     requestHeaders: { name: string, value: string }[];

@@ -31,6 +31,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ResponseBodyComponent } from './response-body/response-body.component';
+import { ResponseEditorComponent } from './response-editor/response-editor.component';
 
 @NgModule({
 	declarations: [
@@ -44,6 +46,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 		HexEditorComponent,
 		HexEditorCharacterDirective,
 		HexEditorCharacterShadowDirective,
+		ResponseBodyComponent,
+		ResponseEditorComponent,
 	],
 	imports: [
 		BrowserModule,

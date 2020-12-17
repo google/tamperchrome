@@ -34,9 +34,13 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
       });
       await int.onResponse(async (res: Intercepted) => {
         const mc = new MessageChannel;
-        popup.postMessage({'event': 'onResponse', response: JSON.parse(JSON.stringify(res))}, origin, [mc.port1]);
+        const bodyMc = new MessageChannel;
+        popup.postMessage({'event': 'onResponse', response: JSON.parse(JSON.stringify(res))}, origin, [mc.port1, bodyMc.port1]);
         mc.port2.onmessage = async (e) => {
           await res.continueResponse(e.data.response);
+        };
+        bodyMc.port2.onmessage = async (e) => {
+          bodyMc.port2.postMessage(await res.getResponseBody());
         };
       });
     }

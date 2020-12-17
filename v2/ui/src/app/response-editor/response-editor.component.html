@@ -1,0 +1,84 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title-group>
+            <mat-card-title *ngIf="request.pendingResponse">Edit</mat-card-title>
+            <mat-card-subtitle>HTTP Response</mat-card-subtitle>
+        </mat-card-title-group>
+    </mat-card-header> 
+    <mat-card-content fxLayout="column">
+      <div fxLayout="row">
+        <mat-form-field>
+          <input [(ngModel)]="request.status"
+            [readonly]="!request.pendingResponse"
+            type="number" matInput [matAutocomplete]="statusAutocomplete"
+            placeholder="Response Code" aria-label="HTTP Response Code">
+          <mat-autocomplete #statusAutocomplete="matAutocomplete">
+            <mat-option *ngFor="let option of [100, 200, 204, 206, 301, 302, 303, 304, 307, 308, 400, 401, 403, 404, 405, 500, 501, 502, 503, 504]" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field fxFlex="1 0 auto">
+          <input [(ngModel)]="request.url"
+            [readonly]="true"
+            type="text" matInput placeholder="Request URL" aria-label="Request URL">
+        </mat-form-field>
+      </div>
+      <mat-list
+        fxFlex="0 0 20vh"
+        class="http-headers"
+        role="grid"
+        aria-label="HTTP Headers"
+        [attr.aria-rowcount]="request.responseHeaders.length"
+        (keydown)="keyManager?.onKeydown($event)">
+        <mat-list-item
+          role="row"
+          appResponseEditorHeaderItem
+          checkboxPosition="before"
+          *ngFor="let header of request.responseHeaders; let i = index;"
+          [attr.aria-rowindex]="i+1"
+          (click)="keyManager?.setActiveItem(i)">
+          <mat-form-field fxFlex="1 0" role="gridcell">
+            <input
+              [readonly]="!request.pendingResponse"
+              [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+              [style.text-decoration]="header.disabled?'line-through':''"
+              [attr.disabled]="header.disabled||null"
+              matInput
+              [(ngModel)]="header.name"
+              placeholder="Header Name">
+          </mat-form-field>
+          <mat-form-field fxFlex="1 0" role="gridcell">
+            <input
+              [readonly]="!request.pendingResponse"
+              [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+              [style.text-decoration]="header.disabled?'line-through':''"
+              [attr.disabled]="header.disabled||null"
+              matInput
+              [(ngModel)]="header.value"
+              placeholder="Header Value">
+          </mat-form-field>
+          <mat-checkbox
+            [disabled]="!request.pendingResponse"
+            role="gridcell"
+            [attr.title]="'Send ' + header.name + ' header'"
+            [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
+            [ngModel]="!header.disabled" (ngModelChange)="header.disabled=!$event"
+            labelPosition="before" fxFlex="0 0 auto">
+            <span class="cdk-visually-hidden">
+              Remove {{ header.name }} header
+            </span>
+          </mat-checkbox>
+        </mat-list-item>
+      </mat-list>
+      <button [disabled]="!request.pendingResponse" mat-button (click)="addHeader()">
+        <mat-icon>add</mat-icon> Add HTTP Header
+      </button>
+      <app-response-body [request]="request" aria-label="Response Body"></app-response-body>
+    </mat-card-content>
+    <mat-card-actions *ngIf="request.pendingResponse" align="end">
+      <button matTooltip="Send response" (click)="request.sendResponse()" mat-mini-fab color="primary">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-card-actions>
+</mat-card>

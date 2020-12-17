@@ -1,0 +1,17 @@
+<button *ngIf="request.pendingResponse && !request.hasResponseBody" mat-button (click)="request.getResponseBody()">
+    <mat-icon>cloud_download</mat-icon> Get Response Body
+</button>
+<mat-tab-group *ngIf="request.hasResponseBody">
+    <mat-tab label="Text">
+        <mat-form-field fxFill>
+            <textarea
+                [readonly]="!request.pendingResponse" matInput mat-autosize
+                placeholder="Response body" [(ngModel)]="request.responseBody"></textarea>
+        </mat-form-field>
+    </mat-tab>
+    <mat-tab label="Hex Editor">
+        <ng-template matTabContent>
+            <app-hex-editor [(value)]="request.responseBody" [readonly]="!request.pendingResponse"></app-hex-editor>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

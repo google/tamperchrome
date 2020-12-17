@@ -2,4 +2,5 @@
   <app-request-filter></app-request-filter>
   <app-request-list (selected)="selected=$event" fxFlex="0 1 40vh"></app-request-list>
   <app-request-editor *ngIf="selected?.visible" [request]="selected"></app-request-editor>
+  <app-response-editor *ngIf="selected?.visible && selected?.hasResponse" [request]="selected"></app-response-editor>
 </main>

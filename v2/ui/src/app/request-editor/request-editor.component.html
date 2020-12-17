@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
       <mat-card-title-group>
-          <mat-card-title *ngIf="request.pending">Edit</mat-card-title>
+          <mat-card-title *ngIf="request.pendingRequest">Edit</mat-card-title>
           <mat-card-subtitle>HTTP Request</mat-card-subtitle>
       </mat-card-title-group>
   </mat-card-header> 
@@ -9,7 +9,7 @@
     <div fxLayout="row">
       <mat-form-field>
         <input [(ngModel)]="request.method"
-          [readonly]="!request.pending"
+          [readonly]="!request.pendingRequest"
           type="text" matInput [matAutocomplete]="methodAutocomplete"
           placeholder="Method" aria-label="HTTP Method">
         <mat-autocomplete #methodAutocomplete="matAutocomplete">
@@ -20,7 +20,7 @@
       </mat-form-field>
       <mat-form-field fxFlex="1 0 auto">
         <input [(ngModel)]="request.url"
-          [readonly]="!request.pending"
+          [readonly]="!request.pendingRequest"
           type="text" matInput placeholder="Request URL" aria-label="Request URL">
       </mat-form-field>
     </div>
@@ -40,7 +40,7 @@
         (click)="keyManager?.setActiveItem(i)">
         <mat-form-field fxFlex="1 0" role="gridcell">
           <input
-            [readonly]="!request.pending"
+            [readonly]="!request.pendingRequest"
             [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
             [style.text-decoration]="header.disabled?'line-through':''"
             [attr.disabled]="header.disabled||null"
@@ -50,7 +50,7 @@
         </mat-form-field>
         <mat-form-field fxFlex="1 0" role="gridcell">
           <input
-            [readonly]="!request.pending"
+            [readonly]="!request.pendingRequest"
             [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
             [style.text-decoration]="header.disabled?'line-through':''"
             [attr.disabled]="header.disabled||null"
@@ -59,7 +59,7 @@
             placeholder="Header Value">
         </mat-form-field>
         <mat-checkbox
-          [disabled]="!request.pending"
+          [disabled]="!request.pendingRequest"
           role="gridcell"
           [attr.title]="'Send ' + header.name + ' header'"
           [tabIndex]="(keyManager?.activeItemIndex || 0) == i?0:-1"
@@ -71,13 +71,13 @@
         </mat-checkbox>
       </mat-list-item>
     </mat-list>
-    <button [disabled]="!request.pending" mat-button (click)="addHeader()">
+    <button [disabled]="!request.pendingRequest" mat-button (click)="addHeader()">
       <mat-icon>add</mat-icon> Add HTTP Header
     </button>
     <app-request-body *ngIf="request.requestBody" [request]="request" aria-label="Request Body"></app-request-body>
   </mat-card-content>
-  <mat-card-actions *ngIf="request.pending" align="end">
-    <button matTooltip="Send request" (click)="request.respond()" mat-mini-fab color="primary">
+  <mat-card-actions *ngIf="request.pendingRequest" align="end">
+    <button matTooltip="Send request" (click)="request.sendRequest()" mat-mini-fab color="primary">
       <mat-icon>send</mat-icon>
     </button>
   </mat-card-actions>

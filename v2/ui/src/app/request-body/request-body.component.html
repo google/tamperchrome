@@ -1,12 +1,12 @@
 <mat-tab-group>
   <mat-tab label="Text">
     <mat-form-field fxFill>
-      <textarea [readonly]="!request.pending" matInput mat-autosize placeholder="Request body" [(ngModel)]="request.requestBody"></textarea>
+      <textarea [readonly]="!request.pendingRequest" matInput mat-autosize placeholder="Request body" [(ngModel)]="request.requestBody"></textarea>
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Hex Editor">
     <ng-template matTabContent>
-      <app-hex-editor [(value)]="request.requestBody" [readonly]="!request.pending"></app-hex-editor>
+      <app-hex-editor [(value)]="request.requestBody" [readonly]="!request.pendingRequest"></app-hex-editor>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
