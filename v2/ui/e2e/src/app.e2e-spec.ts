@@ -8,9 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should check titus snapshot', async () => {
+  it('should check snapshot', async () => {
     await page.navigateTo();
-    expect(await page.takeSnapshot()).toBe('');
+    await page.snap('boot-empty');
+    // expect().toEqual();
   });
 
   afterEach(async () => {
@@ -19,5 +20,12 @@ describe('workspace-project App', () => {
     expect(logs).not.toContain(jasmine.objectContaining({
       level: logging.Level.SEVERE,
     } as logging.Entry));
+    // Assert that there are no snapshot differences
+    if(page.getDiffs().length) {
+      fail('Difference in golden files found. If this is expected, run e2e/src/goldens/update.sh\n\n');
+      page.getDiffs().forEach(diff=>{
+        expect(diff).toEqual({});
+      });
+    }
   });
 });

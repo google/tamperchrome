@@ -1,0 +1,27 @@
+WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
+..main[]{}
+......form[]{}
+...........generic["invalid=false","focusable=true"]{"name":"Active filters"}
+............Label["owns=mat-chip-list-input-0"]{}
+.............text[]{"name":"  Filter HTTP Requests"}
+.............combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
+..............generic["editable=plaintext"]{}
+.......generic["focusable=true"]{"name":"Intercept requests"}
+........Label[]{}
+..........switch["invalid=false","focusable=true","checked=false"]{"name":"Intercept requests"}
+..........text[]{"name":"Intercept requests"}
+.......button["invalid=false","focusable=true","describedby=cdk-describedby-message-0"]{"description":"Clear all sent requests"}
+....grid[]{"name":"List of HTTP Requests"}
+.....rowgroup[]{}
+......row[]{}
+.......columnheader[]{"name":"Method"}
+........text[]{"name":"Method"}
+.......columnheader[]{"name":"Host"}
+........text[]{"name":"Host"}
+.......columnheader[]{"name":"Path + Query"}
+........text[]{"name":"Path + Query"}
+.......columnheader[]{"name":"Type"}
+........text[]{"name":"Type"}
+.......columnheader[]{"name":"Status"}
+........text[]{"name":"Status"}
+.....listbox[]{}
