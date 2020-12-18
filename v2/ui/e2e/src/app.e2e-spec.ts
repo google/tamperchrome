@@ -1,5 +1,6 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, element, by, logging } from 'protractor';
+import { protractor } from 'protractor/built/ptor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,10 +9,27 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should check snapshot', async () => {
+  it('should have basic functionality at boot', async () => {
     await page.navigateTo();
     await page.snap('boot-empty');
-    // expect().toEqual();
+    let focused = browser.switchTo().activeElement();
+    await focused.sendKeys('testFilter');
+    await focused.sendKeys(protractor.Key.ENTER);
+    await page.snap('boot-filter-added');
+    await focused.sendKeys('anotherTestFilter');
+    await focused.sendKeys(protractor.Key.ENTER);
+    await page.snap('boot-filter-added-again');
+    await focused.sendKeys(protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.TAB));
+    focused = browser.switchTo().activeElement();
+    await focused.sendKeys(protractor.Key.DELETE);
+    await page.snap('boot-filter-deleted');
+    focused = browser.switchTo().activeElement();
+    await focused.sendKeys(protractor.Key.TAB);
+    focused = browser.switchTo().activeElement();
+    await focused.sendKeys(protractor.Key.TAB);
+    focused = browser.switchTo().activeElement();
+    await focused.sendKeys(protractor.Key.SPACE);
+    await page.snap('boot-intercept-switch-enabled');
   });
 
   afterEach(async () => {

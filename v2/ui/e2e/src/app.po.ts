@@ -5,7 +5,6 @@ import { writeFileSync } from 'fs';
 export class AppPage {
   private diffs = []
   getDiffs() {
-    this.diffs.sort((a,b)=>a.name<b.name?-1:1);
     return this.diffs.slice();
   }
   async navigateTo() {
