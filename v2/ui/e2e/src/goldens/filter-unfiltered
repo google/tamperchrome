@@ -53,36 +53,36 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
 .......columnheader[]{"name":"Status"}
 ........text[]{"name":"Status"}
 .....rowgroup[]{}
-......row["focusable=true","selected=true"]{"name":"GET example.com /foo?bar sent"}
-.......gridcell[]{"name":"GET"}
-........text[]{"name":"GET"}
+......row["focusable=true","selected=true"]{"name":"POST example.com /foo?fuu sent"}
+.......gridcell[]{"name":"POST"}
+........text[]{"name":"POST"}
 .......gridcell[]{"name":"example.com","description":"example.com"}
 ........text[]{"name":"example.com"}
-.......gridcell[]{"name":"/foo?bar","description":"/foo?bar"}
+.......gridcell[]{"name":"/foo?fuu","description":"/foo?fuu"}
 ........text[]{"name":"/foo"}
-........text[]{"name":"?bar"}
+........text[]{"name":"?fuu"}
 .......gridcell[]{}
 .......gridcell[]{"name":"sent"}
 ........text[]{"name":"sent"}
-......row["focusable=true"]{"name":"POST example.net /bar?baz sent"}
+......row["focusable=true"]{"name":"POST example.net /fuu?fuu sent"}
 .......gridcell[]{"name":"POST"}
 ........text[]{"name":"POST"}
 .......gridcell[]{"name":"example.net","description":"example.net"}
 ........text[]{"name":"example.net"}
-.......gridcell[]{"name":"/bar?baz","description":"/bar?baz"}
-........text[]{"name":"/bar"}
-........text[]{"name":"?baz"}
+.......gridcell[]{"name":"/fuu?fuu","description":"/fuu?fuu"}
+........text[]{"name":"/fuu"}
+........text[]{"name":"?fuu"}
 .......gridcell[]{}
 .......gridcell[]{"name":"sent"}
 ........text[]{"name":"sent"}
-......row["focusable=true"]{"name":"PUT example.org /baz?foo sent"}
+......row["focusable=true"]{"name":"PUT example.org /foo?fuu sent"}
 .......gridcell[]{"name":"PUT"}
 ........text[]{"name":"PUT"}
 .......gridcell[]{"name":"example.org","description":"example.org"}
 ........text[]{"name":"example.org"}
-.......gridcell[]{"name":"/baz?foo","description":"/baz?foo"}
-........text[]{"name":"/baz"}
-........text[]{"name":"?foo"}
+.......gridcell[]{"name":"/foo?fuu","description":"/foo?fuu"}
+........text[]{"name":"/foo"}
+........text[]{"name":"?fuu"}
 .......gridcell[]{}
 .......gridcell[]{"name":"sent"}
 ........text[]{"name":"sent"}

@@ -6,6 +6,12 @@ function sendKeysToActiveElement(...keys) {
   return browser.switchTo().activeElement().sendKeys(...keys);
 }
 
+async function numberOfVisibleElements(css) {
+  const elems = await browser.findElements(by.css(css));
+  const elemsViz = await Promise.all(elems.map(elem=>elem.isDisplayed()));
+  return elemsViz.filter(visible=>visible).length;
+}
+
 describe('workspace-project App', () => {
   let page: AppPage;
 
@@ -37,8 +43,8 @@ describe('workspace-project App', () => {
       event: 'onRequest',
       request: {
         id: 'fil1',
-        method: 'GET',
-        url: 'https://example.com/foo?bar',
+        method: 'POST',
+        url: 'https://example.com/foo?fuu',
         requestHeaders: [],
         requestBody: undefined
       }
@@ -50,7 +56,7 @@ describe('workspace-project App', () => {
       request: {
         id: 'fil2',
         method: 'POST',
-        url: 'https://example.net/bar?baz',
+        url: 'https://example.net/fuu?fuu',
         requestHeaders: [],
         requestBody: undefined
       }
@@ -62,7 +68,7 @@ describe('workspace-project App', () => {
       request: {
         id: 'fil3',
         method: 'PUT',
-        url: 'https://example.org/baz?foo',
+        url: 'https://example.org/foo?fuu',
         requestHeaders: [],
         requestBody: undefined
       }
@@ -70,13 +76,64 @@ describe('workspace-project App', () => {
       (await page.createMessageChannel())[0]
     ]);
     await browser.waitForAngular();
-    expect((await browser.findElements(by.css('[appRequestListItem]'))).length).toBe(3);
+    expect(numberOfVisibleElements('[appRequestListItem]')).toBe(3);
     await page.snap('filter-unfiltered');
-    await sendKeysToActiveElement('foo', protractor.Key.ENTER);
-    expect((await browser.findElements(by.css('[appRequestListItem]'))).length).toBe(2);
+    await sendKeysToActiveElement('f');
+    await sendKeysToActiveElement(protractor.Key.DOWN);
+    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await browser.waitForAngular();
+    expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
     await page.snap('filter-filtered-foo');
-    await sendKeysToActiveElement('PUT', protractor.Key.ENTER);
+    await sendKeysToActiveElement('P');
+    await sendKeysToActiveElement(protractor.Key.DOWN);
+    await sendKeysToActiveElement(protractor.Key.DOWN);
+    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await browser.waitForAngular();
+    expect(numberOfVisibleElements('[appRequestListItem]')).toBe(1);
     await page.snap('filter-filtered-foo-put');
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        id: 'fil4',
+        method: 'PUT',
+        url: 'https://qux/foo',
+        requestHeaders: [],
+        requestBody: undefined
+      }
+    }, [
+      (await page.createMessageChannel())[0]
+    ]);
+    await browser.waitForAngular();
+    expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
+    await page.snap('filter-filtered-foo-put-extra');
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        id: 'fil5',
+        method: 'HEAD',
+        url: 'https://foo/foo?foo',
+        requestHeaders: [],
+        requestBody: undefined
+      }
+    }, [
+      (await page.createMessageChannel())[0]
+    ]);
+    await browser.waitForAngular();
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        id: 'fil6',
+        method: 'PUT',
+        url: 'https://bar/bar?bar',
+        requestHeaders: [],
+        requestBody: undefined
+      }
+    }, [
+      (await page.createMessageChannel())[0]
+    ]);
+    await browser.waitForAngular();
+    expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
+    await page.snap('filter-filtered-foo-put-extra-nomatch');
   });
 
   it('should capture and respond to request', async () => {
