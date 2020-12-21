@@ -32,7 +32,7 @@ export class ResponseEditorComponent implements AfterViewInit {
 		});
 	}
 	addHeader() {
-		this.request.headers.push({name: '', value: ''});
+		this.request.responseHeaders.push({name: '', value: ''});
 		setTimeout(() => {
 			this.keyManager.setLastItemActive();
 		});

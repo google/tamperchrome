@@ -32,7 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ResponseBodyComponent } from './response-body/response-body.component';
-import { ResponseEditorComponent } from './response-editor/response-editor.component';
+import { ResponseEditorComponent, ResponseEditorHeaderItemDirective } from './response-editor/response-editor.component';
 
 @NgModule({
 	declarations: [
@@ -48,6 +48,7 @@ import { ResponseEditorComponent } from './response-editor/response-editor.compo
 		HexEditorCharacterShadowDirective,
 		ResponseBodyComponent,
 		ResponseEditorComponent,
+		ResponseEditorHeaderItemDirective,
 	],
 	imports: [
 		BrowserModule,

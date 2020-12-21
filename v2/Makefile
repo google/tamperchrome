@@ -35,6 +35,9 @@ ui: .FORCE ui/node_modules
 e2e: .FORCE ui/node_modules
 	cd ui && ng e2e
 
+e2e-goldens:
+	ui/e2e/src/goldens/update.sh
+
 .FORCE:
 
 clean:

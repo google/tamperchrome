@@ -50,8 +50,6 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
 ........generic[]{}
 ...generic[]{}
 ....grid[]{"name":"List of HTTP Requests"}
-.....caption[]{}
-......text[]{"name":"List of HTTP Requests"}
 .....rowgroup[]{}
 ......row[]{}
 .......columnheader[]{"name":"Method"}

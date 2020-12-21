@@ -41,6 +41,7 @@ describe('workspace-project App', () => {
     await page.postMessage({
       event: 'onRequest',
       request: {
+        id: 'req1',
         method: 'GET',
         url: 'https://example.com/',
         requestHeaders: [{name: 'Host', value: 'example.com'}],
@@ -50,7 +51,7 @@ describe('workspace-project App', () => {
       port1
     ]);
     // wait for the request to show up in the list
-    await browser.wait(until.elementLocated(by.css('[appRequestListItem]')));
+    await browser.waitForAngular();
     await page.snap('capture-request');
     // tab to the first element
     await sendKeysToActiveElement(protractor.Key.TAB);
@@ -92,6 +93,56 @@ describe('workspace-project App', () => {
       ],
       requestBody: null
     });
+    // send a response
+    const [port3, port4] = await page.createMessageChannel();
+    await page.postMessage({
+      event: 'onResponse',
+      response: {
+        id: 'req1',
+        status: 200,
+        responseHeaders: [
+          {name: 'Server', value: 'fake'},
+          {name: 'X-XSS-Protection', value: '1'},
+        ],
+      }
+    }, [
+      port3
+    ]);
+    // wait for the response to arrive
+    await browser.waitForAngular();
+    await page.snap('capture-response-arrived');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement('302');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement('Server-Header-Value');
+    await page.snap('capture-response-edit-server');
+    await sendKeysToActiveElement(protractor.Key.ARROW_DOWN);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.SPACE);
+    await page.snap('capture-response-disable-xss');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement('AnotherNewHeader');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement('NewValue');
+    await page.snap('capture-response-add-header');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.ENTER);
+    const modifiedResponse = (await page.waitForMessageToPort(port4)).data.response;
+    expect(modifiedResponse).toEqual({
+      status: 302,
+      responseHeaders: [
+        {name: 'Server', value: 'Server-Header-Value'},
+        {name: 'AnotherNewHeader', value: 'NewValue'}
+      ],
+      responseBody: null
+    });
   });
 
   afterEach(async () => {
@@ -102,7 +153,7 @@ describe('workspace-project App', () => {
     } as logging.Entry));
     // Assert that there are no snapshot differences
     if(page.getDiffs().length) {
-      fail('Difference in golden files found. If this is expected, run e2e/src/goldens/update.sh\n\n');
+      fail('Difference in golden files found. If this is expected, run make e2e-goldens\n\n');
       page.getDiffs().forEach(diff=>{
         expect(diff).toEqual({});
       });
