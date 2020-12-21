@@ -33,7 +33,9 @@ exports.config = {
       rules: {
         // Disable some rules until axe is upgraded
         'aria-allowed-attr': {enabled: false}, // rowcount/rowindex are allowed on role=grid/row
-        'aria-required-children': {enabled: false},
+        'aria-required-children': {enabled: false}, // role=combobox
+        'color-contrast': {enabled: false}, // input[disabled] can fail color contrast (SC 1.4.1)
+        'data-table': {enabled: false}, // 
       } 
     },
     package: 'protractor-accessibility-plugin'

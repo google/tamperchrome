@@ -2,8 +2,8 @@
   mat-table
   fxFill
   [dataSource]="dataSource"
-  aria-label="List of HTTP Requests"
   (keydown)="keyManager?.onKeydown($event)">
+  <caption>List of HTTP Requests</caption>
   <ng-container matColumnDef="method">
     <th mat-header-cell *matHeaderCellDef>Method</th>
     <td mat-cell *matCellDef="let request">{{request.method}}</td>

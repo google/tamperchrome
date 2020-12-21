@@ -34,12 +34,14 @@ WebArea["focusable=true"]{"name":"Tamper Chrome"}
 ............generic[]{}
 .........generic[]{}
 ..........text[]{"name":"Intercept requests"}
-.......button["invalid=false","focusable=true","describedby=cdk-describedby-message-0"]{"description":"Clear all sent requests"}
+.......button["invalid=false","focusable=true"]{"name":"Clear all sent requests"}
 ........img["hidden=true"]{}
 ........generic[]{}
 ........generic[]{}
 ...generic[]{}
 ....grid[]{"name":"List of HTTP Requests"}
+.....caption[]{}
+......text[]{"name":"List of HTTP Requests"}
 .....rowgroup[]{}
 ......row[]{}
 .......columnheader[]{"name":"Method"}
@@ -199,6 +201,3 @@ WebArea["focusable=true"]{"name":"Tamper Chrome"}
 .......text[]{"name":"Add HTTP Header"}
 .......generic[]{}
 .......generic[]{}
-..generic["hidden=true"]{}
-...generic["hidden=true"]{}
-....text["hidden=true"]{"name":"Clear all sent requests"}

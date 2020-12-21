@@ -44,7 +44,7 @@
         </mat-chip-list>
       </mat-form-field>
       <mat-slide-toggle (change)="intercept($event)" fxFlex="0">Intercept requests</mat-slide-toggle>
-      <button mat-icon-button matTooltip="Clear all sent requests" (click)="clear()">
+      <button mat-icon-button aria-label="Clear all sent requests" matTooltip="Clear all sent requests" (click)="clear()">
         <mat-icon>clear_all</mat-icon>
       </button>
     </form>
