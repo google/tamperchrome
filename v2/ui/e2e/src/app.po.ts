@@ -1,15 +1,78 @@
 import { browser, by, element } from 'protractor';
 import { spawnSync } from 'child_process';
 import { writeFileSync } from 'fs';
+import { callbackify } from 'util';
 
 export class AppPage {
+  async waitForMessage(): Promise<{data: any, ports: Array<number>}> {
+    return browser.executeAsyncScript(function() {
+      const callback = arguments[arguments.length - 1];
+      const __msgs = window['__msgs'];
+      if (__msgs.length == 0) {
+        __msgs.push = function(e) {
+          delete __msgs.push;
+          callback(e);
+        };
+      } else {
+        callback(__msgs.unshift());
+      }
+    });
+  }
+
+  async waitForMessageToPort(portId: number): Promise<{data: any, ports: Array<number>}> {
+    return browser.executeAsyncScript(function() {
+      const callback = arguments[arguments.length - 1];
+      const __ports = window['__ports'];
+      const portId = arguments[0];
+      __ports[portId].onmessage = function(e) {
+        callback({data: e.data, ports: e.ports.map(port=>__ports.push(port)-1)});
+      };
+    }, portId);
+  }
+
+  postMessageToPort(portId: number, msg: any) {
+    browser.executeScript(function() {
+      const portId = arguments[0];
+      const msg = arguments[1];
+      const __ports = window['__ports'];
+      __ports[portId].postMessage(msg);
+    }, portId, msg);
+  }
+
+  async createMessageChannel(): Promise<[number, number]> {
+    return browser.executeScript(function() {
+      const mc = new MessageChannel();
+      const __ports = window['__ports'];
+      return [__ports.push(mc.port1)-1, __ports.push(mc.port2)-1];
+    });
+  }
+
+  async postMessage(msg: any, portIds: Array<number>) {
+    await browser.executeScript(function() {
+      const msg = arguments[0];
+      const portIds = arguments[1];
+      const __ports = window['__ports'];
+      const ports = portIds.map(id=>__ports[id]);
+      postMessage(msg, location.origin, ports);
+    }, msg, portIds);
+  }
+
+  async navigateTo() {
+    await browser.driver.sendChromiumCommand('Accessibility.enable', {});
+    await browser.get(browser.baseUrl);
+    await browser.driver.executeScript(function() {
+      const __ports = window['__ports'] = [];
+      const __msgs = window['__msgs'] = [];
+      window.addEventListener('message', function(event) {
+        const portRefs = event.ports.map(port=>__ports.push(port)-1);
+        __msgs.push({data: event.data, ports: portRefs});
+      });
+    });
+  }
+
   private diffs = []
   getDiffs() {
     return this.diffs.slice();
-  }
-  async navigateTo() {
-    await browser.driver.sendChromiumCommand('Accessibility.enable', {});
-    return browser.get(browser.baseUrl);
   }
 
   private async takeDevtoolsSnapshot() {
@@ -47,7 +110,7 @@ export class AppPage {
     }`;
     const body = tree.children.map(child=>this.serializeTree(child, padding + 1)).join('');
     return `${
-      head != 'generic[]{}' ? `${'.'.repeat(padding)}${head}\n` : ''
+      `${'.'.repeat(padding)}${head}\n`
     }${
       body
     }`;

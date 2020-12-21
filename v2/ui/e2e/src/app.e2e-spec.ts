@@ -1,6 +1,10 @@
 import { AppPage } from './app.po';
-import { browser, element, by, logging } from 'protractor';
+import { browser, element, by, logging, until } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
+
+function sendKeysToActiveElement(...keys) {
+  return browser.switchTo().activeElement().sendKeys(...keys);
+}
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -12,24 +16,82 @@ describe('workspace-project App', () => {
   it('should have basic functionality at boot', async () => {
     await page.navigateTo();
     await page.snap('boot-empty');
-    let focused = browser.switchTo().activeElement();
-    await focused.sendKeys('testFilter');
-    await focused.sendKeys(protractor.Key.ENTER);
+    await sendKeysToActiveElement('testFilter');
+    await sendKeysToActiveElement(protractor.Key.ENTER);
     await page.snap('boot-filter-added');
-    await focused.sendKeys('anotherTestFilter');
-    await focused.sendKeys(protractor.Key.ENTER);
+    await sendKeysToActiveElement('anotherTestFilter');
+    await sendKeysToActiveElement(protractor.Key.ENTER);
     await page.snap('boot-filter-added-again');
-    await focused.sendKeys(protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.TAB));
-    focused = browser.switchTo().activeElement();
-    await focused.sendKeys(protractor.Key.DELETE);
+    await sendKeysToActiveElement(protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.TAB));
+    await sendKeysToActiveElement(protractor.Key.DELETE);
     await page.snap('boot-filter-deleted');
-    focused = browser.switchTo().activeElement();
-    await focused.sendKeys(protractor.Key.TAB);
-    focused = browser.switchTo().activeElement();
-    await focused.sendKeys(protractor.Key.TAB);
-    focused = browser.switchTo().activeElement();
-    await focused.sendKeys(protractor.Key.SPACE);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.SPACE);
     await page.snap('boot-intercept-switch-enabled');
+  });
+
+  it('should capture and respond to request', async () => {
+    await page.navigateTo();
+    // enable interception
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.SPACE);
+    // send a request
+    const [port1, port2] = await page.createMessageChannel();
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        method: 'GET',
+        url: 'https://example.com/',
+        requestHeaders: [{name: 'Host', value: 'example.com'}],
+        requestBody: undefined
+      }
+    }, [
+      port1
+    ]);
+    // wait for the request to show up in the list
+    await browser.wait(until.elementLocated(by.css('[appRequestListItem]')));
+    await page.snap('capture-request');
+    // tab to the first element
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await page.snap('capture-request-list-focused');
+    // tab to request editor
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    // modify the method
+    await sendKeysToActiveElement('HEAD');
+    await page.snap('capture-request-method');
+    // dont modify the url
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    // modify the host header
+    await sendKeysToActiveElement('Original-Host');
+    await page.snap('capture-request-host-changed');
+    // skip header value and send header checkbox
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    // add new header
+    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement('New-Header');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement('NewHeader Value!');
+    await page.snap('capture-request-add-header');
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await page.snap('capture-request-send');
+    const modifiedRequest = (await page.waitForMessageToPort(port2)).data.request;
+    expect(modifiedRequest).toEqual({
+      method: 'HEAD',
+      url: 'https://example.com/',
+      requestHeaders: [
+        {name: 'Original-Host', value: 'example.com'},
+        {name: 'New-Header', value: 'NewHeader Value!'},
+      ],
+      requestBody: null
+    });
   });
 
   afterEach(async () => {

@@ -1,0 +1,159 @@
+WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
+.generic[]{}
+..main[]{}
+...generic[]{}
+....generic[]{}
+.....generic[]{}
+......form[]{}
+.......generic[]{}
+........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic["invalid=false","focusable=true"]{"name":"Active filters"}
+............generic[]{}
+.............generic[]{}
+...........generic[]{}
+............Label["owns=mat-chip-list-input-0"]{}
+.............text[]{"name":"  Filter HTTP Requests"}
+.............combobox["invalid=false","focusable=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
+..............generic["editable=plaintext"]{}
+.........generic[]{}
+..........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic[]{}
+.......generic["focusable=true"]{"name":"Intercept requests"}
+........Label[]{}
+.........generic[]{}
+..........switch["invalid=false","focusable=true","checked=true"]{"name":"Intercept requests"}
+..........generic[]{}
+...........generic[]{}
+...........generic[]{}
+............generic[]{}
+.........generic[]{}
+..........text[]{"name":"Intercept requests"}
+.......button["invalid=false","focusable=true","describedby=cdk-describedby-message-0"]{"description":"Clear all sent requests"}
+........generic[]{}
+........generic[]{}
+...generic[]{}
+....grid[]{"name":"List of HTTP Requests"}
+.....rowgroup[]{}
+......row[]{}
+.......columnheader[]{"name":"Method"}
+........text[]{"name":"Method"}
+.......columnheader[]{"name":"Host"}
+........text[]{"name":"Host"}
+.......columnheader[]{"name":"Path + Query"}
+........text[]{"name":"Path + Query"}
+.......columnheader[]{"name":"Type"}
+........text[]{"name":"Type"}
+.......columnheader[]{"name":"Status"}
+........text[]{"name":"Status"}
+.....rowgroup[]{}
+......row["focusable=true","selected=true"]{"name":"HEAD example.com / intercepted"}
+.......gridcell[]{"name":"HEAD"}
+........text[]{"name":"HEAD"}
+.......gridcell[]{"name":"example.com","description":"example.com"}
+........text[]{"name":"example.com"}
+.......gridcell[]{"name":"/","description":"/"}
+........text[]{"name":"/"}
+.......gridcell[]{}
+.......gridcell[]{"name":"intercepted"}
+........text[]{"name":"intercepted"}
+...generic[]{}
+....generic[]{}
+.....generic[]{}
+......generic[]{}
+......generic[]{}
+.......generic[]{}
+........generic[]{}
+.........text[]{"name":"Edit"}
+........generic[]{}
+.........text[]{"name":"HTTP Request"}
+.....generic[]{}
+......generic[]{}
+.......generic[]{}
+........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic[]{}
+............Label["owns=mat-input-1"]{}
+.............text[]{"name":"Method"}
+.............combobox["invalid=false","focusable=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"HTTP Method","value":"HEAD"}
+..............generic["editable=plaintext"]{}
+...............text["editable=plaintext"]{"name":"HEAD"}
+.........generic[]{}
+..........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic[]{}
+.......generic[]{}
+........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic[]{}
+............Label["owns=mat-input-2"]{}
+.............text[]{"name":"Request URL"}
+.............textbox["invalid=false","focusable=true","editable=plaintext","settable=true"]{"name":"Request URL","value":"https://example.com/"}
+..............generic["editable=plaintext"]{}
+...............text["editable=plaintext"]{"name":"https://example.com/"}
+.........generic[]{}
+..........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic[]{}
+......grid[]{"name":"HTTP Headers"}
+.......row[]{}
+........generic[]{}
+.........generic[]{}
+.........gridcell[]{"name":"Header Name Original-Host"}
+..........generic[]{}
+...........generic[]{}
+............generic[]{}
+.............generic[]{}
+..............Label["owns=mat-input-3"]{}
+...............text[]{"name":"Header Name"}
+...............textbox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true"]{"name":"Header Name","value":"Original-Host"}
+................generic["editable=plaintext"]{}
+.................text["editable=plaintext"]{"name":"Original-Host"}
+...........generic[]{}
+............generic[]{}
+...........generic[]{}
+............generic[]{}
+.............generic[]{}
+.........gridcell[]{"name":"Header Value example.com"}
+..........generic[]{}
+...........generic[]{}
+............generic[]{}
+.............generic[]{}
+..............Label["owns=mat-input-4"]{}
+...............text[]{"name":"Header Value"}
+...............textbox["invalid=false","focusable=true","editable=plaintext","settable=true"]{"name":"Header Value","value":"example.com"}
+................generic["editable=plaintext"]{}
+.................text["editable=plaintext"]{"name":"example.com"}
+...........generic[]{}
+............generic[]{}
+...........generic[]{}
+............generic[]{}
+.............generic[]{}
+.........gridcell[]{"name":"Remove Original-Host header","description":"Send Original-Host header"}
+..........Label[]{}
+...........generic[]{}
+............checkbox["invalid=false","focusable=true","checked=true"]{"name":"Remove Original-Host header"}
+............generic[]{}
+.............generic[]{}
+............generic[]{}
+............generic[]{}
+.............SVGRoot[]{}
+.............generic[]{}
+...........generic[]{}
+............generic[]{}
+......button["invalid=false","focusable=true"]{"name":"Add HTTP Header"}
+.......text[]{"name":"Add HTTP Header"}
+.......generic[]{}
+.......generic[]{}
+.....generic[]{}
+......button["invalid=false","focusable=true","describedby=cdk-describedby-message-1"]{"description":"Send request"}
+.......generic[]{}
+.......generic[]{}
+.......generic[]{}
