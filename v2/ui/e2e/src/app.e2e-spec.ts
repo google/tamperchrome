@@ -13,7 +13,7 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should have basic functionality at boot', async () => {
+  it('should have basic filter at boot', async () => {
     await page.navigateTo();
     await page.snap('boot-empty');
     await sendKeysToActiveElement('testFilter');
@@ -29,6 +29,54 @@ describe('workspace-project App', () => {
     await sendKeysToActiveElement(protractor.Key.TAB);
     await sendKeysToActiveElement(protractor.Key.SPACE);
     await page.snap('boot-intercept-switch-enabled');
+  });
+
+  it('should filter requests properly', async () => {
+    await page.navigateTo();
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        id: 'fil1',
+        method: 'GET',
+        url: 'https://example.com/foo?bar',
+        requestHeaders: [],
+        requestBody: undefined
+      }
+    }, [
+      (await page.createMessageChannel())[0]
+    ]);
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        id: 'fil2',
+        method: 'POST',
+        url: 'https://example.net/bar?baz',
+        requestHeaders: [],
+        requestBody: undefined
+      }
+    }, [
+      (await page.createMessageChannel())[0]
+    ]);
+    await page.postMessage({
+      event: 'onRequest',
+      request: {
+        id: 'fil3',
+        method: 'PUT',
+        url: 'https://example.org/baz?foo',
+        requestHeaders: [],
+        requestBody: undefined
+      }
+    }, [
+      (await page.createMessageChannel())[0]
+    ]);
+    await browser.waitForAngular();
+    expect((await browser.findElements(by.css('[appRequestListItem]'))).length).toBe(3);
+    await page.snap('filter-unfiltered');
+    await sendKeysToActiveElement('foo', protractor.Key.ENTER);
+    expect((await browser.findElements(by.css('[appRequestListItem]'))).length).toBe(2);
+    await page.snap('filter-filtered-foo');
+    await sendKeysToActiveElement('PUT', protractor.Key.ENTER);
+    await page.snap('filter-filtered-foo-put');
   });
 
   it('should capture and respond to request', async () => {

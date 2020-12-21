@@ -1,0 +1,107 @@
+WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
+.generic[]{}
+..main[]{}
+...generic[]{}
+....generic[]{}
+.....generic[]{}
+......form[]{}
+.......generic[]{}
+........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........listbox["invalid=false","focusable=true"]{"name":"Active filters"}
+............generic[]{}
+.............img["hidden=true"]{}
+.............generic[]{}
+...........generic[]{}
+............Label["owns=mat-chip-list-input-0"]{}
+.............img["hidden=true"]{}
+.............text[]{"name":"  Filter HTTP Requests"}
+.............combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu","expanded=true","owns=mat-autocomplete-0"]{"name":"  Filter HTTP Requests","value":"foo"}
+..............generic["editable=plaintext"]{}
+...............text["editable=plaintext"]{"name":"foo"}
+.........generic[]{}
+..........generic[]{}
+.........generic[]{}
+..........generic[]{}
+...........generic[]{}
+.......generic["focusable=true"]{"name":"Intercept requests"}
+........Label[]{}
+.........generic[]{}
+..........switch["invalid=false","focusable=true","checked=false"]{"name":"Intercept requests"}
+..........generic[]{}
+...........generic[]{}
+...........generic[]{}
+............generic[]{}
+.........generic[]{}
+..........text[]{"name":"Intercept requests"}
+.......button["invalid=false","focusable=true"]{"name":"Clear all sent requests"}
+........img["hidden=true"]{}
+........generic[]{}
+........generic[]{}
+...generic[]{}
+....grid[]{"name":"List of HTTP Requests"}
+.....rowgroup[]{}
+......row[]{}
+.......columnheader[]{"name":"Method"}
+........text[]{"name":"Method"}
+.......columnheader[]{"name":"Host"}
+........text[]{"name":"Host"}
+.......columnheader[]{"name":"Path + Query"}
+........text[]{"name":"Path + Query"}
+.......columnheader[]{"name":"Type"}
+........text[]{"name":"Type"}
+.......columnheader[]{"name":"Status"}
+........text[]{"name":"Status"}
+.....rowgroup[]{}
+......row["focusable=true","selected=true"]{"name":"GET example.com /foo?bar sent"}
+.......gridcell[]{"name":"GET"}
+........text[]{"name":"GET"}
+.......gridcell[]{"name":"example.com","description":"example.com"}
+........text[]{"name":"example.com"}
+.......gridcell[]{"name":"/foo?bar","description":"/foo?bar"}
+........text[]{"name":"/foo"}
+........text[]{"name":"?bar"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
+......row["focusable=true"]{"name":"POST example.net /bar?baz sent"}
+.......gridcell[]{"name":"POST"}
+........text[]{"name":"POST"}
+.......gridcell[]{"name":"example.net","description":"example.net"}
+........text[]{"name":"example.net"}
+.......gridcell[]{"name":"/bar?baz","description":"/bar?baz"}
+........text[]{"name":"/bar"}
+........text[]{"name":"?baz"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
+......row["focusable=true"]{"name":"PUT example.org /baz?foo sent"}
+.......gridcell[]{"name":"PUT"}
+........text[]{"name":"PUT"}
+.......gridcell[]{"name":"example.org","description":"example.org"}
+........text[]{"name":"example.org"}
+.......gridcell[]{"name":"/baz?foo","description":"/baz?foo"}
+........text[]{"name":"/baz"}
+........text[]{"name":"?foo"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
+..generic[]{}
+...generic[]{}
+....generic[]{}
+.....listbox[]{"name":"  Filter HTTP Requests foo"}
+......group[]{"name":"path:"}
+.......Label[]{}
+........text[]{"name":"path:"}
+.......option["focusable=true"]{"name":"/foo"}
+........generic[]{}
+.........text[]{"name":"/foo"}
+........generic[]{}
+......group[]{"name":"query:"}
+.......Label[]{}
+........text[]{"name":"query:"}
+.......option["focusable=true"]{"name":"?foo"}
+........generic[]{}
+.........text[]{"name":"?foo"}
+........generic[]{}
