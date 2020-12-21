@@ -1,0 +1,3 @@
+[submodule "v2/ui/protractor-accessibility-plugin"]
+	path = v2/ui/protractor-accessibility-plugin
+	url = https://github.com/angular/protractor-accessibility-plugin

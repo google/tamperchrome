@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.0.4",
     "@angular/router": "~11.0.4",
     "core-js": "^2.5.4",
+    "protractor-accessibility-plugin": "file:protractor-accessibility-plugin",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
