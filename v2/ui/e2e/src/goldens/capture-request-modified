@@ -187,3 +187,66 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
 .............SVGRoot[]{}
 ......button["disabled=true","invalid=false"]{"name":"Add HTTP Header"}
 .......text[]{"name":"Add HTTP Header"}
+WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
+..main[]{}
+......form[]{}
+...........generic["invalid=false","focusable=true"]{"name":"Active filters"}
+............Label["owns=mat-chip-list-input-0"]{}
+.............text[]{"name":"  Filter HTTP Requests"}
+.............combobox["invalid=false","focusable=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
+..............generic["editable=plaintext"]{}
+.......generic["focusable=true"]{"name":"Intercept requests"}
+........Label[]{}
+..........switch["invalid=false","focusable=true","focused=true","checked=true"]{"name":"Intercept requests"}
+..........text[]{"name":"Intercept requests"}
+.......button["invalid=false","focusable=true","describedby=cdk-describedby-message-0"]{"description":"Clear all sent requests"}
+....grid[]{"name":"List of HTTP Requests"}
+.....rowgroup[]{}
+......row[]{}
+.......columnheader[]{"name":"Method"}
+........text[]{"name":"Method"}
+.......columnheader[]{"name":"Host"}
+........text[]{"name":"Host"}
+.......columnheader[]{"name":"Path + Query"}
+........text[]{"name":"Path + Query"}
+.......columnheader[]{"name":"Type"}
+........text[]{"name":"Type"}
+.......columnheader[]{"name":"Status"}
+........text[]{"name":"Status"}
+.....rowgroup[]{}
+......row["focusable=true","selected=true"]{"name":"GET example.com / sent"}
+.......gridcell[]{"name":"GET"}
+........text[]{"name":"GET"}
+.......gridcell[]{"name":"example.com","description":"example.com"}
+........text[]{"name":"example.com"}
+.......gridcell[]{"name":"/","description":"/"}
+........text[]{"name":"/"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
+.........text[]{"name":"HTTP Request"}
+............Label["owns=mat-input-1"]{}
+.............text[]{"name":"Method"}
+.............combobox["invalid=false","focusable=true","editable=plaintext","autocomplete=list","hasPopup=menu"]{"name":"HTTP Method","value":"GET"}
+...............text[]{"name":"GET"}
+............Label["owns=mat-input-2"]{}
+.............text[]{"name":"Request URL"}
+.............textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Request URL","value":"https://example.com/"}
+...............text[]{"name":"https://example.com/"}
+......grid[]{"name":"HTTP Headers"}
+.......row[]{}
+.........gridcell[]{"name":"Header Name"}
+..............Label["owns=mat-input-3"]{}
+...............text[]{"name":"Header Name"}
+...............textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Header Name","value":"Host"}
+.................text[]{"name":"Host"}
+.........gridcell[]{"name":"Header Value"}
+..............Label["owns=mat-input-4"]{}
+...............text[]{"name":"Header Value"}
+...............textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Header Value"}
+.........gridcell[]{"name":"Remove Host header","description":"Send Host header"}
+..........Label[]{}
+............checkbox["disabled=true","invalid=false","checked=true"]{"name":"Remove Host header"}
+.............SVGRoot[]{}
+......button["disabled=true","invalid=false"]{"name":"Add HTTP Header"}
+.......text[]{"name":"Add HTTP Header"}

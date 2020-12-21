@@ -29,7 +29,13 @@ exports.config = {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: 'pretty' } }));
   },
   plugins: [{
-    axe: true,
+    axe: {
+      rules: {
+        // Disable some rules until axe is upgraded
+        'aria-allowed-attr': {enabled: false}, // rowcount/rowindex are allowed on role=grid/row
+        'aria-required-children': {enabled: false},
+      } 
+    },
     package: 'protractor-accessibility-plugin'
   }]
 };

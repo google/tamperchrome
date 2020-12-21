@@ -27,7 +27,6 @@ node_modules/@types/chrome:
 
 ui/node_modules:
 	git submodule init
-	cd ui && npm install --save protractor-accessibility-plugin
 	cd ui && npm install
 
 ui: .FORCE ui/node_modules

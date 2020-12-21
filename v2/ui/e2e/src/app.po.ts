@@ -100,7 +100,7 @@ export class AppPage {
   }
 
   private serializeTree(tree, padding = 0) {
-    if (tree.ignored || tree.props.includes('hidden=true')) return '';
+    if (tree.ignored) return '';
     const head = `${
       tree.role
     }${

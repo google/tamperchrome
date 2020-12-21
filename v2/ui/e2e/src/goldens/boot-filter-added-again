@@ -11,17 +11,21 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
 ..........generic[]{}
 ...........listbox["invalid=false","focusable=true"]{"name":"Active filters"}
 ............generic[]{}
+.............img["hidden=true"]{}
 .............option["focusable=true"]{"name":"testFilter"}
 ..............generic[]{}
 ..............text[]{"name":"testFilter"}
+..............img["hidden=true"]{}
 ..............generic[]{}
 .............option["focusable=true"]{"name":"anotherTestFilter"}
 ..............generic[]{}
 ..............text[]{"name":"anotherTestFilter"}
+..............img["hidden=true"]{}
 ..............generic[]{}
 .............generic[]{}
 ...........generic[]{}
 ............Label["owns=mat-chip-list-input-0"]{}
+.............img["hidden=true"]{}
 .............text[]{"name":"  Filter HTTP Requests"}
 .............combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
 ..............generic["editable=plaintext"]{}
@@ -41,6 +45,7 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
 .........generic[]{}
 ..........text[]{"name":"Intercept requests"}
 .......button["invalid=false","focusable=true","describedby=cdk-describedby-message-0"]{"description":"Clear all sent requests"}
+........img["hidden=true"]{}
 ........generic[]{}
 ........generic[]{}
 ...generic[]{}
@@ -57,6 +62,9 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Chrome"}
 ........text[]{"name":"Type"}
 .......columnheader[]{"name":"Status"}
 ........text[]{"name":"Status"}
+..generic["hidden=true"]{}
+...generic["hidden=true"]{}
+....text["hidden=true"]{"name":"Clear all sent requests"}
 ..generic[]{}
 ...generic[]{}
 ....generic[]{}
