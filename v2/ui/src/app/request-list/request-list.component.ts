@@ -57,7 +57,7 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	}
 	async updateTable() {
 		for await (const change of this.interceptor.changes) {
-			this.table.renderRows();
+			this.table?.renderRows();
 			if (!this.keyManager?.activeItem?.request.visible) {
 				this.keyManager.updateActiveItem(null);
 			}
