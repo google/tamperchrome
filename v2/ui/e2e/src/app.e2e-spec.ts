@@ -2,15 +2,13 @@ import { AppPage } from './app.po';
 import { browser, element, by, logging, until } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 
-function sendKeysToActiveElement(...keys) {
-  return browser.switchTo().activeElement().sendKeys(...keys);
-}
+const sendKeysToActiveElement = (...keys) => browser.switchTo().activeElement().sendKeys(...keys);
 
-async function numberOfVisibleElements(css) {
+const numberOfVisibleElements = async (css) => {
   const elems = await browser.findElements(by.css(css));
   const elemsViz = await Promise.all(elems.map(elem=>elem.isDisplayed()));
   return elemsViz.filter(visible=>visible).length;
-}
+};
 
 describe('workspace-project App', () => {
   let page: AppPage;
