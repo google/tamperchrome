@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install deps
+        run: sudo npm install -g @angular/cli
+
+      - name: Check dev build
+        run: cd v2 && make dev
+
+      - name: Check prod build
+        run: cd v2 && make prod
+
+      - name: Check unit tests
+        run: cd v2 && make test
+
+      - name: Check e2e tests
+        run: cd v2 && make e2e
