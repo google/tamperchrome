@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -23,9 +23,3 @@ jobs:
 
       - name: Check prod build
         run: cd v2 && make prod
-
-      - name: Check unit tests
-        run: cd v2 && make test
-
-      - name: Check e2e tests
-        run: cd v2 && make e2e
