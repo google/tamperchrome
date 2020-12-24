@@ -26,7 +26,7 @@ node_modules/@types/chrome:
 	npm install --save @types/chrome
 
 ui/node_modules:
-	git submodule init
+	git submodule init && git submodule update
 	cd ui && npm install
 
 ui: .FORCE ui/node_modules
