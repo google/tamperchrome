@@ -1,5 +1,5 @@
 ENV=--prod
-FAKE=.FORCE dev prod local
+FAKE=.FORCE dev prod local test e2e e2e-goldens
 
 crx.zip: prod
 	rm -f crx.zip
@@ -32,7 +32,10 @@ ui/node_modules:
 ui: .FORCE ui/node_modules
 	cd ui && ng lint && ng build ${ENV}
 
-e2e: .FORCE ui/node_modules
+test:
+	cd ui && ng test --browsers=ChromeHeadless --watch=false --code-coverage
+
+e2e: ui/node_modules
 	cd ui && ng e2e
 
 e2e-goldens:
