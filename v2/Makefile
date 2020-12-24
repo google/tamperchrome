@@ -32,7 +32,7 @@ ui/node_modules:
 ui: .FORCE ui/node_modules
 	cd ui && ng lint && ng build ${ENV}
 
-test:
+test: ui/node_modules
 	cd ui && ng test --browsers=ChromeHeadless --watch=false --code-coverage
 
 e2e: ui/node_modules
