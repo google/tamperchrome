@@ -11,7 +11,7 @@ exports.config = {
   capabilities: {
     'browserName': 'chrome',
     'chromeOptions': {
-      'args': ['enable-blink-features=AccessibilityObjectModel']
+      'args': ['--headless']
     }
   },
   directConnect: true,

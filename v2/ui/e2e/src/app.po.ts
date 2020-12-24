@@ -87,6 +87,7 @@ export class AppPage {
 
   private toTree(devToolsSnapshot) {
     const leaves = new Map();
+    const root = devToolsSnapshot.nodes[0].nodeId;
     for (const node of devToolsSnapshot.nodes) {
       leaves.set(node.nodeId, {});
     }
@@ -102,7 +103,7 @@ export class AppPage {
       leaf.children = node.childIds.map(id=>leaves.get(id));
       leaf.props = node.properties.filter(prop=>prop.value?.value).map(prop=>`${prop.name}=${prop.value.value}`);
     }
-    return leaves.get('1');
+    return leaves.get(root);
   }
 
   private serializeTree(tree, padding = 0) {
