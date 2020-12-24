@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install deps
-        run: npm install -g @angular/cli
+        run: sudo npm install -g @angular/cli
 
       - name: Check dev build
         run: cd v2 && make dev
