@@ -36,9 +36,6 @@ jobs:
       - name: Check unit tests
         run: cd v2 && make test
 
-      - name: Check e2e tests
-        run: cd v2 && make e2e
-
   e2e:
     runs-on: ubuntu-latest
 
