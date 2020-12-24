@@ -1,8 +1,9 @@
 import { AppPage } from './app.po';
-import { browser, element, by, logging, until } from 'protractor';
-import { protractor } from 'protractor/built/ptor';
+import { by, logging, Key, browser } from 'protractor';
 
-const sendKeysToActiveElement = (...keys) => browser.switchTo().activeElement().sendKeys(...keys);
+const sendKeysToActiveElement = (...keys) =>
+  browser.controlFlow().execute(() =>
+    browser.switchTo().activeElement().sendKeys(...keys));
 
 const numberOfVisibleElements = async (css) => {
   const elems = await browser.findElements(by.css(css));
@@ -21,17 +22,17 @@ describe('workspace-project App', () => {
     await page.navigateTo();
     await page.snap('boot-empty');
     await sendKeysToActiveElement('testFilter');
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.ENTER);
     await page.snap('boot-filter-added');
     await sendKeysToActiveElement('anotherTestFilter');
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.ENTER);
     await page.snap('boot-filter-added-again');
-    await sendKeysToActiveElement(protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.TAB));
-    await sendKeysToActiveElement(protractor.Key.DELETE);
+    await sendKeysToActiveElement(Key.chord(Key.SHIFT, Key.TAB));
+    await sendKeysToActiveElement(Key.DELETE);
     await page.snap('boot-filter-deleted');
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.SPACE);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.SPACE);
     await page.snap('boot-intercept-switch-enabled');
   });
 
@@ -77,15 +78,15 @@ describe('workspace-project App', () => {
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(3);
     await page.snap('filter-unfiltered');
     await sendKeysToActiveElement('f');
-    await sendKeysToActiveElement(protractor.Key.DOWN);
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.DOWN);
+    await sendKeysToActiveElement(Key.ENTER);
     await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
     await page.snap('filter-filtered-foo');
     await sendKeysToActiveElement('P');
-    await sendKeysToActiveElement(protractor.Key.DOWN);
-    await sendKeysToActiveElement(protractor.Key.DOWN);
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.DOWN);
+    await sendKeysToActiveElement(Key.DOWN);
+    await sendKeysToActiveElement(Key.ENTER);
     await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(1);
     await page.snap('filter-filtered-foo-put');
@@ -137,8 +138,8 @@ describe('workspace-project App', () => {
   it('should capture and respond to request', async () => {
     await page.navigateTo();
     // enable interception
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.SPACE);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.SPACE);
     // send a request
     const [port1, port2] = await page.createMessageChannel();
     await page.postMessage({
@@ -157,34 +158,34 @@ describe('workspace-project App', () => {
     await browser.waitForAngular();
     await page.snap('capture-request');
     // tab to the first element
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     await page.snap('capture-request-list-focused');
     // tab to request editor
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     // modify the method
     await sendKeysToActiveElement('HEAD');
     await page.snap('capture-request-method');
     // dont modify the url
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     // modify the host header
     await sendKeysToActiveElement('Original-Host');
     await page.snap('capture-request-host-changed');
     // skip header value and send header checkbox
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     // add new header
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.ENTER);
     await sendKeysToActiveElement('New-Header');
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     await sendKeysToActiveElement('NewHeader Value!');
     await page.snap('capture-request-add-header');
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.ENTER);
     await page.snap('capture-request-send');
     const modifiedRequest = (await page.waitForMessageToPort(port2)).data.request;
     expect(modifiedRequest).toEqual({
@@ -214,29 +215,29 @@ describe('workspace-project App', () => {
     // wait for the response to arrive
     await browser.waitForAngular();
     await page.snap('capture-response-arrived');
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     await sendKeysToActiveElement('302');
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     await sendKeysToActiveElement('Server-Header-Value');
     await page.snap('capture-response-edit-server');
-    await sendKeysToActiveElement(protractor.Key.ARROW_DOWN);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.SPACE);
+    await sendKeysToActiveElement(Key.ARROW_DOWN);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.SPACE);
     await page.snap('capture-response-disable-xss');
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.ENTER);
     await sendKeysToActiveElement('AnotherNewHeader');
-    await sendKeysToActiveElement(protractor.Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     await sendKeysToActiveElement('NewValue');
     await page.snap('capture-response-add-header');
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.TAB);
-    await sendKeysToActiveElement(protractor.Key.ENTER);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.ENTER);
     const modifiedResponse = (await page.waitForMessageToPort(port4)).data.response;
     expect(modifiedResponse).toEqual({
       status: 302,

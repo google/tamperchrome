@@ -14,7 +14,8 @@ exports.config = {
       'args': [
         '--headless',
         '--no-sandbox',
-        '--disable-gpu'
+        '--disable-gpu',
+        '--disable-dev-shm-usage'
       ]
     }
   },
