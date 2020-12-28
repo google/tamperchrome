@@ -1,3 +1,7 @@
+---
+disable_search: true
+---
+
 (logo) Tamper Dev is ....
 
 | | | |

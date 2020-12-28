@@ -1,0 +1,9 @@
+- title: "Tamper DEV"
+  url: "/"
+  children:
+    - title: Features
+      url: "/#getting-started"
+    - title: Development
+      url: "/#development"
+    - title: Customization
+      url: "/#customization"
