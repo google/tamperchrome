@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Tamper Dev",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description" : "Tamper Dev is an extension that allows you to edit HTTP requests and responses as they happen (including HTTPS) without a proxy.",
   "icons": {"16": "icons/16.png","48": "icons/48.png","128": "icons/128.png"},
   "browser_action": {
