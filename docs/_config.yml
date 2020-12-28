@@ -37,3 +37,4 @@ markdown: kramdown
 exclude: [_site, CHANGELOG.md, LICENSE, README.md, vendor]
 
 disable_search: true
+
