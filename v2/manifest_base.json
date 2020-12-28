@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "Tamper Chrome",
+  "name": "Tamper Dev",
   "version": "2.0.3",
-  "description" : "Tamper Chrome is a Chrome extension that allows you to edit HTTP requests as they happen.",
+  "description" : "Tamper Dev is an extension that allows you to edit HTTP requests and responses as they happen (including HTTPS) without a proxy.",
   "icons": {"16": "icons/16.png","48": "icons/48.png","128": "icons/128.png"},
   "browser_action": {
-    "default_title": "Tamper Chrome",
+    "default_title": "Tamper Dev",
     "default_icon": {"16": "icons/16.png","48": "icons/48.png","128": "icons/128.png"}
   },
   "background": {
@@ -15,9 +15,9 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "default": "Alt+Shift+C"
+        "default": "Alt+T"
       },
-      "description": "Open tamper chrome for the current tab"
+      "description": "Open tamper dev for the current tab"
     }
   },
   "minimum_chrome_version": "87",
