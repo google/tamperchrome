@@ -18,19 +18,13 @@ twitter: sirdarckcat
 # If commented, will use material hat theme
 # logo: "assets/img/logo/SRCC-square-red.png"
 logo_width: 34
-color: red
+color: '#feb628'
+accentColor: '#fe4c28' # purple, green, etc.
+themeColor: orange # purple, green, blue, orange, purple, grey
+fixedNav: 'true' # true or false
 
 # Build settings
 markdown: kramdown
-
-# If you add tags to pages, you can link them to some external search
-# If you want to disable this, comment the URL.
-tag_search_endpoint: https://ask.cyberinfrastructure.org/search?q=
-tag_color: danger # danger, success, warning, primary, info, secondary
-
-accentColor: blue # purple, green, etc.
-themeColor: orange # purple, green, blue, orange, purple, grey
-fixedNav: 'true' # true or false
 
 permalink: /:year/:title/
 markdown: kramdown
