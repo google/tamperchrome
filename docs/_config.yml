@@ -8,12 +8,12 @@ description: Tamper DEV Documentation
 url: "https://tamper.dev"
 
 repo: "https://github.com/google/tamperchrome"
-github_user: "sirdarckcat"
+github_user: "google"
 github_repo: "tamperchrome"
 
 # Optional
 twitter: sirdarckcat
-# google-analytics: UA-XXXXXXXXXX
+google-analytics: UA-186210436-1
 # Image and (square) dimension for logo (don't start with /)
 # If commented, will use material hat theme
 # logo: "assets/img/logo/SRCC-square-red.png"
