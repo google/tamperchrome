@@ -3,14 +3,8 @@ name: CI
 on:
   push:
     branches: [ master ]
-    paths-ignore:
-    - 'docs/**'
-    - 'v1/**'
   pull_request:
     branches: [ master ]
-    paths-ignore:
-    - 'docs/**'
-    - 'v1/**'
 
   workflow_dispatch:
 
