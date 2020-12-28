@@ -13,7 +13,7 @@ Press Alt+T or click on the extension button, and you'll be able to filter reque
 
 ## Preview
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YNAt6kHm3yo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YNAt6kHm3yo?rel=0&modestbranding=1&controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## FAQ
 
