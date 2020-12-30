@@ -12,7 +12,7 @@ on:
         required: true
 
 jobs:
-  build:
+  create_draft_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
