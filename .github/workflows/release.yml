@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        default: 'vMAJOR.MINOR.PATCH'
+      release_notes:
+        description: 'Release Notes'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Check version has the right format
+        run: |
+          [[ "${{ github.event.inputs.version }}" =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]
+
+      - name: Update version
+        run: jq '.version="${{ github.event.inputs.version }}"' manifest_base.json > manifest_base.json
+
+      - name: Push to tag
+        run: |
+          git config user.email ${{ github.event.head_commit.author.email }}
+          git config user.name ${{ github.event.head_commit.author.name }}
+          git add manifest_base.json
+          git commit -m "Automated commit: Bump to version ${{ github.event.inputs.version }}"
+          git tag ${{ github.event.inputs.version }}
+          git push --set-upstream origin ${{ github.event.inputs.version }}
+
+      - name: Build the extension
+        run: cd v2 && make crx.zip
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
+          body: ${{ github.event.inputs.release_notes }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./crx.zip
+          asset_name: ${{ github.event.inputs.version }}.zip
+          asset_content_type: application/zip
