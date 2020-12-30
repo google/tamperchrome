@@ -1,4 +1,4 @@
-name: Release
+name: Create Release
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       version:
         description: 'Version'
         required: true
-        default: 'vMAJOR.MINOR.PATCH'
+        default: 'MAJOR.MINOR.PATCH'
       release_notes:
         description: 'Release Notes'
         required: true
@@ -19,7 +19,7 @@ jobs:
       
       - name: Check version has the right format
         run: |
-          [[ "${{ github.event.inputs.version }}" =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]
+          [[ "${{ github.event.inputs.version }}" =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]
 
       - name: Update version and push to tag
         run: |
@@ -30,8 +30,8 @@ jobs:
           git config user.email action@github.com
           git add manifest_base.json
           git commit -m "Automated commit: Bump to version ${{ github.event.inputs.version }}"
-          git tag ${{ github.event.inputs.version }}
-          git push origin ${{ github.event.inputs.version }}
+          git tag v${{ github.event.inputs.version }}
+          git push origin v${{ github.event.inputs.version }}
 
       - name: Install deps
         run: sudo npm install -g @angular/cli
@@ -45,10 +45,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event.inputs.version }}
+          tag_name: v${{ github.event.inputs.version }}
           release_name: Release ${{ github.event.inputs.version }}
           body: ${{ github.event.inputs.release_notes }}
-          draft: false
+          draft: true
           prerelease: false
 
       - name: Upload Release Asset
@@ -59,5 +59,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: v2/crx.zip
-          asset_name: ${{ github.event.inputs.version }}.zip
+          asset_name: crx_${{ github.event.inputs.version }}.zip
           asset_content_type: application/zip
