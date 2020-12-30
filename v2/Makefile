@@ -29,7 +29,7 @@ ui/node_modules:
 	git submodule init && git submodule update
 	cd ui && npm install
 
-lint:
+lint: ui/node_modules
 	cd ui && ng lint
 
 ui: .FORCE ui/node_modules
