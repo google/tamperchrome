@@ -31,7 +31,7 @@ jobs:
           git add manifest_base.json
           git commit -m "Automated commit: Bump to version ${{ github.event.inputs.version }}"
           git tag ${{ github.event.inputs.version }}
-          git push --set-upstream origin ${{ github.event.inputs.version }}
+          git push origin ${{ github.event.inputs.version }}
 
       - name: Install deps
         run: sudo npm install -g @angular/cli
@@ -58,6 +58,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./crx.zip
+          asset_path: v2/crx.zip
           asset_name: ${{ github.event.inputs.version }}.zip
           asset_content_type: application/zip
