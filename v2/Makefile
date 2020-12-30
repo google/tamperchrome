@@ -1,5 +1,5 @@
 ENV=--prod
-FAKE=.FORCE dev prod local test e2e e2e-goldens
+FAKE=.FORCE dev prod local test e2e e2e-goldens lint
 
 crx.zip: prod
 	rm -f crx.zip
@@ -16,7 +16,7 @@ prod: background ui
 	jq 'del(.key)' manifest_base.json > manifest.json
 
 dev: ENV=
-dev: prod
+dev: lint prod
 	cp manifest_base.json manifest.json
 
 background: .FORCE node_modules/@types/chrome
@@ -29,8 +29,11 @@ ui/node_modules:
 	git submodule init && git submodule update
 	cd ui && npm install
 
+lint: ui/node_modules
+	cd ui && ng lint
+
 ui: .FORCE ui/node_modules
-	cd ui && ng lint && ng build ${ENV}
+	cd ui && ng build ${ENV}
 
 test: ui/node_modules
 	cd ui && ng test --browsers=ChromeHeadless --watch=false --code-coverage
