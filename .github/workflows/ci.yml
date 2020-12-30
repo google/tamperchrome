@@ -1,8 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -21,9 +19,6 @@ jobs:
       - name: Check dev build
         run: cd v2 && make dev
 
-      - name: Check prod build
-        run: cd v2 && make prod
-
   test:
     runs-on: ubuntu-latest
 
@@ -35,19 +30,3 @@ jobs:
 
       - name: Check unit tests
         run: cd v2 && make test
-
-  e2e:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install deps
-        run: sudo npm install -g @angular/cli
-
-      - name: Check e2e tests
-        uses: nick-invision/retry@v2
-        with:
-          timeout_minutes: 5
-          max_attempts: 5
-          command: cd v2 && make e2e
