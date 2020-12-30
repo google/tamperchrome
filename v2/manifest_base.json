@@ -6,7 +6,7 @@
   "icons": {"16": "icons/white.png","48": "icons/96x96.png","128": "icons/256x256.png"},
   "browser_action": {
     "default_title": "Tamper Dev",
-    "default_icon": {"16": "icons/white.png","48": "icons/96x96.png","128": "icons/256x256.png"}
+    "default_icon": {"16": "icons/white.png","48": "icons/white.png","128": "icons/256x256.png"}
   },
   "background": {
     "page": "background/background.html",
