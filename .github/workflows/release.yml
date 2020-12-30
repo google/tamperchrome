@@ -22,15 +22,19 @@ jobs:
           [[ "${{ github.event.inputs.version }}" =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]
 
       - name: Update version
-        run: jq '.version="${{ github.event.inputs.version }}"' manifest_base.json > manifest_base.json
+        run: jq '.version="${{ github.event.inputs.version }}"' <(cat manifest_base.json) | tee manifest_base.json
 
       - name: Push to tag
         run: |
           git config user.name ${{ github.actor }}
+          git config user.email action@github.com
           git add manifest_base.json
           git commit -m "Automated commit: Bump to version ${{ github.event.inputs.version }}"
           git tag ${{ github.event.inputs.version }}
           git push --set-upstream origin ${{ github.event.inputs.version }}
+
+      - name: Install deps
+        run: sudo npm install -g @angular/cli
 
       - name: Build the extension
         run: cd v2 && make crx.zip
