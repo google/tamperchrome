@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_dev:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,6 +18,18 @@ jobs:
 
       - name: Check dev build
         run: cd v2 && make dev
+
+  build_prod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install deps
+        run: sudo npm install -g @angular/cli
+
+      - name: Check prod build
+        run: cd v2 && make prod
 
   test:
     runs-on: ubuntu-latest
