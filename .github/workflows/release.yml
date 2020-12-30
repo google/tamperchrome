@@ -21,13 +21,11 @@ jobs:
         run: |
           [[ "${{ github.event.inputs.version }}" =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]
 
-      - name: Update version
+      - name: Update version and push to tag
         run: |
+          cd v2
           mv manifest_base.json manifest_unversioned.json
           jq '.version="${{ github.event.inputs.version }}"' manifest_unversioned.json > manifest_base.json
-
-      - name: Push to tag
-        run: |
           git config user.name ${{ github.actor }}
           git config user.email action@github.com
           git add manifest_base.json
