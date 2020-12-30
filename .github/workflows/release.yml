@@ -26,8 +26,7 @@ jobs:
 
       - name: Push to tag
         run: |
-          git config user.email ${{ github.event.head_commit.author.email }}
-          git config user.name ${{ github.event.head_commit.author.name }}
+          git config user.name ${{ github.actor }}
           git add manifest_base.json
           git commit -m "Automated commit: Bump to version ${{ github.event.inputs.version }}"
           git tag ${{ github.event.inputs.version }}
