@@ -5,6 +5,8 @@ disable_search: true
 # Tamper DEV
 Tamper Dev is an extension that allows you to edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.
 
+[![Avaliable in the Chrome Web Store](assets/cws.png)](https://chrome.google.com/webstore/detail/tamper-chrome/mdemppnhjflbejfbnlddahjbpdbeejnn)
+
 Press Alt+T or click on the extension button, and you'll be able to filter requests. Once you have a filter you like, enable interception, and you'll be able to modify all requests before they are sent to the server and before the responses are sent back to the browser.
 
 | | | |
