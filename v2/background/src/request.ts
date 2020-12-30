@@ -14,10 +14,10 @@ export abstract class Intercepted implements InterceptedData {
   id: string;
   method: string;
   url: string;
-  requestHeaders: { name: string, value: string }[];
+  requestHeaders: Debugger_Fetch_HeaderEntry[];
   requestBody?: string | null;
   status?: number;
-  responseHeaders?: { name: string, value: string }[];
+  responseHeaders?: Debugger_Fetch_HeaderEntry[];
   responseBody?: string | null = null;
 
   protected constructor(dbg: Debuggee, { id, method, url, requestHeaders, requestBody, status, responseHeaders }: InterceptedData) {
@@ -105,11 +105,15 @@ export class FetchIntercepted extends Intercepted {
       id: requestId,
       method: request.method,
       url: request.url,
-      requestHeaders: Object.entries(request.headers).map(e => ({ name: e[0], value: e[1] })),
+      requestHeaders: FetchIntercepted.convertHeaders(request.headers),
       requestBody: request.hasPostData ? request.postData : null,
       status: responseStatusCode,
       responseHeaders: responseHeaders,
     });
+  }
+
+  private static convertHeaders(headers: Record<string, string>|undefined): Debugger_Fetch_HeaderEntry[] {
+    return Object.entries(headers||{}).map(e => ({ name: e[0], value: e[1] }));
   }
 
   async getResponseBodyInternal() {
@@ -117,8 +121,17 @@ export class FetchIntercepted extends Intercepted {
   }
 
   async continueRequestInternal(request: Partial<Debugger_Network_Request>) {
+    if (JSON.stringify(request) == '{}') {
+      return this.debuggee.sendCommand(
+        'Fetch.continueRequest', { requestId: this.id });
+    }
     return this.debuggee.sendCommand(
-      'Fetch.continueRequest', Object.assign({ requestId: this.id }, request));
+      'Fetch.continueRequest', {
+        requestId: this.id,
+        method: request.method,
+        url: request.url,
+        headers: FetchIntercepted.convertHeaders(request.headers)
+      });
   }
 
   async continueResponseInternal(response: Partial<InterceptedData>) {
