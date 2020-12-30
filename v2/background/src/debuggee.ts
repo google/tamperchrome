@@ -105,7 +105,12 @@ export class Debuggee {
     }): Promise<never>;
     async sendCommand(method: 'Fetch.enable', params: { patterns: Debugger_Fetch_RequestPattern[] }): Promise<never>;
     async sendCommand(method: 'Fetch.getResponseBody', params: { requestId: string }): Promise<Debugger_Network_ResponseBody>;
-    async sendCommand(method: 'Fetch.continueRequest', params: { requestId: string } & Partial<Debugger_Network_Request>): Promise<never>;
+    async sendCommand(method: 'Fetch.continueRequest', params: { requestId: string} & Partial<{
+        url: string,
+        method: string,
+        postData: string,
+        headers: Debugger_Fetch_HeaderEntry[]
+    }>): Promise<never>;
     async sendCommand(method: 'Fetch.fulfillRequest', params: {
         requestId: string,
         responseCode: number,
