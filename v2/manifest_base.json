@@ -3,7 +3,7 @@
   "name": "Tamper Dev",
   "version": "2.0.4",
   "description" : "Tamper Dev is an extension that allows you to intercept and edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.",
-  "icons": {"16": "icons/white.png","48": "icons/white.png","128": "icons/256x256.png"},
+  "icons": {"16": "icons/white.png","48": "icons/96x96.png","128": "icons/256x256.png"},
   "browser_action": {
     "default_title": "Tamper Dev",
     "default_icon": {"16": "icons/white.png","48": "icons/white.png","128": "icons/256x256.png"}
