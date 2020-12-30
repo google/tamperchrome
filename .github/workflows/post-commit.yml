@@ -1,0 +1,36 @@
+name: Post Commit Checks
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install deps
+        run: sudo npm install -g @angular/cli
+
+      - name: Check prod build
+        run: cd v2 && make prod
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install deps
+        run: sudo npm install -g @angular/cli
+
+      - name: Check e2e tests
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 10
+          command: cd v2 && make e2e
