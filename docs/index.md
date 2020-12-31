@@ -11,9 +11,9 @@ Tamper Dev is an extension that allows you to edit HTTP/HTTPS requests and respo
 
 Press Alt+T or click on the extension button, and you'll be able to filter requests. Once you have a filter you like, enable interception, and you'll be able to modify all requests before they are sent to the server and before the responses are sent back to the browser.
 
-| | | |
+| ![Intercept the requests sent by your browser, even if encrypted](assets/intercept128.png) | ![Observe how the server reacts to your modifications, interactively](assets/gear128.png) | ![Modify the response that your browser receives from the server](assets/edit128.png) |
 |---|---|---|
-| Tamper with the requests sent by your browser, even if encrypted | Observe how the server reacts to your modifications, interactively | Modify the response that your browser receives from the server |
+| Intercept the requests sent by your browser, even if encrypted | Observe how the server reacts to your modifications, interactively | Modify the response that your browser receives from the server |
 
 ## Preview
 
