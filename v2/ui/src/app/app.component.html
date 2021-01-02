@@ -1,6 +1,8 @@
 <main fxLayout="column">
   <app-request-filter></app-request-filter>
   <app-request-list (selected)="selected=$event" fxFlex="0 1 40vh"></app-request-list>
-  <app-request-editor *ngIf="selected?.visible" [request]="selected"></app-request-editor>
-  <app-response-editor *ngIf="selected?.visible && selected?.hasResponse" [request]="selected"></app-response-editor>
+  <div fxLayoutGap="10px" fxLayout="row wrap" fxLayoutAlign="start">
+    <app-request-editor fxFlex="1 0 430px" *ngIf="selected?.visible" [request]="selected"></app-request-editor>
+    <app-response-editor fxFlex="1 0 430px" *ngIf="selected?.visible && selected?.hasResponse" [request]="selected"></app-response-editor>
+  </div>
 </main>
