@@ -12,7 +12,7 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
     return;
   }
   let int: Interception = Interception.build(dbg);
-  const popup = open('/ui/dist/ui/index.html', `tamperchrome_${tab.id}`, 'menubar=0,innerWidth=800,innerHeight=600');
+  const popup = open('/ui/dist/ui/index.html', `tamperchrome_${tab.id}`, 'menubar=0,innerWidth=900,innerHeight=800');
   if (!popup) {
     throw new Error('Failed to open UI window');
   }
