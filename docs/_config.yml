@@ -13,8 +13,8 @@ github_repo: "tamperchrome"
 
 twitter: sirdarckcat
 google-analytics: UA-186210436-1
-logo: "assets/32x32.png"
-logo_width: 32
+logo: "assets/48x48.png"
+logo_width: 48
 color: '#feb628'
 accentColor: '#fe4c28'
 themeColor: orange
