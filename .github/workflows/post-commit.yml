@@ -7,22 +7,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  ui_e2e:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install deps
-        run: sudo npm install -g @angular/cli
-
-      - name: Check UI e2e tests
-        uses: nick-invision/retry@v2
-        with:
-          timeout_minutes: 10
-          max_attempts: 10
-          command: cd v2 && make e2e
-
   background_e2e:
     runs-on: ubuntu-latest
 
