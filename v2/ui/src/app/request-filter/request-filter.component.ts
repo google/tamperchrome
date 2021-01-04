@@ -78,6 +78,10 @@ export class RequestFilterComponent implements OnInit {
 		this.interceptor.clearSent();
 	}
 
+	reload(): void {
+		this.interceptor.reloadTab();
+	}
+
 	ngOnInit() {
 		this.filterSuggestionOptions = this.filterInputForm.get('filterInputGroup').valueChanges
 			.pipe(

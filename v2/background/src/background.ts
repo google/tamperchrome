@@ -18,7 +18,6 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
   }
   popup.onmessage = async e => {
     if (e.data.event == 'capture') {
-      popup.onmessage = null;
       await int.capture(e.data.pattern || '*');
       await int.onRequest(async (req: Intercepted) => {
         const mc = new MessageChannel;
@@ -38,6 +37,8 @@ chrome.browserAction.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
           bodyMc.port2.postMessage(await res.getResponseBody());
         };
       });
+    } else if (e.data.event == 'reloadTab') {
+      chrome.tabs.reload(tab.id!, {bypassCache: true});
     }
   };
   popup.onload = () => popup.onunload = () => {
