@@ -74,4 +74,14 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 .......gridcell[]{}
 .......gridcell[]{"name":"sent"}
 ........text[]{"name":"sent"}
+......row["focusable=true"]{"name":"PUT qux /foo sent"}
+.......gridcell[]{"name":"PUT"}
+........text[]{"name":"PUT"}
+.......gridcell[]{"name":"qux","description":"qux"}
+........text[]{"name":"qux"}
+.......gridcell[]{"name":"/foo","description":"/foo"}
+........text[]{"name":"/foo"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
 ...generic[]{}
