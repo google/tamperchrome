@@ -156,6 +156,7 @@ describe('workspace-project App', () => {
     // tab to the first element
     await sendKeysToActiveElement(Key.TAB);
     await sendKeysToActiveElement(Key.TAB);
+    await sendKeysToActiveElement(Key.TAB);
     await page.snap('capture-request-list-focused');
     // tab to request editor
     await sendKeysToActiveElement(Key.TAB);

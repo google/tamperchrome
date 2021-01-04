@@ -13,6 +13,7 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 ....switch["invalid=false","focusable=true","checked=false"]{"name":"Intercept requests"}
 ....text[]{"name":"Intercept requests"}
 ...button["invalid=false","focusable=true"]{"name":"Clear all sent requests"}
+...button["invalid=false","focusable=true"]{"name":"Reload"}
 ..grid[]{"name":"List of HTTP Requests"}
 ...rowgroup[]{}
 ....row[]{}
