@@ -1,4 +1,4 @@
-WebArea["focusable=true"]{"name":"Tamper Dev"}
+WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 .generic[]{}
 ..main[]{}
 ...generic[]{}
@@ -53,7 +53,7 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 .......columnheader[]{"name":"Status"}
 ........text[]{"name":"Status"}
 .....rowgroup[]{}
-......row["focusable=true","selected=true"]{"name":"HEAD example.com / sent"}
+......row["focusable=true","selected=true"]{"name":"HEAD example.com / intercepted"}
 .......gridcell[]{"name":"HEAD"}
 ........text[]{"name":"HEAD"}
 .......gridcell[]{"name":"example.com","description":"example.com"}
@@ -61,8 +61,8 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 .......gridcell[]{"name":"/","description":"/"}
 ........text[]{"name":"/"}
 .......gridcell[]{}
-.......gridcell[]{"name":"sent"}
-........text[]{"name":"sent"}
+.......gridcell[]{"name":"intercepted"}
+........text[]{"name":"intercepted"}
 ...generic[]{}
 ....generic[]{}
 .....generic[]{}
@@ -70,6 +70,8 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 .......generic[]{}
 .......generic[]{}
 ........generic[]{}
+.........generic[]{}
+..........text[]{"name":"Edit"}
 .........generic[]{}
 ..........text[]{"name":"HTTP Request"}
 ......generic[]{}
@@ -81,9 +83,9 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 ............generic[]{}
 .............Label["owns=mat-input-1"]{}
 ..............text[]{"name":"Method"}
-..............combobox["invalid=false","focusable=true","editable=plaintext","autocomplete=list","hasPopup=menu"]{"name":"HTTP Method","value":"HEAD"}
-...............generic[]{}
-................text[]{"name":"HEAD"}
+..............combobox["invalid=false","focusable=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"HTTP Method","value":"HEAD"}
+...............generic["editable=plaintext"]{}
+................text["editable=plaintext"]{"name":"HEAD"}
 ..........generic[]{}
 ...........generic[]{}
 ..........generic[]{}
@@ -96,9 +98,9 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 ............generic[]{}
 .............Label["owns=mat-input-2"]{}
 ..............text[]{"name":"Request URL"}
-..............textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Request URL","value":"https://example.com/"}
-...............generic[]{}
-................text[]{"name":"https://example.com/"}
+..............textbox["invalid=false","focusable=true","editable=plaintext","settable=true"]{"name":"Request URL","value":"https://example.com/"}
+...............generic["editable=plaintext"]{}
+................text["editable=plaintext"]{"name":"https://example.com/"}
 ..........generic[]{}
 ...........generic[]{}
 ..........generic[]{}
@@ -108,40 +110,40 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 ........row[]{}
 .........generic[]{}
 ..........generic[]{}
-..........gridcell[]{"name":"Header Name"}
+..........gridcell[]{"name":"Header Name Original-Host"}
 ...........generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
 ...............Label["owns=mat-input-3"]{}
 ................text[]{"name":"Header Name"}
-................textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Header Name","value":"Original-Host"}
-.................generic[]{}
-..................text[]{"name":"Original-Host"}
+................textbox["invalid=false","focusable=true","editable=plaintext","settable=true"]{"name":"Header Name","value":"Original-Host"}
+.................generic["editable=plaintext"]{}
+..................text["editable=plaintext"]{"name":"Original-Host"}
 ............generic[]{}
 .............generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
-..........gridcell[]{"name":"Header Value"}
+..........gridcell[]{"name":"Header Value example.com"}
 ...........generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
 ...............Label["owns=mat-input-4"]{}
 ................text[]{"name":"Header Value"}
-................textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Header Value","value":"example.com"}
-.................generic[]{}
-..................text[]{"name":"example.com"}
+................textbox["invalid=false","focusable=true","editable=plaintext","settable=true"]{"name":"Header Value","value":"example.com"}
+.................generic["editable=plaintext"]{}
+..................text["editable=plaintext"]{"name":"example.com"}
 ............generic[]{}
 .............generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
-..........gridcell[]{"name":"  Remove Original-Host header","description":"Send Original-Host header"}
+..........gridcell[]{"name":"Remove Original-Host header","description":"Send Original-Host header"}
 ...........Label[]{}
 ............generic[]{}
-.............checkbox["disabled=true","invalid=false","checked=true"]{"name":"  Remove Original-Host header"}
+.............checkbox["invalid=false","focusable=true","checked=true"]{"name":"Remove Original-Host header"}
 .............generic[]{}
 ..............generic[]{}
 .............generic[]{}
@@ -153,38 +155,40 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 ........row[]{}
 .........generic[]{}
 ..........generic[]{}
-..........gridcell[]{"name":"Header Name"}
+..........gridcell[]{"name":"Header Name New-Header"}
 ...........generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
 ...............Label["owns=mat-input-5"]{}
 ................text[]{"name":"Header Name"}
-................textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Header Name"}
-.................generic[]{}
+................textbox["invalid=false","focusable=true","editable=plaintext","settable=true"]{"name":"Header Name","value":"New-Header"}
+.................generic["editable=plaintext"]{}
+..................text["editable=plaintext"]{"name":"New-Header"}
 ............generic[]{}
 .............generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
-..........gridcell[]{"name":"Header Value"}
+..........gridcell[]{"name":"Header Value NewHeader Value!"}
 ...........generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
 ...............Label["owns=mat-input-6"]{}
 ................text[]{"name":"Header Value"}
-................textbox["invalid=false","focusable=true","editable=plaintext","readonly=true"]{"name":"Header Value"}
-.................generic[]{}
+................textbox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true"]{"name":"Header Value","value":"NewHeader Value!"}
+.................generic["editable=plaintext"]{}
+..................text["editable=plaintext"]{"name":"NewHeader Value!"}
 ............generic[]{}
 .............generic[]{}
 ............generic[]{}
 .............generic[]{}
 ..............generic[]{}
-..........gridcell[]{"name":"Remove header","description":"Send header"}
+..........gridcell[]{"name":"Remove New-Header header","description":"Send New-Header header"}
 ...........Label[]{}
 ............generic[]{}
-.............checkbox["disabled=true","invalid=false","checked=true"]{"name":"Remove header"}
+.............checkbox["invalid=false","focusable=true","checked=true"]{"name":"Remove New-Header header"}
 .............generic[]{}
 ..............generic[]{}
 .............generic[]{}
@@ -193,8 +197,17 @@ WebArea["focusable=true"]{"name":"Tamper Dev"}
 ..............generic[]{}
 ............generic[]{}
 .............generic[]{}
-.......button["disabled=true","invalid=false"]{"name":"Add HTTP Header"}
+.......button["invalid=false","focusable=true"]{"name":"Add HTTP Header"}
 ........img["hidden=true"]{}
 ........text[]{"name":"Add HTTP Header"}
 ........generic[]{}
 ........generic[]{}
+......generic[]{}
+.......button["invalid=false","focusable=true","describedby=cdk-describedby-message-0"]{"description":"Send request"}
+........generic[]{}
+.........img["hidden=true"]{}
+........generic[]{}
+........generic[]{}
+..generic["hidden=true"]{}
+...generic["hidden=true"]{}
+....text["hidden=true"]{"name":"Send request"}

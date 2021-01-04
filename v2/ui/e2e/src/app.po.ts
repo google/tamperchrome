@@ -66,11 +66,14 @@ export class AppPage {
   async snap(name: string) {
     if (!name.match(/^[a-z0-9-]+$/i)) {throw new Error('name must be alphanum.');}
     const path = `${__dirname}/goldens`;
+    await browser.waitForAngular();
+    const pic = await browser.takeScreenshot();
     const snap = await this.takeSnapshot();
     const proc = spawnSync('diff', ['-N', name, '-'], {
       cwd: path, input: snap, encoding: 'UTF-8'});
     const diff = proc.stdout;
     writeFileSync(`${path}/${name}.patch`, diff);
+    writeFileSync(`${path}/${name}.png`, Buffer.from(pic.replace(/data:[^,]+,/,''), 'base64'));
     if (diff) {
       this.diffs.push({name, diff});
     }
@@ -125,7 +128,6 @@ export class AppPage {
   }
 
   private async takeSnapshot() {
-    await browser.waitForAngular();
     return this.serializeTree(this.toTree(await this.takeDevtoolsSnapshot()));
   }
 }

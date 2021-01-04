@@ -12,9 +12,14 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 ...........listbox["invalid=false","focusable=true"]{"name":"Active filters"}
 ............generic[]{}
 .............img["hidden=true"]{}
-.............option["focusable=true"]{"name":"fP"}
+.............option["focusable=true"]{"name":"/foo"}
 ..............generic[]{}
-..............text[]{"name":"fP"}
+..............text[]{"name":"/foo"}
+..............img["hidden=true"]{}
+..............generic[]{}
+.............option["focusable=true"]{"name":"PUT"}
+..............generic[]{}
+..............text[]{"name":"PUT"}
 ..............img["hidden=true"]{}
 ..............generic[]{}
 .............generic[]{}
@@ -57,8 +62,26 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 ........text[]{"name":"Type"}
 .......columnheader[]{"name":"Status"}
 ........text[]{"name":"Status"}
+.....rowgroup[]{}
+......row["focusable=true","selected=true"]{"name":"PUT example.org /foo?fuu sent"}
+.......gridcell[]{"name":"PUT"}
+........text[]{"name":"PUT"}
+.......gridcell[]{"name":"example.org","description":"example.org"}
+........text[]{"name":"example.org"}
+.......gridcell[]{"name":"/foo?fuu","description":"/foo?fuu"}
+........text[]{"name":"/foo"}
+........text[]{"name":"?fuu"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
+......row["focusable=true"]{"name":"PUT qux /foo sent"}
+.......gridcell[]{"name":"PUT"}
+........text[]{"name":"PUT"}
+.......gridcell[]{"name":"qux","description":"qux"}
+........text[]{"name":"qux"}
+.......gridcell[]{"name":"/foo","description":"/foo"}
+........text[]{"name":"/foo"}
+.......gridcell[]{}
+.......gridcell[]{"name":"sent"}
+........text[]{"name":"sent"}
 ...generic[]{}
-..generic[]{}
-...generic[]{}
-....generic[]{}
-.....listbox[]{}

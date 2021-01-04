@@ -32,6 +32,7 @@ describe('Background Page', () => {
     });
     const triggerExtension = async () => {
         await backgroundPage.evaluate(()=>{
+            // @ts-ignore evaluated in background page
             chrome.tabs.getSelected(tab=>{
                 // @ts-ignore undocumented api
                 chrome.browserAction.onClicked.dispatch(tab);

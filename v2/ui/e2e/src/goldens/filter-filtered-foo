@@ -12,14 +12,18 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 ...........listbox["invalid=false","focusable=true"]{"name":"Active filters"}
 ............generic[]{}
 .............img["hidden=true"]{}
+.............option["focusable=true"]{"name":"/foo"}
+..............generic[]{}
+..............text[]{"name":"/foo"}
+..............img["hidden=true"]{}
+..............generic[]{}
 .............generic[]{}
 ...........generic[]{}
 ............Label["owns=mat-chip-list-input-0"]{}
 .............img["hidden=true"]{}
 .............text[]{"name":"  Filter HTTP Requests"}
-.............combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu","expanded=true","owns=mat-autocomplete-0"]{"name":"  Filter HTTP Requests","value":"f"}
+.............combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
 ..............generic["editable=plaintext"]{}
-...............text["editable=plaintext"]{"name":"f"}
 .........generic[]{}
 ..........generic[]{}
 .........generic[]{}
@@ -65,17 +69,6 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 .......gridcell[]{}
 .......gridcell[]{"name":"sent"}
 ........text[]{"name":"sent"}
-......row["focusable=true"]{"name":"POST example.net /fuu?fuu sent"}
-.......gridcell[]{"name":"POST"}
-........text[]{"name":"POST"}
-.......gridcell[]{"name":"example.net","description":"example.net"}
-........text[]{"name":"example.net"}
-.......gridcell[]{"name":"/fuu?fuu","description":"/fuu?fuu"}
-........text[]{"name":"/fuu"}
-........text[]{"name":"?fuu"}
-.......gridcell[]{}
-.......gridcell[]{"name":"sent"}
-........text[]{"name":"sent"}
 ......row["focusable=true"]{"name":"PUT example.org /foo?fuu sent"}
 .......gridcell[]{"name":"PUT"}
 ........text[]{"name":"PUT"}
@@ -88,25 +81,3 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 .......gridcell[]{"name":"sent"}
 ........text[]{"name":"sent"}
 ...generic[]{}
-..generic[]{}
-...generic[]{}
-....generic[]{}
-.....listbox[]{"name":"  Filter HTTP Requests f"}
-......group[]{"name":"path:"}
-.......Label[]{}
-........text[]{"name":"path:"}
-.......option["focusable=true"]{"name":"/foo"}
-........generic[]{}
-.........text[]{"name":"/foo"}
-........generic[]{}
-.......option["focusable=true"]{"name":"/fuu"}
-........generic[]{}
-.........text[]{"name":"/fuu"}
-........generic[]{}
-......group[]{"name":"query:"}
-.......Label[]{}
-........text[]{"name":"query:"}
-.......option["focusable=true"]{"name":"?fuu"}
-........generic[]{}
-.........text[]{"name":"?fuu"}
-........generic[]{}
