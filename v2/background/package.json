@@ -1,0 +1,18 @@
+{
+    "name": "background",
+    "scripts": {
+        "build": "tsc --project src/tsconfig.json",
+        "test": "tsc --project spec/tsconfig.json && jasmine"
+    },
+    "private": true,
+    "dependencies": {
+        "puppeteer": "^5.5.0",
+        "typescript": "^4.1.3"
+    },
+    "devDependencies": {
+        "@types/chrome": "0.0.127",
+        "@types/jasmine": "^3.6.2",
+        "@types/puppeteer": "^5.4.2",
+        "jasmine": "^3.6.3"
+    }
+}
