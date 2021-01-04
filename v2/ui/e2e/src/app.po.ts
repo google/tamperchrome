@@ -110,7 +110,10 @@ export class AppPage {
   }
 
   private serializeTree(tree, padding = 0) {
-    if (tree.ignored) {return '';}
+    if (tree.ignored || tree.props.includes('hidden=true')) {
+      return '';
+    }
+    const inline = tree.role === 'generic';
     const head = `${
       tree.role
     }${
@@ -119,9 +122,9 @@ export class AppPage {
       JSON.stringify(tree.attrs)
     }`;
     const body = tree.children.map(
-      child=>this.serializeTree(child, padding + 1)).join('');
+      child=>this.serializeTree(child, padding + (inline?0:1))).join('');
     return `${
-      `${'.'.repeat(padding)}${head}\n`
+      inline?'':`${'.'.repeat(padding)}${head}\n`
     }${
       body
     }`;
