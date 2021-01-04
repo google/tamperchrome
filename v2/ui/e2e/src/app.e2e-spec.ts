@@ -5,7 +5,7 @@ const sendKeysToActiveElement = async (...keys) => {
   await browser.waitForAngular();
   await browser.controlFlow().execute(() =>
     browser.switchTo().activeElement().sendKeys(...keys));
-}
+};
 
 const numberOfVisibleElements = async (css) => {
   await browser.waitForAngular();
