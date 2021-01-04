@@ -12,6 +12,11 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 ...........listbox["invalid=false","focusable=true"]{"name":"Active filters"}
 ............generic[]{}
 .............img["hidden=true"]{}
+.............option["focusable=true"]{"name":"testFilter"}
+..............generic[]{}
+..............text[]{"name":"testFilter"}
+..............img["hidden=true"]{}
+..............generic[]{}
 .............generic[]{}
 ...........generic[]{}
 ............Label["owns=mat-chip-list-input-0"]{}
