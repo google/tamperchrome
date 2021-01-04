@@ -4,6 +4,9 @@ import { FocusKeyManager, FocusableOption, ListKeyManagerOption } from '@angular
 import { MatTableDataSource } from '@angular/material/table';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
 import { MatTable } from '@angular/material/table';
+import { ScrollDispatcher } from '@angular/cdk/overlay';
+import { filter } from 'rxjs/operators';
+import { CdkVirtualScrollViewport, CdkScrollable } from '@angular/cdk/scrolling';
 
 
 @Directive({
@@ -33,17 +36,22 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	@Output() selected = new EventEmitter<InterceptorRequest>();
 	@ViewChildren(RequestListItemDirective) listItems: QueryList<RequestListItemDirective>;
 	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
+	@ViewChild(CdkScrollable) scrollable: CdkScrollable;
 	requests: InterceptorRequest[] = this.interceptor.requests;
 	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];
 	dataSource: MatTableDataSource<InterceptorRequest> = new MatTableDataSource(this.requests);
 	keyManager: FocusKeyManager<RequestListItemDirective> = null;
 	firstRequestIndex = 0;
-	constructor(private interceptor: InterceptorService) { }
+	showLast = true;
+	constructor(private scrollDispatcher: ScrollDispatcher, private interceptor: InterceptorService) { }
 	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
 		this.keyManager.change.subscribe({
 			next: (v) => this.selected.emit(this.requests[v])
+		});
+		this.scrollDispatcher.scrolled().subscribe(event => {
+			this.showLast = this.scrollable.measureScrollOffset('bottom') === 0;
 		});
 	}
 	isActive(index: number) {
@@ -62,6 +70,9 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 				this.keyManager.updateActiveItem(null);
 			}
 			this.firstRequestIndex = this.requests.findIndex(r=>r.visible);
+			if (this.showLast) {
+				this.scrollable.scrollTo({bottom: 0});
+			}
 		}
 	}
 }
