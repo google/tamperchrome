@@ -1,5 +1,5 @@
 import { Component, Directive, OnInit, AfterViewInit, Output, EventEmitter,
-	ViewChild, ViewChildren, QueryList, ElementRef, Input } from '@angular/core';
+	ViewChild, ViewChildren, QueryList, ElementRef, Input, HostListener } from '@angular/core';
 import { FocusKeyManager, FocusableOption, ListKeyManagerOption } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 import { InterceptorService, InterceptorRequest } from '../../interceptor.service';
@@ -38,7 +38,13 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	dataSource: MatTableDataSource<InterceptorRequest> = new MatTableDataSource(this.requests);
 	keyManager: FocusKeyManager<RequestListItemDirective> = null;
 	firstRequestIndex = 0;
-	constructor(private interceptor: InterceptorService) { }
+	scrollToBottom = true;
+	constructor(private elRef: ElementRef, private interceptor: InterceptorService) { }
+	@HostListener('scroll', ['$event'])
+	onScroll(event) {
+		const element = this.elRef.nativeElement;
+		this.scrollToBottom = element.scrollTop >= element.scrollHeight - element.clientHeight;
+	}
 	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
@@ -55,6 +61,11 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	setActive(item: RequestListItemDirective) {
 		this.keyManager.setActiveItem(item);
 	}
+	maybeScrollToBottom() {
+		if (!this.scrollToBottom) { return; }
+		const element = this.elRef.nativeElement;
+		element.scrollTop = element.scrollHeight - element.clientHeight;
+	}
 	async updateTable() {
 		for await (const change of this.interceptor.changes) {
 			this.table?.renderRows();
@@ -62,6 +73,7 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 				this.keyManager.updateActiveItem(null);
 			}
 			this.firstRequestIndex = this.requests.findIndex(r=>r.visible);
+			this.maybeScrollToBottom();
 		}
 	}
 }
