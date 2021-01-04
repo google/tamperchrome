@@ -4,6 +4,7 @@
   $background: map-get($theme, background);
 
   [appRequestListItem] {
+    height: auto!important;
     cursor: pointer;
     &:hover {
     	background-color: mat-color($background, 'hover');
