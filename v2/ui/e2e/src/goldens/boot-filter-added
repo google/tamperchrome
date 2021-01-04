@@ -1,64 +1,27 @@
 WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
-.generic[]{}
-..main[]{}
-...generic[]{}
-....generic[]{}
-.....generic[]{}
-......form[]{}
-.......generic[]{}
-........generic[]{}
-.........generic[]{}
-..........generic[]{}
-...........listbox["invalid=false","focusable=true"]{"name":"Active filters"}
-............generic[]{}
-.............img["hidden=true"]{}
-.............option["focusable=true"]{"name":"testFilter"}
-..............generic[]{}
-..............text[]{"name":"testFilter"}
-..............img["hidden=true"]{}
-..............generic[]{}
-.............generic[]{}
-...........generic[]{}
-............Label["owns=mat-chip-list-input-0"]{}
-.............img["hidden=true"]{}
-.............text[]{"name":"  Filter HTTP Requests"}
-.............combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
-..............generic["editable=plaintext"]{}
-.........generic[]{}
-..........generic[]{}
-.........generic[]{}
-..........generic[]{}
-...........generic[]{}
-.......generic["focusable=true"]{"name":"Intercept requests"}
-........Label[]{}
-.........generic[]{}
-..........switch["invalid=false","focusable=true","checked=false"]{"name":"Intercept requests"}
-..........generic[]{}
-...........generic[]{}
-...........generic[]{}
-............generic[]{}
-.........generic[]{}
-..........text[]{"name":"Intercept requests"}
-.......button["invalid=false","focusable=true"]{"name":"Clear all sent requests"}
-........img["hidden=true"]{}
-........generic[]{}
-........generic[]{}
-...generic[]{}
-....grid[]{"name":"List of HTTP Requests"}
-.....rowgroup[]{}
-......row[]{}
-.......columnheader[]{"name":"Method"}
-........text[]{"name":"Method"}
-.......columnheader[]{"name":"Host"}
-........text[]{"name":"Host"}
-.......columnheader[]{"name":"Path + Query"}
-........text[]{"name":"Path + Query"}
-.......columnheader[]{"name":"Type"}
-........text[]{"name":"Type"}
-.......columnheader[]{"name":"Status"}
-........text[]{"name":"Status"}
-...generic[]{}
-..generic[]{}
-...generic[]{}
-....generic[]{}
-.....listbox[]{}
+.main[]{}
+..form[]{}
+...listbox["invalid=false","focusable=true"]{"name":"Active filters"}
+....option["focusable=true"]{"name":"testFilter"}
+.....text[]{"name":"testFilter"}
+...Label["owns=mat-chip-list-input-0"]{}
+....text[]{"name":"  Filter HTTP Requests"}
+....combobox["invalid=false","focusable=true","focused=true","editable=plaintext","settable=true","autocomplete=list","hasPopup=menu"]{"name":"  Filter HTTP Requests"}
+...Label[]{}
+....switch["invalid=false","focusable=true","checked=false"]{"name":"Intercept requests"}
+....text[]{"name":"Intercept requests"}
+...button["invalid=false","focusable=true"]{"name":"Clear all sent requests"}
+..grid[]{"name":"List of HTTP Requests"}
+...rowgroup[]{}
+....row[]{}
+.....columnheader[]{"name":"Method"}
+......text[]{"name":"Method"}
+.....columnheader[]{"name":"Host"}
+......text[]{"name":"Host"}
+.....columnheader[]{"name":"Path + Query"}
+......text[]{"name":"Path + Query"}
+.....columnheader[]{"name":"Type"}
+......text[]{"name":"Type"}
+.....columnheader[]{"name":"Status"}
+......text[]{"name":"Status"}
+.listbox[]{}
