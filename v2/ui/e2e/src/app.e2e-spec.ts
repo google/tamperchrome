@@ -1,11 +1,14 @@
 import { AppPage } from './app.po';
 import { by, logging, Key, browser } from 'protractor';
 
-const sendKeysToActiveElement = (...keys) =>
-  browser.controlFlow().execute(() =>
+const sendKeysToActiveElement = async (...keys) => {
+  await browser.waitForAngular();
+  await browser.controlFlow().execute(() =>
     browser.switchTo().activeElement().sendKeys(...keys));
+}
 
 const numberOfVisibleElements = async (css) => {
+  await browser.waitForAngular();
   const elems = await browser.findElements(by.css(css));
   const elemsViz = await Promise.all(elems.map(elem=>elem.isDisplayed()));
   return elemsViz.filter(visible=>visible).length;
@@ -74,20 +77,17 @@ describe('workspace-project App', () => {
     }, [
       (await page.createMessageChannel())[0]
     ]);
-    await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(3);
     await page.snap('filter-unfiltered');
     await sendKeysToActiveElement('f');
     await sendKeysToActiveElement(Key.DOWN);
     await sendKeysToActiveElement(Key.ENTER);
-    await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
     await page.snap('filter-filtered-foo');
     await sendKeysToActiveElement('P');
     await sendKeysToActiveElement(Key.DOWN);
     await sendKeysToActiveElement(Key.DOWN);
     await sendKeysToActiveElement(Key.ENTER);
-    await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(1);
     await page.snap('filter-filtered-foo-put');
     await page.postMessage({
@@ -102,7 +102,6 @@ describe('workspace-project App', () => {
     }, [
       (await page.createMessageChannel())[0]
     ]);
-    await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
     await page.snap('filter-filtered-foo-put-extra');
     await page.postMessage({
@@ -117,7 +116,6 @@ describe('workspace-project App', () => {
     }, [
       (await page.createMessageChannel())[0]
     ]);
-    await browser.waitForAngular();
     await page.postMessage({
       event: 'onRequest',
       request: {
@@ -130,7 +128,6 @@ describe('workspace-project App', () => {
     }, [
       (await page.createMessageChannel())[0]
     ]);
-    await browser.waitForAngular();
     expect(numberOfVisibleElements('[appRequestListItem]')).toBe(2);
     await page.snap('filter-filtered-foo-put-extra-nomatch');
   });
@@ -155,7 +152,6 @@ describe('workspace-project App', () => {
       port1
     ]);
     // wait for the request to show up in the list
-    await browser.waitForAngular();
     await page.snap('capture-request');
     // tab to the first element
     await sendKeysToActiveElement(Key.TAB);
@@ -213,7 +209,6 @@ describe('workspace-project App', () => {
       port3
     ]);
     // wait for the response to arrive
-    await browser.waitForAngular();
     await page.snap('capture-response-arrived');
     await sendKeysToActiveElement(Key.TAB);
     await sendKeysToActiveElement('302');

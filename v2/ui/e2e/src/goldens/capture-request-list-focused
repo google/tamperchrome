@@ -163,12 +163,6 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 .........img["hidden=true"]{}
 ........generic[]{}
 ........generic[]{}
-..generic[]{}
-...generic[]{}
-....generic[]{}
-.....generic["hidden=true"]{}
-......generic["hidden=true"]{}
-.......text["hidden=true"]{"name":"Clear all sent requests"}
 ..generic["hidden=true"]{}
 ...generic["hidden=true"]{}
 ....text["hidden=true"]{"name":"Send request"}
