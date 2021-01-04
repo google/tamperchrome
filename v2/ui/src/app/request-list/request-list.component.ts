@@ -39,7 +39,7 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	keyManager: FocusKeyManager<RequestListItemDirective> = null;
 	firstRequestIndex = 0;
 	scrollToBottom = true;
-	constructor(private elRef:ElementRef, private interceptor: InterceptorService) { }
+	constructor(private elRef: ElementRef, private interceptor: InterceptorService) { }
 	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
@@ -57,7 +57,7 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 		this.keyManager.setActiveItem(item);
 	}
 	maybeScrollToBottom() {
-		if (!this.scrollToBottom) return;
+		if (!this.scrollToBottom) { return; }
 		const element = this.elRef.nativeElement;
 		element.scrollTop = element.scrollHeight - element.clientHeight;
 	}
