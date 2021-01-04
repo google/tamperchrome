@@ -43,7 +43,7 @@ ui: .FORCE ui/node_modules
 ui/test: .FORCE ui/node_modules
 	cd ui && ng test --browsers=ChromeHeadless --watch=false --code-coverage
 
-background/test: .FORCE background/node_modules
+background/test: .FORCE background/node_modules crx_test
 	cd background && npm test
 
 test: ui/test
