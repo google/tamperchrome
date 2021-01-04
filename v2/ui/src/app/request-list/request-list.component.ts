@@ -33,11 +33,6 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	@Output() selected = new EventEmitter<InterceptorRequest>();
 	@ViewChildren(RequestListItemDirective) listItems: QueryList<RequestListItemDirective>;
 	@ViewChild(MatTable, { static: true }) table: MatTable<any>;
-	@HostListener('scroll', ['$event'])
-	onScroll(event) {
-		const element = this.elRef.nativeElement;
-		this.scrollToBottom = element.scrollTop >= element.scrollHeight - element.clientHeight;
-	}
 	requests: InterceptorRequest[] = this.interceptor.requests;
 	displayedColumns: Array<string> = ['method', 'host', 'pathquery', 'type', 'status'];
 	dataSource: MatTableDataSource<InterceptorRequest> = new MatTableDataSource(this.requests);
@@ -45,6 +40,11 @@ export class RequestListComponent implements OnInit, AfterViewInit {
 	firstRequestIndex = 0;
 	scrollToBottom = true;
 	constructor(private elRef: ElementRef, private interceptor: InterceptorService) { }
+	@HostListener('scroll', ['$event'])
+	onScroll(event) {
+		const element = this.elRef.nativeElement;
+		this.scrollToBottom = element.scrollTop >= element.scrollHeight - element.clientHeight;
+	}
 	ngOnInit() { this.updateTable(); }
 	ngAfterViewInit() {
 		this.keyManager = new FocusKeyManager(this.listItems).withHomeAndEnd().withTypeAhead();
