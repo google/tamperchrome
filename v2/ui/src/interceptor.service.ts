@@ -138,6 +138,10 @@ export class InterceptorService {
     }
   }
 
+  reloadTab() {
+    window.postMessage({event: 'reloadTab'}, '*');
+  }
+
   private async *getChanges() {
     while (true) {
       await this.waitForChange;
