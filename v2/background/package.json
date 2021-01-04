@@ -2,7 +2,6 @@
     "name": "background",
     "scripts": {
         "build": "tsc --project src/tsconfig.json",
-        "test2": "tsc --project spec/tsconfig.json && node spec/out/puppeteer.js",
         "test": "tsc --project spec/tsconfig.json && jasmine"
     },
     "private": true,
