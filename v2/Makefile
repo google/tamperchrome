@@ -12,6 +12,11 @@ crx_local: crx.zip
 	cd crx_local && unzip crx.zip
 	cp manifest_base.json crx_local/manifest.json
 
+crx_test: crx_local
+	rm -rf crx_test
+	cp -r crx_local crx_test
+	jq '.permissions += ["tabs", "<all_urls>"]' crx_local/manifest.json > crx_test/manifest.json
+
 prod: background ui
 	jq 'del(.key)' manifest_base.json > manifest.json
 
@@ -19,11 +24,11 @@ dev: ENV=
 dev: lint prod
 	cp manifest_base.json manifest.json
 
-background: .FORCE node_modules/@types/chrome
-	cd background && tsc --project src/tsconfig.json
+background/node_modules:
+	cd background && npm install
 
-node_modules/@types/chrome:
-	npm install --save @types/chrome
+background: .FORCE background/node_modules
+	cd background && tsc --project src/tsconfig.json
 
 ui/node_modules:
 	git submodule init && git submodule update
@@ -35,8 +40,11 @@ lint: ui/node_modules
 ui: .FORCE ui/node_modules
 	cd ui && ng build ${ENV}
 
-test: ui/node_modules
+ui/test: .FORCE ui/node_modules
 	cd ui && ng test --browsers=ChromeHeadless --watch=false --code-coverage
+
+background/test: .FORCE background/node_modules
+	cd background && npm test
 
 e2e: ui/node_modules
 	cd ui && ng e2e
@@ -47,4 +55,4 @@ e2e-goldens:
 .FORCE:
 
 clean:
-	rm -rf ui/node_modules node_modules background/out ui/dist manifest.json crx.zip
+	rm -rf ui/dist ui/node_modules background/out background/node_modules manifest.json crx.zip crx_local

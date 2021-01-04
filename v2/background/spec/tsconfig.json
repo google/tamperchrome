@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "ES2018",
+		"alwaysStrict": true,
+		"outDir": "out",
+		"module": "commonjs",
+	},
+	"files": [
+		"puppeteer.spec.ts",
+	],
+    "types": [
+      "jasmine",
+      "jasminewd2",
+      "node"
+    ]
+}
