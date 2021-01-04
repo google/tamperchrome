@@ -46,7 +46,9 @@ ui/test: .FORCE ui/node_modules
 background/test: .FORCE background/node_modules
 	cd background && npm test
 
-e2e: ui/node_modules
+test: ui/test
+
+e2e: .FORCE ui/node_modules
 	cd ui && ng e2e
 
 e2e-goldens:
