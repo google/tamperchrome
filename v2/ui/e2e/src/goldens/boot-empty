@@ -52,6 +52,7 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 ........text[]{"name":"Type"}
 .......columnheader[]{"name":"Status"}
 ........text[]{"name":"Status"}
+...generic[]{}
 ..generic[]{}
 ...generic[]{}
 ....generic[]{}

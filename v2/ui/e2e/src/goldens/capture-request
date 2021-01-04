@@ -63,3 +63,4 @@ WebArea["focusable=true","focused=true"]{"name":"Tamper Dev"}
 .......gridcell[]{}
 .......gridcell[]{"name":"intercepted"}
 ........text[]{"name":"intercepted"}
+...generic[]{}
