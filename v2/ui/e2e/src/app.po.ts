@@ -125,6 +125,7 @@ export class AppPage {
   }
 
   private async takeSnapshot() {
+    await browser.waitForAngular();
     return this.serializeTree(this.toTree(await this.takeDevtoolsSnapshot()));
   }
 }
