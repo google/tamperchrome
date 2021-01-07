@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamper Dev</title>
+    <meta name="title" content="Tamper Dev">
+    <meta name="description" content="Tamper Dev is an extension that allows you to intercept and edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.">
+
     <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/styles.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tamper.dev/">
+    <meta property="og:title" content="Tamper Dev">
+    <meta property="og:description" content="Tamper Dev is an extension that allows you to intercept and edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.">
+    <meta property="og:image" content="https://tamper.dev/assets/tamper%20dev%20920x680.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tamper.dev/">
+    <meta property="twitter:title" content="Tamper Dev">
+    <meta property="twitter:description" content="Tamper Dev is an extension that allows you to intercept and edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.">
+    <meta property="twitter:image" content="https://tamper.dev/assets/tamper%20dev%20920x680.png">
 </head>
 <body>
     <header class="header">
@@ -190,6 +204,7 @@
             </p>
         </div>
     </footer>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186210436-1"></script>
     <script>
         const menu = document.getElementById('menu');
         const btnMenu = document.getElementById('menu-btn');
@@ -202,6 +217,11 @@
                 menu.classList.add('menu-active');
             }
         };
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-186210436-1');
     </script>
 </body>
 </html>
