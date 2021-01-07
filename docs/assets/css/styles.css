@@ -1,0 +1,326 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    box-sizing: content-box;
+}
+body {
+    font-family: 'Open Sans';
+    padding: 0;
+    margin: 0;
+}
+img {
+    max-width: 100%;
+}
+.container {
+    margin: auto;
+    padding: 0 20px;
+    max-width: 860px;
+}
+.header {
+    box-shadow: 6px 0px 11px rgba(0, 0, 0, 0.54);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    padding: 52px 0 16px;
+}
+.header a {
+    text-decoration: none;
+}
+.header .container {
+    max-width: 1235px;
+    display: grid;
+    grid-template-columns: minmax(265px, 1fr) 2fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .logo a {
+    color: #fff;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    align-items: center;
+    font-size: 32px;
+}
+.header .nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    grid-gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+.header .nav ul li {
+    padding: 0 10px;
+}
+.header .nav ul li a {
+    color: #fff;
+    font-size: 19px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.header .nav ul li:last-child a {
+    color: #152037;
+}
+.header .nav .menu-btn {
+    background-color: transparent;
+    color: #fff;
+    font-size: 25px;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+.header .shared {
+    justify-self: end;
+}
+.header .shared a {
+    display: grid;
+    grid-template-columns: minmax(40px, auto) auto;
+    grid-gap: 13px;
+    align-items: center;
+    color: #152037;
+    font-size: 21px;
+    font-weight: bold;
+}
+.banner {
+    background-image: url(../images/background-banner.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.banner .container {
+    max-width: 1070px;
+    display: grid;
+    grid-template-columns: 40% auto;
+    align-items: center;
+    padding: 127px 20px 38px;
+}
+.banner p {
+    font-size: 24px;
+    line-height: 48px;
+    color: #fff;
+}
+.banner__left img {
+    margin-top: 31px;
+}
+.text-learn {
+    display: grid;
+    justify-content: center;
+    padding: 57px 0 9px;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.26);
+}
+.text-learn p {
+    color: #152037;
+    font-size: 20px;
+    line-height: 39px;
+    margin-bottom: 40px;
+}
+.text-learn .btn {
+    display: block;
+    color: #152037;
+    background-color: #f98b00;
+    font-weight: bold;
+    font-size: 18px;
+    font-style: italic;
+    text-decoration: none;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    max-width: 120px;
+    border-radius: 5px;
+    padding: 3px 10px;
+}
+.how-use {
+    color: #fff;
+    background-color: #152037;
+    padding: 50px 0 45px;
+}
+.how-use h2 {
+    font-size: 25px;
+    line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 6px;
+}
+.how-use ol {
+    margin: auto;
+    max-width: 585px;
+}
+.how-use ol li {
+    font-size: 20px;
+    line-height: 39px;
+}
+.how-use .col-3 {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}
+.how-use .card {
+    background-color: #fff;
+    color: #152037;
+    max-width: 250px;
+    min-height: 280px;
+    display: grid;
+    align-content: space-between;
+    justify-items: center;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.54);
+    margin: 15px;
+}
+.how-use .card:before {
+    content: "";
+    background-color: #ff8c00;
+    width: 100%;
+    height: 47px;
+    display: block;
+}
+.how-use .card p {
+    border-top: 2px solid #f6f6f6;
+    padding: 10px 15px 0;
+    font-size: 14px;
+}
+.preview {
+    background-color: #fb8c00;
+    padding: 45px 0 67px;
+    text-align: center;
+}
+.preview h2 {
+    color: #152037;
+    font-size: 37px;
+    line-height: 74px;
+    text-align: center;
+}
+.faq {
+    color: #152037;
+    padding: 9px 0 47px;
+}
+.faq .container {
+    display: grid;
+    justify-content: center;
+}
+.faq h2 {
+    font-size: 37px;
+    line-height: 74px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.faq h4 {
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: normal;
+    margin: 0 0 15px;
+}
+.faq p {
+    font-size: 22px;
+    line-height: 61px;
+    margin: 0 0 11px 40px;
+}
+.feature {
+    background-color: #152037;
+    color: #fff;
+    text-align: center;
+    padding: 68px 0 55px;
+}
+.feature h2 {
+    font-size: 37px;
+    margin: 0 0 43px;
+}
+.feature .feature-box {
+    max-width: 680px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.54);
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+.feature .feature-box div {
+    padding: 20px;
+    border-bottom: 1px solid #ededed;
+}
+.feature .feature-box p {
+    background-color: #767676;
+    color: #fff;
+    margin: 0;
+    padding: 10px;
+}
+.about {
+    padding: 36px 0 39px;
+    background-color: #ededed;
+}
+.about .container {
+    max-width: 1120px;
+}
+.about p {
+    font-size: 19px;
+    line-height: 38px;
+    color: #152037;
+    text-align: center;
+    margin: 0;
+}
+.about .text-small {
+    max-width: 645px;
+    margin: auto;
+}
+.footer {
+    background-color: #030303;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 34px 0 42px;
+}
+.footer p {
+    margin: 0;
+}
+@media only screen and (max-width: 920px) {
+    .header {
+      padding: 20px 0;
+    }
+    .header .container {
+      grid-template-areas: 'logo shared nav';
+      grid-template-columns: auto 1fr auto;
+    }
+    .header .logo {
+      grid-area: logo;
+    }
+    .header .nav {
+      grid-gap: nav;
+    }
+    .header .nav ul {
+      position: absolute;
+      background-color: #fe8d00;
+      display: none;
+      min-width: 200px;
+      top: 100px;
+      right: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+    .header .nav ul li:last-child a {
+      color: #fff;
+    }
+    .header .nav .menu-active {
+      display: grid;
+    }
+    .header .nav .menu-btn {
+      display: block;
+    }
+    .header .shared {
+      grid-area: shared;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .header .logo a {
+      font-size: 25px;
+    }
+    .header .shared span {
+      display: none;
+    }
+    .banner .container {
+      grid-template-columns: auto;
+    }
+    .how-use .col-3 {
+      grid-template-columns: auto;
+      justify-content: center;
+    }
+    .preview iframe {
+      width: 100%;
+    }
+}
