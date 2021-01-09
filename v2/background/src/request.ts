@@ -69,12 +69,12 @@ export abstract class Intercepted implements InterceptedData {
     if (obj.url && obj.url != this.url) {
       modified.url = obj.url;
     }
-    if (obj.requestHeaders && JSON.stringify(obj.requestHeaders) != JSON.stringify(this.requestHeaders)) {
-      modified.headers = obj.requestHeaders.reduce((ret, header) =>
-        Object.assign({ [header.name]: header.value }, ret), {});
-    }
     if (obj.requestBody && obj.requestBody != this.requestBody) {
       modified.postData = obj.requestBody;
+    }
+    if (obj.requestHeaders && (JSON.stringify(obj.requestHeaders) != JSON.stringify(this.requestHeaders) || modified.postData)) {
+      modified.headers = obj.requestHeaders.reduce((ret, header) =>
+        Object.assign({ [header.name]: header.value }, ret), {});
     }
     return modified;
   }
