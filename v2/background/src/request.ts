@@ -130,7 +130,8 @@ export class FetchIntercepted extends Intercepted {
         requestId: this.id,
         method: request.method,
         url: request.url,
-        headers: FetchIntercepted.convertHeaders(request.headers)
+        headers: FetchIntercepted.convertHeaders(request.headers),
+        postData: request.postData ? btoa(request.postData) : undefined
       });
   }
 
