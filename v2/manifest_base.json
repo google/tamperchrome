@@ -1,12 +1,20 @@
 {
   "manifest_version": 2,
   "name": "Tamper Dev",
-  "version": "2",
-  "description" : "Intercept and edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.",
-  "icons": {"16": "icons/white.png","48": "icons/96x96.png","128": "icons/256x256.png"},
+  "version": "2.0.9",
+  "description": "Intercept and edit HTTP/HTTPS requests and responses as they happen without the need of a proxy.",
+  "icons": {
+    "16": "icons/white.png",
+    "48": "icons/96x96.png",
+    "128": "icons/256x256.png"
+  },
   "browser_action": {
     "default_title": "Tamper Dev",
-    "default_icon": {"16": "icons/white.png","48": "icons/white.png","128": "icons/256x256.png"}
+    "default_icon": {
+      "16": "icons/white.png",
+      "48": "icons/white.png",
+      "128": "icons/256x256.png"
+    }
   },
   "background": {
     "page": "background/background.html",
@@ -21,7 +29,10 @@
     }
   },
   "minimum_chrome_version": "87",
-  "permissions": ["debugger", "activeTab"],
+  "permissions": [
+    "debugger",
+    "activeTab"
+  ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgXuoF2D68sbW53PO/5gK6ar52c/oANFtGFuxE1SdKKLDdF4RbDZefwK48Bc4Zc2pW81qmHC+H+gMHLh+oiH0TP2l0THjQRRf57f5Wuhk42Tdp0qlyS2qQMky5WOVZU8vQdhnRCktMPLyNWx2PeiUXkQDQ3XkcY0cttPhRAlZgx+qNfguHkmsC7HNZ/Y00TY5uUrlGl9MDt2d6fj1uUyV7pimLMA4cnTIjkf+tWhFSXTEbINdpr/YqnU/lq2I9VonBTjoNkt9hAE3y/tDgmkMh3edqqQh96m7Ker+8ZFnaQr6PrPT0vzfQdwWCnl9ItiyJNuFlCkoOzYlrp1+OIzNaQIDAQAB"
 }
