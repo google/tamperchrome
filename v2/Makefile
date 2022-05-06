@@ -28,7 +28,7 @@ background/node_modules:
 	cd background && npm install
 
 background: .FORCE background/node_modules
-	cd background && tsc --project src/tsconfig.json
+	cd background && npm run build
 
 ui/node_modules:
 	git submodule init && git submodule update

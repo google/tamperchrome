@@ -1,3 +1,4 @@
+/// <reference types="chrome"/>
 import { Injectable } from '@angular/core';
 import { InterceptedData } from '../../common/types';
 
@@ -14,14 +15,13 @@ export class InterceptorRequest {
   status?: number;
   responseHeaders: Array<{name: string; value: string; disabled?: boolean}>;
   responseBody?: string;
+  id?: string;
   pendingRequest = false;
   pendingResponse = false;
   hasResponse = false;
   hasResponseBody = false;
   visibleInFilter = false;
   cleared = false;
-  private responsePort?: MessagePort;
-  private bodyPort?: MessagePort;
   get pending(): boolean {
     return this.pendingRequest || this.pendingResponse;
   }
@@ -29,11 +29,12 @@ export class InterceptorRequest {
     return !this.cleared && this.visibleInFilter;
   }
 
-  constructor(private request: InterceptedData, private port?: MessagePort) {
+  constructor(private request: InterceptedData, private port?: chrome.runtime.Port) {
     this.method = request.method;
     this.url = request.url;
     this.headers = request.requestHeaders;
     this.requestBody = request.requestBody;
+    this.id = request.id;
     const url = new URL(this.url);
     this.host = url.host;
     this.path = url.pathname;
@@ -45,22 +46,23 @@ export class InterceptorRequest {
 
   sendRequest() {
     if (this.port) {
-      this.port.postMessage({request: {
-        method: this.method,
-        url: this.url,
-        requestHeaders: this.headers.filter(v => !v.disabled),
-        requestBody: this.requestBody,
-      }});
+      this.port.postMessage({
+        name: this.id,
+        request: {
+          method: this.method,
+          url: this.url,
+          requestHeaders: this.headers.filter(v => !v.disabled),
+          requestBody: this.requestBody,
+        }
+      });
     }
     this.pendingRequest = false;
   }
 
-  addResponse(request: InterceptedData, responsePort: MessagePort, bodyPort: MessagePort) {
+  addResponse(request: InterceptedData) {
     this.request = request;
     this.status = request.status;
     this.responseHeaders = request.responseHeaders;
-    this.responsePort = responsePort;
-    this.bodyPort = bodyPort;
     this.pendingResponse = true;
     this.hasResponse = true;
   }
@@ -68,16 +70,21 @@ export class InterceptorRequest {
   async getResponseBody() {
     if (this.responseBody) { return this.responseBody; }
     return this.responseBody = await new Promise(res=>{
-      this.bodyPort.onmessage = e => {
-        this.hasResponseBody = true;
-        res(e.data);
-      };
-      this.bodyPort.postMessage(null);
+      this.port.onMessage.addListener(msg => {
+        if (msg.name === this.id + '-body') {
+          this.hasResponseBody = true;
+          res(msg.data);
+        }
+      });
+      this.port.postMessage({
+        name: this.id + '-body',
+      });
     });
   }
 
   sendResponse() {
-    this.responsePort.postMessage({
+    this.port.postMessage({
+      name: this.id + '-res',
       response: {
         status: this.status,
         responseHeaders: this.responseHeaders.filter(v => !v.disabled),
@@ -98,28 +105,30 @@ export class InterceptorService {
   requests: InterceptorRequest[] = [];
   requestMap = new Map<string, InterceptorRequest>();
   changes;
+  port: chrome.runtime.Port;
 
   private waitForChange: Promise<void> = Promise.resolve();
   private triggerChange: (_: any) => void = null;
 
   constructor() {
     this.changes = this.getChanges();
+    this.port = chrome.runtime.connect({ name: 'tamperchrome' });
   }
 
   startListening(window: Window) {
-    window.addEventListener('message', e => {
-      if (e.data.event === 'onRequest') { this.onRequest(e.data.request, e.ports[0]); }
-      if (e.data.event === 'onResponse') { this.onResponse(e.data.response, e.ports[0], e.ports[1]); }
+    this.port.onMessage.addListener((msg) => {
+      if (msg.name === 'onRequest') { this.onRequest(msg.data.request); }
+      if (msg.name === 'onResponse') { this.onResponse(msg.data.response); }
     });
-    window.postMessage({event: 'capture', pattern: '*'}, '*');
+    this.port.postMessage({name: 'capture', data: { pattern: '*' }});
   }
 
-  onRequest(request, port: MessagePort) {
-    this.addRequest(request, port);
+  onRequest(request) {
+    this.addRequest(request);
   }
 
-  onResponse(response, port: MessagePort, bodyPort: MessagePort) {
-    this.addResponse(response, port, bodyPort);
+  onResponse(response) {
+    this.addResponse(response);
   }
 
   setFilters(filters: string[]) {
@@ -139,7 +148,7 @@ export class InterceptorService {
   }
 
   reloadTab() {
-    window.postMessage({event: 'reloadTab'}, '*');
+    this.port.postMessage({name: 'reloadTab'});
   }
 
   private async *getChanges() {
@@ -152,8 +161,8 @@ export class InterceptorService {
     }
   }
 
-  private addRequest(request: InterceptedData, port?: MessagePort) {
-    const intRequest = new InterceptorRequest(request, port);
+  private addRequest(request: InterceptedData) {
+    const intRequest = new InterceptorRequest(request, this.port);
     this.requestMap.set(request.id, intRequest);
     intRequest.visibleInFilter = this.filterRequest(intRequest);
     if (!this.enabled || !intRequest.visibleInFilter) {
@@ -165,12 +174,12 @@ export class InterceptorService {
     }
   }
 
-  private addResponse(response: InterceptedData, port: MessagePort, bodyPort: MessagePort) {
+  private addResponse(response: InterceptedData) {
     if (!this.requestMap.has(response.id)) {
       this.addRequest(response);
     }
     const intRequest = this.requestMap.get(response.id);
-    intRequest.addResponse(response, port, bodyPort);
+    intRequest.addResponse(response);
     if (!this.enabled || !intRequest.visibleInFilter) {
       intRequest.sendResponse();
     }
