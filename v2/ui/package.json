@@ -34,7 +34,7 @@
     "@angular-eslint/builder": "0.8.0-beta.5",
     "@angular-eslint/eslint-plugin": "0.8.0-beta.5",
     "@angular-eslint/eslint-plugin-template": "0.8.0-beta.5",
-    "@angular-eslint/schematics": "^0.8.0-beta.5",
+    "@angular-eslint/schematics": "^15.1.0",
     "@angular-eslint/template-parser": "0.8.0-beta.5",
     "@angular/cli": "~11.0.5",
     "@angular/compiler-cli": "~11.0.5",
