@@ -19,19 +19,23 @@ jobs:
       
       - name: Check version has the right format
         run: |
-          [[ "${{ github.event.inputs.version }}" =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]
+          [[ "${GITHUB_EVENT_INPUTS_VERSION}" =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]
+        env:
+          GITHUB_EVENT_INPUTS_VERSION: ${{ github.event.inputs.version }}
 
       - name: Update version and push to tag
         run: |
           cd v2
           mv manifest_base.json manifest_unversioned.json
-          jq '.version="${{ github.event.inputs.version }}"' manifest_unversioned.json > manifest_base.json
-          git config user.name ${{ github.actor }}
+          jq '.version="${GITHUB_EVENT_INPUTS_VERSION}"' manifest_unversioned.json > manifest_base.json
+          git config user.name ${GITHUB_ACTOR}
           git config user.email action@github.com
           git add manifest_base.json
-          git commit -m "Automated commit: Bump to version ${{ github.event.inputs.version }}"
-          git tag v${{ github.event.inputs.version }}
-          git push origin v${{ github.event.inputs.version }}
+          git commit -m "Automated commit: Bump to version ${GITHUB_EVENT_INPUTS_VERSION}"
+          git tag v${GITHUB_EVENT_INPUTS_VERSION}
+          git push origin v${GITHUB_EVENT_INPUTS_VERSION}
+        env:
+          GITHUB_EVENT_INPUTS_VERSION: ${{ github.event.inputs.version }}
 
       - name: Install deps
         run: sudo npm install -g @angular/cli
