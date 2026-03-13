@@ -84,8 +84,8 @@ document.onkeydown = function(e) {
 
 function activateRequest(reqId) {
   currentView = reqId;
-  display.innerHTML = '<h1>Request Details</h1>';
-  actions.innerHTML = '';
+  display.innerText = '<h1>Request Details</h1>';
+  actions.innerText = '';
   var rows = table.getElementsByTagName('tr');
   for (var i=0; i<rows.length; i++) {
     if (rows[i].getAttribute('data-reqId') != reqId) {
