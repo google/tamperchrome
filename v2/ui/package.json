@@ -39,6 +39,7 @@
     "@angular/cli": "~11.0.5",
     "@angular/compiler-cli": "~11.0.5",
     "@angular/language-service": "~11.0.5",
+    "@types/chrome": "0.0.183",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
