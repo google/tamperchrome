@@ -283,7 +283,7 @@ socket.create("tcp", {}, function(_socketInfo) {
       }
     );
   } catch (e) {
-    uiWindow.contentWindow.document.body.innerHTML =
+    uiWindow.contentWindow.document.body.innerText =
         '<h1>Failed to start: port 34013 is in use.</h1>';
   }
 });
