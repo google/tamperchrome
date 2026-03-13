@@ -96,7 +96,7 @@ function injectXSSMonitor(info) {
             console.log(path.reverse().join(" > "));
             if (val.parentNode) {
               console.group("HTML snippet:");
-              var parentHtml = val.parentNode.innerHTML || "";
+              var parentHtml = val.parentNode.innerText || "";
               [].forEach.call(parentHtml.match(
                 /.{0,100}(tcxss|tamperchromexss).{0,100}/g) || [], function(
                   match){console.log(match.replace(/^\s*|\s*$/g, ' '));
